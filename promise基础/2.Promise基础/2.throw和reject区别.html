@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const promise1 = new Promise((resolved, rejected) => {
+      // rejected('a');
+      return rejected('a');
+      console.log('promise1');
+    })
+    .then(
+      value => {
+        console.log(`onResolved1: ${value}`);
+      },
+      err => {
+        console.log(`onRejected1: ${err}`);
+      }
+    )
+    
+    // throw 和 reject 作用一样，都是会执行 onRejected 回调
+    // 但是 throw 后面的同步代码不会执行(即不会打印 promise2)
+    // 如果 reject 前面加一个 return 也不会执行后面的同步代码
+    const promise2 = new Promise((resolved, rejected) => {
+      // throw new Error('b');
+      throw 'b';
+      console.log('promise2');
+    })
+    .then(
+      value => {
+        console.log(`onResolved2: ${value}`);
+      },
+      err => {
+        console.log(`onRejected2: ${err}`);
+      }
+    )
+  </script>
+</body>
+
+</html>

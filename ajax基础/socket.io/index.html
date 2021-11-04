@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>539聊天室</title>
+  
+  <style>
+    * {
+      margin: 0;
+    }
+    html {
+      background-color:  rgb(187, 214, 223);
+    }
+  </style>
+</head>
+<body>
+
+  <div id="loginbox">
+    <div  style="width: 280px;margin: 200px auto;">
+      输入昵称：
+      <input type="text" style="width:200px;" placeholder="请输入用户名" id="userName" name="userName">
+      <button style="width: 50px;" value="提交" onclick="userNameSubmit()">提交</button>
+    </div>
+  </div>
+  <div id="chatbox" style="display: none;">
+    <!-- 聊天室头部 -->
+    <div style="background-color: #3d3d3d;height: 30px;width: 100%;font-size: 14px; line-height: 30px; color: #fff;">
+      <span style="float: left; margin-left: 10px;" id="showUserName"></span>
+      <span style="float: right; margin-right: 10px;">
+        <a href="javacript:;" onclick="logout()" style="color: #fff;">退出</a>
+      </span>
+      <div class="chatRoomName" style="width: 200px; margin: 0 auto; text-align: center ;">
+        <span>539群聊</span>
+      </div>
+    </div>
+    <!-- 聊天室主体 -->
+    <div class="chat">
+      <!-- 显示内容区 -->
+      <div id="message">
+        <div id="onLineCounts" style="background-color: #efeff4; font-size: 14px; margin: 10px 0 0 10px; color: #666;"></div>
+      </div>
+      <!-- 输入框 -->
+      <div class="inputBox">
+        <div class="input">
+          <input type="text"  placeholder="输入聊天内容 " id="content" name="content">
+        </div>
+        <div class="emitMessage">
+          <button onclick="submit()">发送</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 要用 socket.io 需要先引入该 js 文件 -->
+  <!-- 该文件在 node_modules 的 socket.io 的 client/dist 文件下 -->
+  <script src="https://cdn.bootcss.com/socket.io/2.1.1/socket.io.js" type="text/javascript" charset="utf-8"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/json3/3.3.3/json3.min.js"></script>
+  <script>
+
+    let userName = null;
+    let userId = null;
+    let socket = null;
+
+    // 滑动条始终在最底部
+    function scrollToBottom() {
+      let msgobj = document.getElementById('message');
+      window.scrollTo(0, msgobj.clientHeight);
+    }
+
+    // 退出登录
+    function logout() {
+      window.top.location.reload();
+    }
+
+    // 发送消息
+    function submit() {
+      let content = document.getElementById('content').value;
+      if (content != '') {
+        let obj = {
+          userId: this.userId,
+          userName: this.userName,
+          content: content
+        };
+        this.socket.emit('message', obj);
+        document.getElementById('content').value = '';
+      } else {
+        alert('不能发送空白消息');
+      }
+    }
+
+    // 客户端根据时间和1随机数随机生成 id
+    function randomId() {
+      return new Date().getTime() + '' + Math.floor(Math.random() * 678 + 111);
+    }
+
+    // 更新系统信息
+    function updateSysMsg(o, action) {
+      let onlineUsers = o.onlineUsers;
+      let onLineCounts = o.onLineCounts;
+      let user = o.user;
+
+      let userHTML = '';
+      let dunhao = '';
+      for(let key in onlineUsers) {
+        if (onlineUsers.hasOwnProperty(key)) {
+          userHTML += dunhao + onlineUsers[key];
+          dunhao = '、';
+        }
+      }
+      // 显示在线人数和在线列表
+      document.getElementById('onLineCounts').innerHTML = `当前聊天室共有： ${onLineCounts}人；在线列表： ${userHTML}`;
+
+      // 添加系统消息
+      let html = '';
+      html += '<div class="sysMessage">';
+      html += user.userName;
+      html += (action === "login") ? "加入群聊" : "退出了群聊";
+      html += '</div>';
+      let section = document.createElement('section');
+      section.innerHTML = html;
+      document.getElementById('message').appendChild(section);
+      this.scrollToBottom();
+    }
+
+    // 用户提交昵称后，进入聊天室
+    function userNameSubmit() {
+      let userName = document.getElementById('userName').value;
+      if (userName != '') {
+        document.getElementById('userName').value = '';
+        document.getElementById('loginbox').style.display = 'none';
+        document.getElementById('chatbox').style.display = 'block';
+        this.init(userName);
+      } else {
+        alert('昵称不能为空');
+      }
+    }
+
+    // 用户初始化
+    function init(userName) {
+      this.userId = this.randomId();
+      this.userName = userName;
+      document.getElementById('showUserName').innerHTML = userName;
+      this.scrollToBottom();
+      
+      // 连接服务器
+      this.socket = io.connect('http://localhost:3000');
+
+      // 发送给服务器监听的 login
+      this.socket.emit('login', {userName: this.userName, userId: this.userId});
+
+      // 监听到有用户登录
+      this.socket.on('login', (obj) => {
+        this.updateSysMsg(obj, 'login');
+      })
+
+      // 监听到有用户登出
+      this.socket.on('logout', (obj) => {
+        this.updateSysMsg(obj, 'logout');
+      })
+
+      // 监听用户发送消息
+      this.socket.on('message', (obj) => {
+        // 判断消息是不是自己发的
+        var isMe = (obj.userId === this.userId);
+        let contentDiv = '<div>' + obj.content + '</div>';
+        let userNameDiv = '<span>' + obj.userName + ': </span>';
+        let section = document.createElement('section');
+        if (isMe) {
+          section.className = 'myself';
+          section.innerHTML = contentDiv;
+        } else {
+          section.className = 'others';
+          section.innerHTML = userNameDiv + contentDiv;
+        }
+        document.getElementById('message').appendChild(section);
+        this.scrollToBottom();
+      })
+    }
+
+    document.getElementById('userName').onkeydown = function (e) {
+      e = e || event;
+      if (e.keyCode === 13) {
+        userNameSubmit();
+      }
+    }
+
+    document.getElementById('content').onkeydown = function (e) {
+      if (e.keyCode === 13) {
+        submit();
+      }
+    }
+  </script>
+</body>
+</html>

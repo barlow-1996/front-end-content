@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #wrap {
+      width: 100px;
+      height: 300px;
+      border: 1px solid;
+      margin: 100px auto;
+      display: flex;
+      /* flex-direction: row;
+      flex-wrap: wrap; */
+      /* 以上两行简写为: */
+      flex-flow: row wrap;
+      
+      justify-content: flex-start;
+      align-content: flex-start;
+    }
+    #wrap > .item {
+      width: 50px;
+      height: 50px;
+      background-color: pink;
+      text-align: center;
+      line-height: 50px;
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div class="item">1</div>
+    <div class="item">2</div>
+    <div class="item">3</div>
+    <div class="item">4</div>
+    <div class="item">5</div>
+  </div>
+</body>
+</html>

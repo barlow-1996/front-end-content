@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+
+    // async 返回值如果不是 Promise 对象(比如是其他类型)，也会返回一个状态为 resolved 的 Promise 对象
+    async function otherType() {
+      return 'byl'
+    }
+    console.log(otherType()); // Promise {<resolved>: "byl"}
+
+    // async 返回值如果是 Promise 对象,返回结果看 Promise 对象的状态
+    async function promiseType() {
+      // return Promise.resolve(2);
+      return Promise.reject(3);
+    }
+    console.log(promiseType()); // Promise {<rejected>: 3}
+
+    // 如果 await 跟着的 promise 对象状态为 pending，则 await 下面的代码不会执行，且 async 函数返回一个状态为 pending 的 Promise 对象
+    async function pendingType(params) {
+      await new Promise((resolve, reject) => {});
+      console.log('after pending');
+    }
+    console.log(pendingType());// Promise {<pending>: undefined}
+  </script>
+</body>
+</html>

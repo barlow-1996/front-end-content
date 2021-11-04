@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const xml = new XMLHttpRequest();
+    xml.open('get', 'http://localhost:3000');
+    xml.send();
+
+    xml.onreadystatechange = function() {
+    // 处理请求的状态变化
+    if(xml.readyState == 4 && xml.status == 200){
+        //可以处理服务器端传来的数据了，更新当前页面
+        var data = xml.responseText;
+        console.log(data);
+    }
+}
+  </script>
+</body>
+</html>

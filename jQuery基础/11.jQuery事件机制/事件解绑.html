@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+        width: 200px;
+        height: 200px;
+        margin-top: 10px;
+        border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="注册事件" id="btn1">
+    <input type="button" value="解绑事件" id="btn2">
+    <div class="one" id="one">
+
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 用on注册事件,用off()来解绑事件
+        // off()不给参数就是解绑所有事件，off('click')就是解锁指定的点击事件
+        $('#btn1').on('click',function() {
+            $('#one').on({
+                'click':function() {
+                    console.log('这是单击事件');
+                },
+                'mouseenter':function() {
+                    console.log('这是鼠标移入事件');
+                }
+            })
+        })
+        // 移除事件
+        $('#btn2').on('click',function() {
+            // $('#one').off() //解绑所有事件
+            $('#one').off('click') //解绑点击事件
+        })
+    })
+</script>

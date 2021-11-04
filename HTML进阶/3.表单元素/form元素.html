@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form action="https://www.baidu.com/" method="GET">
+        <!-- action表示提交到哪里 -->
+        <!-- input 中的 name 为属性名，如果不写 name，则提交时无法正常获取数据 -->
+        <p>
+            账号:
+            <input type="text" name="loginid" placeholder="请输入用户名" required>
+        </p>
+        <p>
+            密码:
+            <input type="password" name="loginpassword" required>
+        </p>
+        <p>
+            <button type="submit">提交</button>
+        </p>
+    </form>
+</body>
+</html>

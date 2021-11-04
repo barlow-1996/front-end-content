@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var storage = null;
+    if (window.localStorage) {
+      storage = window.localStorage;
+
+      storage.setItem('age', 24);
+      storage.setItem('info', { name: 'byl', age: 19 });
+      storage.setItem('arr', [1, 2, 3]);
+      let age = storage.getItem('age');
+      let info = storage.getItem('info');
+      let arr = storage.getItem('arr');
+      // 这里要注意，向 localStorage 存数据时会 被 toString() 方法转换格式后被存进去
+      console.log(typeof age, age); // string '24'
+      console.log(info); // [object Object]
+      console.log(arr); // 1,2,3
+
+      // 所以存入对象之前要先用 JSON.stringify() 转换后存入
+      let user = { name: 'byl', age: 20 };
+      storage.setItem('user', JSON.stringify(user));
+      console.log(JSON.parse(storage.getItem('user'))); // {name: "byl", age: 20}
+    }
+
+    // 获取 localStorage 已使用容量
+    function getSize() {
+      let size = 0;
+      for (let item in window.localStorage) {
+        if (window.localStorage.hasOwnProperty(item)) {
+          size += window.localStorage.getItem(item).length;
+        }
+      }
+      return (size / 1024).toFixed(2) + 'KB';
+    }
+
+    // 给 localStorage 设置存活时间
+    // 重写存入函数
+    const storageSet = (key, val, expire) => {
+      const obj = {
+        value: val,
+        time: Date.now(),
+        expire: expire
+      }
+      storage.setItem(key, JSON.stringify(obj));
+    }
+
+    // 重写读取函数
+    const storageGet = key => {
+      let val = JSON.parse(storage.getItem(key));
+      if (Date.now() - val.time > val.expire) {
+        storage.removeItem(key);
+        return null;
+      }
+      return val.value;
+    }
+  </script>
+</body>
+
+</html>

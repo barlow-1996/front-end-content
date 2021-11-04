@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+
+<body>
+  <h1>JavaScript 循环</h1>
+  <p>for-in 语句循环遍历对象的属性。</p>
+  <p id="demo"></p>
+  <script>
+    var txt = "";
+    var person = {
+      fname: "Bill",
+      lname: "Gates",
+      age: 62
+    };
+    console.log(person.__proto__ === Object.prototype); // true
+    // for-in 语句还会遍历其原型链上的属性
+    person.__proto__.hobby = 'basketball';
+    for (let item in person) { // 括号里就相当于(var x = 0; x < person.length; x++)
+      txt += person[item] + " ";
+    }
+    document.getElementById("demo").innerHTML = txt; // Bill Gates 62 basketball
+
+    // for-in 的遍历顺序：先遍历 key 的 parseFloat 值为非负整数的属性(按照升序)，然后其他属性按创建时的顺序进行遍历
+    let obj = {
+      'x2': 'x2',
+      'x1': 'x1',
+      '2': 2,
+      '1': 1
+    }
+    for(let k in obj) {
+      console.log(k); // 1 2 x2 x1
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div style="height: 800px; width: 800px; background-color: aqua;" oncontextmenu="test()"></div>
+  <script>
+    function test(target){
+      // console.log(arguments.callee.caller == test.caller);
+      var e = window.event || arguments.callee.caller.arguments[0];
+      // console.log(e);
+      e.preventDefault();
+      alert('你打开了右键菜单');
+    }
+  </script>
+</body>
+</html>

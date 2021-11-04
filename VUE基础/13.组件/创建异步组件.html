@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="changeCom('com1')">com1</button>
+    <button @click="changeCom('com2')">com2</button>
+    <button @click="changeCom('async-com')">async1</button>
+    <component :is="currentCom"></component>
+
+  </div>
+
+  <template id="com1">
+    <div>
+      <div>我是同步组件1</div>
+    </div>
+  </template>
+
+  <template id="com2">
+    <div>
+      <div>我是同步组件2</div>
+    </div>
+  </template>
+  <script>
+    Vue.component('async-com', function (resolve, reject) {
+      setTimeout(() => {
+        resolve({
+          template: '<h1>I am async component</h1>'
+        })
+      }, 1000);
+    })
+
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        currentCom: 'com1'
+      },
+      methods: {
+        changeCom(com) {
+          this.currentCom = com;
+        }
+      },
+      components: {
+        com1: {
+          template: '#com1'
+        },
+        com2: {
+          template: '#com2'
+        },
+      }
+    });
+  </script>
+</body>
+
+</html>

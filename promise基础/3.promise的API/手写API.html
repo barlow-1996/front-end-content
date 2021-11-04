@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        Promise.myAll = function(promises) {
+            const res = [];
+            const len = promises.length;
+            let currentCount = 0;
+            return new Promise((resolve, reject) => {
+                promises.forEach((v, k) => {
+                    v.then(
+                        value => {
+                            res[k] = value;
+                            currentCount++;
+                            currentCount == len && resolve(res);
+                        },
+                        err => {
+                            reject(err);
+                        }
+                    )
+                })
+            })
+        }
+
+        Promise.myRace = function(promises) {
+            return new Promise((resolve, reject) => {
+                promises.forEach(v => {
+                    v.then(
+                        value => {
+                            resolve(value);
+                        },
+                        err => {
+                            reject(err);
+                        }
+                    )
+                })
+            })
+        }
+
+        Promise.myAllSettled = function(promises) {
+            const res = [];
+            const len = promises.length;
+            let count = 0;
+            return new Promise(resolve => {
+                promises.forEach((v, k) => {
+                    v.then(
+                        value => {
+                            res[k] = {status: 'resolved', value: value};
+                            count++;
+                            count == len && resolve(res);
+                        },
+                        err => {
+                            res[k] = {status: 'rejectd', reason: err};
+                            count++;
+                            count == len && resolve(res);
+                        }
+                    )
+                })
+            })
+        }
+
+        let p1 = Promise.resolve(1);
+        let p2 = new Promise((resolve, reject) => {
+            setTimeout(reject, 1000, 2);
+        })
+        let p3 = Promise.reject(3);
+        const p = [p1, p2, p3];
+        Promise.myAll(p).then(
+            values => {
+                console.log(values);
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        Promise.myRace(p).then(
+            value => {
+                console.log(value);
+            },
+            err => {
+                console.log(err);
+            }
+        )
+        Promise.myAllSettled(p).then(
+            values => {
+                console.log(values);
+            }
+        )
+    </script>
+</body>
+</html>

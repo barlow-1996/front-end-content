@@ -1,0 +1,54 @@
+{
+  /* tsconfig.json 这个json文件可以写注释
+      该文件是 ts 解析器的配置文件，解析器可以根据它的信息对代码进行解析
+  */
+  // 该属性用来指定当前目录下哪些 ts 文件需要被解析
+  // 路径：** 表示任意目录， * 表示任意文件
+  "include": [
+    "./*"
+  ],
+  // 该属性用来指定当前目录下哪些 ts 文件不需要被解析
+  "exclude": [
+    "./不需要被编译的ts文件.ts"
+  ],
+  // 指定被解析文件的列表，一般只有要解析文件较少时才会用到
+  "files": [
+    "第一个TS文件.ts"
+  ],
+  // 解析器的选项，是最重要的一个配置项，它决定了解析器如何去解析
+  "compilerOptions": {
+    // 用来指定 ts 文件要被解析成哪个 ES 版本
+    "target": "ES3",
+    // 用来指定要使用的模块化规范("commonjs"\"amd"\"es6"...)
+    "module": "ES6",
+    // 用来指定项目中要用的库，当在代码中写这个库的语句时会有自动提示
+    "lib": [
+      "ES6",
+      "DOM"
+    ],
+    // 用来指定解析后js文件所在的路径
+    "outDir": "./dist",
+    // 用来将代码合并到一个文件，设置 outfiles 后所有全局作用域代码会合并到同一文件内
+    // "outFile": "",
+    // 是否对 js 文件进行解析，默认是 false
+    "allowJs": false,
+    // 是否检查 js 代码是否符合语法规范，默认是 false，一般与 allowJs 一起使用
+    "checkJs": false,
+    // 是否移除注释，若设置为 true，则解析后的 js 文件就没有 ts 中的注释了
+    "removeComments": false,
+    // 若设置为 true，则解析后不会生成 js 文件，一般不设
+    "noEmit": false,
+    // 若设置为 true，则在 ts 文件有错误时不生成编译后的 js 文件
+    "noEmitOnError": true,
+    // 所有严格检查配置项的总开关，该项设置为 true，下面几项都 为 true;该项为 false，下面几项都为 false
+    "strict": false,
+    // 用来设置解析后的 js 文件是否使用严格模式，默认false
+    "alwaysStrict": false,
+    // 设置为 true 表示不允许使用隐式的 any 类型，即若不对一个变量设置类型注解，它不会自动变为 any 类型
+    "noImplicitAny": false,
+    // 设置为 true 表示不允许不明确类型的 this
+    "noImplicitThis": false,
+    // 是否严格的检查空值
+    "strictNullChecks": false,
+  }
+}

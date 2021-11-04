@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #wrap {
+      height: 100px;
+      background: rgba(0, 0, 0, .5);
+      position: relative;
+    }
+    #bg {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background: url(./beijingtu.jpg) no-repeat;
+      background-size: 100% 100%;
+      z-index: -1;
+      filter: blur(10px);
+    }
+    img {
+      margin: 24px 0 0 24px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+      <img src="./beijingtu.jpg" width="64px" height="64px">
+      <div id="bg"></div>
+  </div>
+</body>
+
+</html>

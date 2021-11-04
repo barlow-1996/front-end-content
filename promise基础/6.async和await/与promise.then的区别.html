@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 不用 async/await 写法
+    function func1 () {
+      return new Promise((resolve, reject) => {
+        resolve(200);
+      })
+    }
+    func1()
+    .then(v => {
+      const num1 = v;
+      console.log(`num1 is ${num1}`);
+      return new Promise((resolve, reject) => {
+        resolve(v + 100);
+      })
+    })
+    .then(v => {
+      const num2 = v;
+      console.log(`num2 is ${num2}`);
+      return new Promise((resolve, reject) => {
+        resolve(v + 200);
+      })
+    })
+    .then(v => {
+      const num3 = v;
+      console.log(`num3 is ${num3}`);
+    })
+    
+    // 用 async/await 写法
+    async function func2() {
+      const num1 = await 200;
+      console.log(`num1 is ${num1}`);
+      const num2 = await num1 + 100;
+      console.log(`num2 is ${num2}`);
+      const num3 = await num2 + 200;
+      console.log(`num3 is ${num3}`);
+    }
+    func2();
+    // num1 is 200   test.html:19
+    // num1 is 200   test.html:39 
+    // num2 is 300   test.html:41 
+    // num3 is 500   test.html:43 
+    // num2 is 300   test.html:26 
+    // num3 is 500   test.html:33
+    // 与上面长长的then链和回调函数相比，async/await 写起来像是同步写法，且更加简洁清晰
+  </script>
+</body>
+</html>

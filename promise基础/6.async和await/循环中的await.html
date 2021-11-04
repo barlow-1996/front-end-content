@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // for 循环内使用 async 和 await 也是正常按顺序执行的，不是并发的
+        // 但 forEach 和 map 却是并发的，所以尽量避免使用
+        const family = {
+            "dad": 150,
+            "mom": 100,
+            "son": 200
+        }
+        const familyToGet = ["dad", "mom", "son"];
+
+        const sleep = ms => {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        const getFamilyWeight = (person) => {
+            return sleep(2000).then(() => family[person]);
+        }
+
+        const loop_for = async () => {
+            console.log('start');
+            let result = 0;
+            for (let i = 0; i < familyToGet.length; i++) {
+                const person = familyToGet[i];
+                const weight = await getFamilyWeight(person);
+                result += weight;
+                console.log(weight);
+            }
+            console.log('result:', result);
+            console.log('end');
+        }
+        loop_for();
+        // 运行结果
+        // start
+        // 150
+        // 100
+        // 200
+        // result: 450
+        // end
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const nums = [10, 20, 111, 222, 444, 40, 50]
+    // let result = nums.filter(function (n) {
+    //   return n > 100
+    // }).map(function (n) {
+    //   return n * 2
+    // }).reduce(function (preValue, n) {
+    //   return preValue + n
+    // }, 0)
+
+    // 箭头函数一行搞定
+    let result = nums.filter(n => n > 100).map(n => n * 2).reduce((preValue, n) => preValue + n)
+
+    // 将数组中大于100的数提取出来，并将每一项都乘以2，最终将该数组每一项相加，汇总结果赋值给result
+    console.log(result)
+  </script>
+</body>
+
+</html>

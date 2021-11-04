@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .container {
+            width: 400px;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .photos {
+            width: 2000px;
+            animation: switch 5s ease-out infinite;
+        }
+
+        .photos > img {
+            width: 400px;
+            height: 300px;
+            float: left;
+        }
+
+        @keyframes switch {
+
+            0% {
+                margin-left: 0px;
+            }
+
+            16% {
+                margin-left: -400px;
+            }
+
+            25% {
+                margin-left: -400px;
+            }
+
+            41% {
+                margin-left: -800px;
+            }
+
+            50% {
+                margin-left: -800px;
+            }
+
+            66% {
+                margin-left: -1200px;
+            }
+
+            75% {
+                margin-left: -1200px;
+            }
+
+            91% {
+                margin-left: -1600px;
+            }
+
+            100% {
+                margin-left: -1600px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="photos">
+            <img src="./1.jpg" alt="">
+            <img src="./2.jpg" alt="">
+            <img src="./3.jpg" alt="">
+            <img src="./4.jpg" alt="">
+            <img src="./1.jpg" alt="">
+            <!-- 为实现无缝轮播效果，必须额外增加一个img，这个img应放在照片列表末尾且与第一个li元素相同 -->
+        </div>
+    </div>
+</body>
+
+</html>

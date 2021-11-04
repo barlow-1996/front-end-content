@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 在遍历对象时，若只获取一个值，那么获取到的是value -->
+        <p v-for="item in user">{{item}}</p>
+
+        <!-- 在遍历对象时，若要获取key和value，格式为（value, key） -->
+        <p v-for="(val,key) in user">{{val}}---{{key}}</p>
+        <button @click="addAge">添加 age 属性</button>
+        <button @click="deleteAge">删除 age 属性</button>
+        <button @click="changeName">修改 name 属性</button>
+
+        <!-- 注意:在遍历对象身上的键值对时,除了有val（值）,key（键）,第三个参数为索引 -->
+        <p v-for="(val, key, index) in user">{{val}}--{{key}}--{{index}}</p>
+        
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                user: {
+                    id: 1,
+                    name: 'tony',
+                    gender: 'male'
+                }
+            },
+            methods: {
+                // vue 无法监测到对象属性的添加或删除
+                addAge() {
+                    // this.user.age = 18; // 这种写法只能新增属性，但不是响应式的，视图不会进行更新
+                    this.$set(this.user, 'age', 18); // 用 $set 方法是响应式的，可以触发视图更新
+                },
+                deleteAge() {
+                    // delete this.user.age; // 同样不是响应式的，只能删除属性
+                    this.$delete(this.user, 'age'); // 用 $delete 方法是响应式的，可触发视图更新
+                },
+                changeName() {
+                    this.user.name = 'byl';
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

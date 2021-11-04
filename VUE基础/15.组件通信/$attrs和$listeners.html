@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <com1 :com1-msg="tocom1" :com1child-msg="tocom1child" @message='receive'></com1>
+        <!-- 2. 即这里会变成 <com1 tocom1child="byl"></com1> -->
+    </div>
+
+    <template id="com1">
+        <div>
+            <h1> 这是子组件 ----{{com1Msg}} </h1>
+            <!-- { "com1child-msg": "父组件向com1child发送的数据" }---byl (因为 com1Msg 已经被 props 接收了，所以 $attrs 里没有 com1Msg 这个属性)-->
+            <span>{{$attrs}}</span>
+            <com1child v-bind="$attrs" v-on="$listeners"></com1child>
+        </div>
+    </template>
+    <template id="com1child">
+        <div>
+            <h1> 这是孙组件 ----{{com1childMsg}} </h1>
+            <!-- { "tocom1child": "byl" }---byl (因为 cMsg 已经被 props 接收了，所以 $attrs 里没有 cMsg 这个属性)-->
+            <span>{{$attrs}}</span>
+            <button @click='toGrand'>向祖先组件发送消息</button>
+        </div>
+    </template>
+    <script>
+        // $attrs 和 $listeners 主要用于跨多层组件之间的通信
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                tocom1: '父组件向com1发送的数据',
+                tocom1child: '父组件向com1child发送的数据'
+            },
+            methods: {
+                receive() {
+                    alert('receive the message from grandson!');
+                }
+            },
+            components: {
+                com1: {
+                    template: '#com1',
+                    data() {
+                        return {
+
+                        }
+                    },
+                    props: ['com1Msg'],
+                    inheritAttrs: false, // 1. 默认为 true，如果不改成 false，则父组件在子组件传的值都会被添加到根元素的属性上(除了prop接收的) 
+                    // 3. 若改成 false，就不会将传的属性放在子组件的根元素上，且子组件能够通过 $attrs 获取父组件传的值
+                    components: {
+                        com1child: {
+                            template: '#com1child',
+                            data() {
+                                return {
+                                    toGrandMsg: '孙组件向祖先组件发送的数据'
+                                }
+                            },
+                            props: ['com1childMsg'],
+                            methods: {
+                                toGrand() {
+                                    this.$emit("message");
+                                }
+                            },
+                        }
+                    }
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

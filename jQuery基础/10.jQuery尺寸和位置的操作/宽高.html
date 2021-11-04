@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    .one {
+        width: 200px;
+        border: 10px solid red;
+        padding: 20px;
+        margin: 30px;
+    }
+</style>
+<body>
+    <input type="button" value="按钮" id="btn">
+    <div class="one" id="one" style="height: 200px;"></div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        $('#btn').click(function() {
+            // 获取id为one的div的宽和高
+            console.log($('#one').css('width'))
+            // 如果不想要获取字符串，只想得到数值，就要用到width()方法
+
+            console.log($('#one').width());
+            $('#one').height(500);
+            // width()和height()方法用来设置或获取宽度和高度，但是不包括内外边距和边框
+
+
+
+            // innerWidth()/innerHeight()方法返回元素宽高（包括内边距）
+            console.log($('#one').innerWidth());
+            // outerWidth()/outerHeight()方法返回元素宽高（包括内边距和边框）
+            console.log($('#one').outerWidth());
+            // outerWidth(true)/outerHeight(true)方法返回元素宽高（包括内边距和边框以及外边框）
+            console.log($('#one').outerWidth(true));
+
+            //获取可视区宽高 $(window).width()/$(window).height()
+            
+        })
+    })
+</script>

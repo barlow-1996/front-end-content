@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Father (name) {
+      this.name = name;
+      this.colors = ['red', 'blue'];
+    }
+    Father.prototype.getFatherName = function() {
+      return this.name;
+    }
+    function Son () {
+      this.sonName = 'baobao';
+      this.hobby = ['a', 'b'];
+    }
+    // 原型链继承
+    Son.prototype = new Father('byl');
+    Son.prototype.constructor = Son;
+
+    // 子类添加或者重写方法时，一定要放在替换原型的语句之后(因为 new 操作符会返回一个新对象)
+    // 子类添加新方法
+    Son.prototype.getSonName = function() {
+      return this.sonName;
+    }
+    // 子类重写父类方法
+    Son.prototype.getFatherName = function() {
+      return "HMY";
+    }
+    var person = new Son();
+    console.log(person.getFatherName()); // "HMY"
+
+    console.log(person instanceof Object);  // true
+    console.log(person instanceof Son);  // true
+    console.log(person instanceof Father);  // true
+
+    var person1 = new Son();
+    var person2 = new Son();
+    person1.colors.push('black');
+    person1.hobby.push('c');
+    // 子类的实例会共享定义在父类构造函数中的引用类型值属性
+    console.log(person1.colors);  // ["red", "blue", "black"]
+    console.log(person2.colors);  // ["red", "blue", "black"]
+    console.log(person2.hobby); // ["a", "b"]
+  </script>
+</body>
+</html>

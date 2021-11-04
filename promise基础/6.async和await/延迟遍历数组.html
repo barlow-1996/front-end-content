@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 隔两秒后同时输出 byl hmy
+    for(const user of ['byl', 'hmy']) {
+      setTimeout(() => {
+        console.log(user);
+      }, 2000)
+    }
+
+    // 通过 async/await 实现延迟遍历数组，每隔两秒从数组中遍历一个值
+    async function sleep(delay = 2000) {
+      return new Promise(resolve => {
+        setTimeout(() => {
+          resolve();
+        }, delay);
+      });
+    }
+    // await 可以看成是实现了同步的效果
+    async function show() {
+      for (const user of ['byl', 'hmy']) {
+        await sleep();
+        console.log(user);
+      }
+    }
+    show();
+  </script>
+</body>
+</html>

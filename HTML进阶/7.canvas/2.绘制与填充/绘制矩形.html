@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="500" height="400" id="myCanvas" style="border: 1px solid black;"></canvas>
+
+    <script>
+        // 得到画布
+        const canvas = document.getElementById('myCanvas');
+        console.log(canvas);
+
+        // 得到画布的上下文(上下文有两个，2d 和 3d)，所有的图像绘制都是上下文的属性或方法，和 canvas 标签无关
+        const ctx = canvas.getContext('2d');
+        console.log(ctx);
+
+        // 绘制矩形
+        ctx.fillStyle = 'red';
+        ctx.fillRect(0, 0, 100, 100);
+        
+        // 绘制矩形边框
+        ctx.strokeStyle = 'blue';
+        ctx.strokeRect(200, 0, 100, 100);
+    </script>
+</body>
+</html>

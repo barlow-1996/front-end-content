@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let str = 'cat2,hat8,mat6,cat3';
+    let reg = /c(at)\d/;
+    console.log(reg.exec(str)); // Array ["cat2", "at"]
+    // arr[0]保存的是完整的匹配.arr[1]保存的是第一个括号里捕获的字串
+
+    // exec(/g有没有都无影响)就等价于不含有g全局标志的match
+    // 即 返回数组arr[0]为匹配的完整串.其余索引为括号里捕获的字符串（当含有子匹配时）
+  </script>
+</body>
+</html>

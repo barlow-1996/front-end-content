@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 在遍历过程中，不使用索引 -->
+        <p v-for="item in list">{{item}}</p>
+
+        <!-- 在遍历过程中，使用索引 -->
+        <p v-for="(item,i) in list">{{i}}---{{item}}</p>
+        <button @click="btnClick">改变数组</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el:'#app',
+            data: {
+                list: [1,2,3,4,5,6]
+            },
+            methods: {
+                btnClick() {
+                    // 哪些数组中的方法是响应式的？即点击按钮后能立即渲染v-for的遍历更新
+                    // push方法
+                    this.list.push(7);
+                    // pop方法
+                    // shift方法
+                    // unshift方法
+                    // splice方法
+                    // sort方法
+                    // reverse方法
+
+                    // 下面这种通过索引值修改元素是非响应式的
+                    // this.list[0] = 100;
+                    //可以将它改为：
+                    // this.list.splice(0, 1, 100)
+                    // 或者调用Vue内部的方法set
+                    // Vue.set（要修改的对象， 要修改的索引值， 要修改的值）
+                    Vue.set(this.list, 0, 100);
+                }
+            }
+        })
+    </script>
+</body>
+</html>

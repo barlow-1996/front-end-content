@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #wrap {
+      width: 400px;
+      height: 400px;
+      border: 1px solid;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      /* 景深应该赋值给要变换的元素的父元素 */
+      perspective: 300px;
+    }
+    .inner {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      width: 200px;
+      height: 200px;
+      border: 1px solid;
+      border-radius: 50%;
+      background-color: pink;
+      text-align: center;
+      line-height: 200px;
+      transition: 2s;
+    }
+    #wrap:hover .inner {
+      /* transform: scaleZ(2, 2, 2); */
+      transform: scaleZ(2) translateZ(100px);
+      /* 相当于往前走200px */
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div class="inner">
+      你好啊
+    </div>
+  </div>
+</body>
+</html>

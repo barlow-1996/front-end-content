@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <p></p>
+    <div id="father">
+        <div>
+            <span>span1</span>
+            <span>span2</span>
+            <span>span3</span>
+        </div>
+        <div>
+            <b>1</b>
+            <div>div1</div>
+            <div>div2</div>
+            <div>div3</div>
+        </div>
+        <div></div>
+        <p></p>
+        <p></p>
+        <p></p>
+        <span>sss1</span>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 获取 id 为 father 的所有子div
+        console.log($('#father>div')) // > 符号只能获取到子div，无法获取孙级元素
+
+        // 获取 id 为 father 的所有子div和子p
+        console.log($('#father>div,#father>p'))
+
+        // 获取 id 为 father 的所有后代div
+        console.log($('#father div')) // 空格符号可以获取到所有后代元素，包括子类和孙类
+    })
+</script>

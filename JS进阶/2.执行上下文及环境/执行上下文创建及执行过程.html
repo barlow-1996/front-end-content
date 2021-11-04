@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function foo(i) {
+      var a = 'hello';
+      var b = function privateB() { };
+      function c() { }
+    }
+    foo(22);
+
+    // 调用foo(22)时创建上下文包括变量对象，作用域链，this值：
+    fooExecutionContext = {
+      variableObject: {
+        arguments: {
+          0: 22,
+          length: 1
+        },
+        i: 22,
+        // 注意：函数申明先于变量申明
+        c: function c() {}, // 以函数名作为属性值，指向该函数的内存地址
+        a: undefined, // 变量名作为属性名，其初始化值为undefined
+        b: undefined
+      },
+      scopeChain: {},
+      this: {}
+    }
+
+    // 创建阶段结束后就会进入代码执行阶段，给变量对象中的变量赋值
+    fooExecutionContext = {
+      variableObject: {
+        arguments: {
+          0: 22,
+          length: 1
+        },
+        i: 22,
+        c: function c() { },
+        a: 'hello',
+        b: function privateB() { }
+      },
+      scopeChain: {},
+      this: {}
+    }
+
+    // 变量提升
+    function host() {
+      console.log(f1);    //f1() {}
+      console.log(f2);    //undefined
+
+      var f1 = 'hosting';
+      var f2 = function () {}
+      function f1() {}
+    }
+    host();
+
+    // 调用host()时会创建变量对象，所有变量初始化值为undefined
+    // 所以console.log(f2)的值为undefined。并且函数申明先于变量申明，所以console.log(f1)的值为f1()函数而不为hosting。
+  </script>
+</body>
+
+</html>

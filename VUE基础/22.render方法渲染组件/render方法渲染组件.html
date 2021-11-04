@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <p>1312312313</p>
+    </div>
+    <script>
+        var login= {
+            template: '<h3>这是登陆组件</h3>'
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+                
+            },
+            render: function (createElements) { // createElements 是一个方法，调用它来渲染实例的DOM树
+                // createElements有三个参数：createElements（'标签', {标签的属性}, ['标签中的内容']）
+                // createElements('h2', {class: 'box'}, ['helloWorld']) 等同于<h2 class="box">helloWorld</h2>
+                return createElements(login)
+                // 注意： 这里 return 的结果会替换页面中 el 指定的那个容器，上面 app 里面的 p节点会被清空
+            }
+        })
+    </script>
+</body>
+</html>

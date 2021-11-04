@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        setTimeout(() => {
+            console.log(1)
+        }, 0)
+        Promise.resolve().then(() => {
+            console.log(2)
+        })
+        Promise.resolve().then(() => {
+            console.log(3)
+        })
+        console.log(4)
+        // 输出顺序为： 4，2，3，1
+        // 先输出同步代码，在取出微队列中的回调函数，最后取出宏队列中的回掉函数
+
+        setTimeout(() => {
+            console.log(1)
+        }, 0)
+        new Promise((resolve) => { // 执行器中的代码也是同步执行的
+            console.log(2)
+            resolve()
+        }).then(() => {
+            console.log(3)
+        }).then(() => { // 上一个then函数还没有执行，promise还是pending的状态，所以这个then回调函数还没有放到队列中去
+            console.log(4)
+        })
+        console.log(5)
+
+        // 输出顺序：2 5 3 4 1
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // for-in 和 for-of 的区别：
+    // 1. for-in 遍历的是对象的可枚举属性，访问值时要以person[item]的格式访问（不能使用person.item的格式）；for-of遍历的是可迭代对象，可以直接以值进行访问；
+    // 2. 手动给对象添加属性后，for-in 可以将新添属性遍历出来，而 for-of 不行
+    // 注意：for-in 还会遍历其原型链上的属性。可以使用 hasOwnProperty() 来检查找到的枚举属性是对象自己的（不是继承的）
+    var a = ["A", 'B', 'C'];
+    console.log('for of  stat begins');
+    a.name = 'jack';
+    console.log(a.length); // 3
+    for (var arr_val of a) {
+      console.log(arr_val); // A B C
+    }
+
+    console.log('for in stat begins');
+    console.log(a.length); // 3
+    for (var arr_val in a) {
+      console.log(a[arr_val]); // A B C jack
+    }
+
+    // 注：forEach 和 for-of 区别：forEach 无法使用 break 中断循环，或 return 到外层函数
+
+    // 怎么让 object 变为可迭代对象？ 手动给对象添加迭代器 [Symbol.iterator]
+  </script>
+</body>
+
+</html>

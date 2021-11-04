@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Person () {}
+    Person.prototype = {
+      constructor: Person,
+      name: 'BYL',
+      age: 18,
+      colors: ['red', 'blue']
+    };
+
+    var person1 = new Person();
+    var person2 = new Person();
+    person1.colors.push('black');
+    console.log(person2.colors); // ["red", "blue", "black"]
+
+    console.log(person1.colors === person2.colors); // true
+
+  </script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="input">
+    <p id="p"></p>
+    <script>
+        const input = document.getElementById('input');
+        const p = document.getElementById('p');
+        const data = {};
+        Object.defineProperty(data, 'text', {
+            set(value) {
+                input.value = value;
+                p.innerHTML = value;
+            }
+        })
+
+        input.addEventListener('input', (e) => {
+            data.text = e.target.value;
+            console.log(data);
+        })
+        data.text = 'byl';
+    </script>
+</body>
+</html>

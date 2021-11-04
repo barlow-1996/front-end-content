@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="container">
+    <ul class="colorList">
+      <li>red</li>
+      <li>yellow</li>
+      <li>pink</li>
+      <li>black</li>
+      <li>green</li>
+    </ul>
+  </div>
+  <script>
+    // 事件委托：利用 JS 冒泡机制把原本需要绑定在子元素的事件委托给父元素，让父元素担当事件监听的职务
+    // 原理是 DOM 元素的事件冒泡
+    // 优点：减少了注册事件、减少内存占用
+    // 缺点：事件委托基于冒泡，对于不冒泡的事件不支持；
+    // 同时过多的事件委托可能出现事件误判，比如将所有 button 都代理了click事件，另外的人在引用这个js时可能不知道，造成单击 button 触发了两个click事件
+
+    // 例如有一个列表需要绑定点击事件，每一个列表项的点击都需要返回不同的结果。
+
+    // 不用事件委托：
+    // var colorList = document.querySelectorAll('li');
+    // for(let item of colorList) {
+    //   item.onclick = showColor; // 为每一个列表元素绑定点击事件，产生性能问题
+    // }
+
+    // 用事件委托
+    var colorList = document.querySelector('.colorList');
+    colorList.addEventListener('click', showColor);
+
+    function showColor(e) {
+      if (e.target.nodeName.toLowerCase() === 'li') {
+        console.log(e.target.innerHTML);
+      }
+    }
+  </script>
+</body>
+
+</html>

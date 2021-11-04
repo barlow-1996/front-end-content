@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            width: 200px;
+            height: 200px;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="html()" id="btnhtml">
+    <input type="button" value="$()" id="btn1">
+    <div id="div1">
+        <p>p1
+            <span>span1</span>
+        </p>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 1.原生js创建节点：document.write('<div></div>');  innerHTML; document.createElement();
+
+        // jQuery如何创建节点？
+        // html()方法   $()方法
+        // 1. html() 用来设置或获取内容
+        $('#btnhtml').click(function() {
+            console.log($('#div1').html()) // 不给参数代表获取内容
+            $('#div1').html('我是设置的内容<a href="https://www.baidu.com">百度一下</a>') // 设置内容会把原来的内容给覆盖,如果包含了标签可以解析出来
+        })
+        // 2. $()
+        // 能够创建元素，但是创建的元素只存在于内存，如果要在页面显示要追加
+        $('#btn1').click(function() {
+            var link = $('<p>我是$方法创建的p元素</p>')
+            $('#div1').append(link)
+        })
+    })
+</script>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    console.log('a');
+
+    new Promise(resolve => {
+      console.log('b')
+      resolve()
+    }).then(() => {
+      console.log('c')
+      setTimeout(() => {
+        console.log('d')
+      }, 0)
+    })
+
+    setTimeout(() => {
+      console.log('e')
+      new Promise(resolve => {
+        console.log('f')
+        resolve()
+      }).then(() => {
+        console.log('g')
+      })
+    }, 100)
+
+    setTimeout(() => {
+      console.log('h')
+      new Promise(resolve => {
+        resolve()
+      }).then(() => {
+        console.log('i')
+      })
+      console.log('j')
+    }, 0)
+
+    // 输出结果： a b c h j i d e f g
+    // 1. 打印 a
+    // 2. promise 立即执行，打印 b
+    // 3. promise.then 推入微任务队列
+    // 4. setTimeout 推入宏任务队列
+    // 5. 整段代码执行完毕，开始执行微任务，打印 c ，遇到 setTimeout 推入宏任务队列排队等待执行
+    // 6. 没有可执行的微任务开始执行宏任务，定时器按照延迟时间排队执行
+    // 7. 打印 h j ，promise.then 推入微任务队列
+    // 8. 有可执行的微任务，打印 i ，继续执行宏任务，打印 d
+    // 9. 执行延迟为100的宏任务，打印 e f，执行微任务打印 g，所有任务执行完毕
+  </script>
+</body>
+
+</html>

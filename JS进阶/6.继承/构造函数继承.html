@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Father (name) {
+      this.name = name
+    }
+    function Son () {
+      // 构造函数继承
+      Father.call(this, "BYL");
+      this.age = 18;
+    }
+    Father.prototype.sayHello = function () {
+      return "hello";
+    }
+    var person = new Son();
+    console.log(person.name);
+    console.log(person.age);
+
+    console.log(person.sayHello()); // 报错，因为父类原型中的方法子类不可见
+  </script>
+</body>
+</html>

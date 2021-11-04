@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        new Promise((resolve, reject) => {
+            resolve(1);
+            // reject(2);
+        }).then(
+            value => {
+                console.log(value);         // 返回 1，resolved undifine
+                // return 2                 // 返回 1，resolved 2
+                // return Promise.reject(2) // 返回 1，rejected 2
+                // throw 2                   // 返回 1，rejected 2
+            },
+            reason => {
+                console.log(reason);
+                return 22
+            }
+        ).then(
+            value => {
+                console.log('resolved', value);
+                return new Promise(() => {}) // 如果下面还有 then 回调函数，可以通过返回一个pending状态的promise对象中断链
+            },
+            reason => {
+                console.log('rejected', reason);
+                return new Promise(() => {})
+            }
+        ).then(
+            value => {
+                console.log(value);
+            },
+            reason => {
+                console.log(reason);
+            }
+        )
+    </script>
+</body>
+
+</html>

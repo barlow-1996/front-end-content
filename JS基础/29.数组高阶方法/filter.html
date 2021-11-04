@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const nums = [10, 20, 111, 222, 444, 40, 50]
+    // filter里面要定义一个回调函数
+    // filter中的回调函数有一个要求：必须返回一个布尔值
+    // 当返回的是true时，函数内部会自动将这次回调的n加入到一个新的数组中
+    // 当返回的是false时，函数内部会过滤掉这次的n
+    // filter 中的回调函数提供 3 个参数，第一个是每次遍历的值，第二个是每次遍历的索引，第三个遍历的这个数组
+
+    // 这里会将新的数组赋值给newNums
+    let newNums = nums.filter(function (n) { // 该回调函数会在每一次遍历出一个数的时候就执行一次
+      // console.log(n) // 这里的n是数组中的每一项
+      return n >= 100 
+    })
+    console.log(newNums) // 从旧数组中过滤掉小于100的数，将剩下的数据放入到新数组中
+
+    // 手写 filter：
+    Array.prototype._filter = function (fn, context) {
+      let arr = [];
+      if (typeof fn !== 'function') {
+        console.error('参数错误');
+      } else {
+        let len = this.length;
+        for(let i = 0; i < len; i++) {
+          if (fn.call(context, this[i], i, this)) {
+            arr.push(this[i]);
+          }
+        }
+      }
+      return arr;
+    }
+
+    const newArr = nums._filter(v => v % 10 == 0);
+    console.log(newArr);
+  </script>
+</body>
+</html>

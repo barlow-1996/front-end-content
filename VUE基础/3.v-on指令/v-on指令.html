@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        button{
+            width: 30px;
+            height: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <!-- vue中提供了v-on： 事件绑定机制 -->
+    <!-- v-on：指令可简写为@ -->
+    <div id="app">
+        <!-- 如果v-on监听的方法不需要额外的参数，那么方法后的()可以省略 -->
+        <button type="button" value="按钮" :title="mytitle" @click="show"></button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                mytitle: '这是自己定义的title'
+            },
+            methods: {   //定义了当前 vue 中所有可用的方法
+                show() {
+                    alert('hello!')
+                }
+            }
+        })
+    </script>
+</body>
+</html>

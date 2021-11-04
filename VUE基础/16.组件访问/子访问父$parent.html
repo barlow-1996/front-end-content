@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <cpn></cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      我是子组件
+      <ccpn></ccpn>
+    </div>
+  </template>
+
+  <template id="ccpn">
+    <div>
+      我是子组件的子组件
+      <button @click="btnClick">访问父组件</button>
+    </div>
+  </template>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        name: '根组件的name'
+      },
+      methods: {
+
+      },
+      components: {
+        cpn: {
+          template: '#cpn',
+          data() {
+            return {
+              name: '子组件的name'
+            }
+          },
+          methods: {
+            sayHi() {
+              alert('hello');
+            }
+          },
+          components: {
+            ccpn: {
+              template: '#ccpn',
+              methods: {
+                btnClick() {
+                  // 访问父组件$parent
+                  console.log(this.$parent) // 访问的父组件如果是组件的话，会打印一个VueComponent对象
+                  console.log(this.$parent.name)
+                  console.log(this.$parent.sayHi());
+
+                  // 直接访问根组件$root
+                  console.log(this.$root)  // 这时访问的父组件是根组件（实例），会打印一个Vue对象
+                  console.log(this.$root.name)
+                }
+              },
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

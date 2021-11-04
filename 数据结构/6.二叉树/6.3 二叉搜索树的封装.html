@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 二叉搜索树（BST，Binary Search Tree），搜索方式就是二分查找的思想。
+        // 二叉搜索树可以为空
+        // 若不为空，则满足：非空左子树的所有键值小于其根节点的键值，非空右子树的所有键值大于其根节点键值，左、右子树本身也是二叉搜索树
+
+        // 封装二叉搜索树
+        function BinarySearchTree() {
+            // 内部类
+            function Node(key) {
+                this.key = key;
+                this.left = null;
+                this.right = null;
+            }
+            // 属性
+            this.root = null; // 根节点
+
+            // 方法
+            // 向树中插入一个新的键：对外给用户调用的方法
+            BinarySearchTree.prototype.insert = function (key) {
+                // 1. 先创建节点
+                var newNode = new Node(key);
+                // 2. 判断根节点是否为null
+                if (this.root == null) {
+                    this.root = newNode;
+                } else {
+                    this.insertNode(this.root, newNode);
+                }
+            }
+            // 插入用到的内部方法，用来递归操作
+            BinarySearchTree.prototype.insertNode = function (node, newNode) {
+                if (node.key > newNode.key) { // 向左查找
+                    if (node.left == null) {
+                        node.left = newNode;
+                    } else this.insertNode(node.left, newNode);
+                } else { // 向右查找
+                    if (node.right == null) {
+                        node.right = newNode;
+                    } else this.insertNode(node.right, newNode);
+                }
+            }
+
+            // 在树中查找一个键，节点存在返回true；否则返回false
+            BinarySearchTree.prototype.search = function (key) {
+                // 1. 获取根节点
+                var node = this.root;
+                // 2. 循环搜索key
+                while (node !== null) {
+                    if (node.key == key) {
+                        return true;
+                    } else if (node.key > key) {
+                        node = node.left;
+                    } else {
+                        node = node.right;
+                    }
+                }
+                return false;
+            }
+
+            // 先序遍历所有节点(对外调用的方法)，先处理根节点
+            BinarySearchTree.prototype.preOrderTraverse = function (handle) {
+                this.preOrderTraverseNode(this.root, handle);
+            }
+            // 先序遍历对内的递归方法
+            BinarySearchTree.prototype.preOrderTraverseNode = function (node, handle) {
+                if (node !== null) {
+                    // 1. 处理经过的节点
+                    handle(node.key);
+                    // 2. 处理经过节点的左子节点
+                    this.preOrderTraverseNode(node.left, handle);
+                    // 3. 处理经过节点的右子节点
+                    this.preOrderTraverseNode(node.right, handle);
+                }
+            }
+
+            // 先序遍历(非递归)
+            BinarySearchTree.prototype.preOrder = function (handle) {
+                if (!root) return [];
+                const stack = [root];
+                const res = [];
+                while (stack.length) {
+                    let curLen = stack.length;
+                    for (let i = 0; i < curLen; i++) {
+                        let node = stack.pop();
+                        res.push(node.key);
+                        node.right && stack.push(node.right);
+                        node.left && stack.push(node.left);
+                    }
+                }
+                return res;
+            }
+
+            // 中序遍历所有节点(对外调用的方法)，在中间处理根节点
+            BinarySearchTree.prototype.midOrderTraverse = function (handle) {
+                this.midOrderTraverseNode(this.root, handle);
+            }
+            // 中序遍历对内的递归方法
+            BinarySearchTree.prototype.midOrderTraverseNode = function (node, handle) {
+                if (node !== null) {
+                    // 1. 处理左子树中的节点，找到树最左边的节点
+                    this.midOrderTraverseNode(node.left, handle);
+                    // 2. 处理该节点
+                    handle(node.key);
+                    // 3. 处理右子树中的节点
+                    this.midOrderTraverseNode(node.right, handle);
+                }
+            }
+
+            // 中序遍历（非递归）   首先遍历找到最深层的左子树
+            BinarySearchTree.prototype.midOrder = function (handle) {
+                if (!root) return [];
+                const stack = [];
+                const res = [];
+                while (root || stack.length) {
+                    while (root) {
+                        stack.push(root);
+                        root = root.left;
+                    }
+                    root = stack.pop();
+                    res.push(root.key);
+                    root = root.right;
+                }
+                return res;
+            }
+
+            // 后序遍历所有节点(对外调用的方法)，最后处理根节点
+            BinarySearchTree.prototype.postOrderTraverse = function (handle) {
+                this.postOrderTraverseNode(this.root, handle);
+            }
+            // 后序遍历对内的递归方法
+            BinarySearchTree.prototype.postOrderTraverseNode = function (node, handle) {
+                if (node !== null) {
+                    // 1. 处理左子树中的节点，找到树最左边的节点
+                    this.postOrderTraverseNode(node.left, handle);
+                    // 2. 处理完左边节点后，处理右边节点
+                    this.postOrderTraverseNode(node.right, handle);
+                    // 3. 最后处理该节点
+                    handle(node.key);
+                }
+            }
+
+            // 后序遍历（非递归）  和先序遍历二叉树类似，唯一区别是向数组中unshift元素，先push左再push右
+            BinarySearchTree.prototype.postOrder = function (handle) {
+                if (!root) return [];
+                const stack = [root];
+                const res = [];
+                while (stack.length) {
+                    let curLen = stack.length;
+                    for (let i = 0; i < curLen; i++) {
+                        let node = stack.pop();
+                        res.unshift(node.val);
+                        node.left && stack.push(node.left);
+                        node.right && stack.push(node.right);
+                    }
+                }
+                return res;
+            }
+
+            // 返回树中最小值/键
+            BinarySearchTree.prototype.min = function () {
+                // 1. 获取根节点
+                var node = this.root;
+                // 2. 依次向左不断查找，直到节点为null
+                while (node.left !== null) {
+                    node = node.left;
+                }
+                return node.key;
+            }
+
+            // 返回树中最大值/键
+            BinarySearchTree.prototype.max = function () {
+                // 1. 获取根节点
+                var node = this.root;
+                // 2. 依次向右不断查找,直到节点为null
+                while (node.right !== null) {
+                    node = node.right;
+                }
+                return node.key;
+            }
+
+            // 从树中移除某个键
+            BinarySearchTree.prototype.remove = function (key) {
+                // 1. 先寻找我们要删除的节点
+                var current = this.root;
+                var parent = null;
+                var isLeftChild = true;
+                while (current.key !== key) {
+                    parent = current;
+                    if (current.key < key) {
+                        current = current.right;
+                        isLeftChild = false;
+                    } else {
+                        current = current.left;
+                        isLeftChild = true;
+                    }
+                    // 已经找到最后节点，依然没有找到对应的key
+                    if (current == null) return false;
+                }
+                // 2.2 如果找到了，根据对应的情况删除节点
+                if (current.left == null && current.right == null) { // 如果该节点是叶子节点
+                    if (current == this.root) {
+                        this.root = null;
+                    } else if (isLeftChild) {
+                        parent.left = null;
+                    } else parent.right = null;
+                } else if (current.right == null) { // 如果该节点只有一个子节点  
+                    if (current == this.root) {
+                        this.root = current.left;
+                    }
+                    if (isLeftChild) {
+                        parent.left = current.left;
+                    } else {
+                        parent.right = current.left;
+                    }
+                } else if (current.left == null) {
+                    if (current == this.root) {
+                        this.root = current.right
+                    }
+                    if (isLeftChild) {
+                        parent.left = current.right;
+                    } else {
+                        parent.right = current.right;
+                    }
+                } else { // 如果该节点有两个子节点
+                    // 1. 获取后继节点
+                    var successor = this.getSuccessor(current);
+                    // 2. 判断是否是根节点
+                    if (current == this.root) {
+                        this.root = successor;
+                    } else if (isLeftChild) {
+                        parent.left = successor;
+                    } else {
+                        parent.right = successor;
+                    }
+                    // 3. 将删除节点的左子树 = current.left
+                    successor.left = current.left;
+                }
+            }
+            // 找后继节点的方法
+            BinarySearchTree.prototype.getSuccessor = function (delNode) {
+                // 1. 定义变量，保存找到的后继结点
+                var successor = delNode;
+                var current = delNode.right;
+                var successorParent = delNode;
+                // 2. 循环查找
+                while (current !== null) {
+                    successorParent = successor;
+                    successor = current;
+                    current = current.left;
+                }
+                // 3. 判断寻找的后继节点是否直接就是delNode的右节点
+                if (successor !== delNode.right) {
+                    successorParent.left = successor.right;
+                    successor.right = delNode.right;
+                }
+                return successor;
+            }
+        }
+
+        // 二叉树的使用
+        var bst = new BinarySearchTree();
+        bst.insert(11);
+        bst.insert(7);
+        bst.insert(15);
+        bst.insert(5);
+        bst.insert(3);
+        bst.insert(9);
+        bst.insert(8);
+        bst.insert(10);
+        bst.insert(13);
+        bst.insert(12);
+        bst.insert(14);
+        bst.insert(20);
+        bst.insert(18);
+        bst.insert(25);
+        bst.insert(6);
+
+        console.log(bst.search(24));
+
+        var resultPre = '';
+        bst.preOrderTraverse(function (key) {
+            resultPre += key + ' ';
+        })
+        console.log(resultPre);
+
+        var resultMid = '';
+        bst.midOrderTraverse(function (key) {
+            resultMid += key + ' ';
+        })
+        console.log(resultMid);
+
+        var resultPost = '';
+        bst.postOrderTraverse(function (key) {
+            resultPost += key + ' ';
+        })
+        console.log(resultPost);
+
+        console.log(bst.min());
+        console.log(bst.max());
+    </script>
+</body>
+
+</html>

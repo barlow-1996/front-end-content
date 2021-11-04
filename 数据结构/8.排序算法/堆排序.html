@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        /*
+            下标为 i 的节点的父节点下标: (i - 1) / 2
+            下标为 i 的节点的左子节点下标: i * 2 + 1
+            下标为 i 的节点的右子节点下标: i * 2 + 2
+        */
+
+        // 1. 大顶堆(升序排列)
+        // 建立堆
+        const buildHeap1 = (arr, n = arr.length) => {
+            // 建堆
+            for (let i = Math.floor(n / 2 - 1); i >= 0; i--) { // 从最后一个非叶子节点开始调整 Math.floor(arr.length / 2) - 1
+                heapify1(arr, n, i);
+                console.log(arr.slice());
+            }
+            // 排序
+            for (let i = n - 1; i > 0; i--) {
+                [arr[i], arr[0]] = [arr[0], arr[i]];
+                heapify1(arr, i, 0); // 将堆顶放到最后一位后数组还剩下 i 个元素
+            }
+        }
+
+        // 堆化
+        const heapify1 = (arr, n, i) => {
+            while (true) {
+                let largest = i;
+                let lSon = i * 2 + 1;
+                let rSon = i * 2 + 2;
+
+                if (lSon < n && arr[lSon] > arr[largest]) {
+                    largest = lSon;
+                }
+                if (rSon < n && arr[rSon] > arr[largest]) {
+                    largest = rSon;
+                }
+
+                if (largest !== i) {
+                    [arr[largest], arr[i]] = [arr[i], arr[largest]];
+                    i = largest;
+                } else break;
+            }
+        }
+
+        const heap1 = [2, 3, 8, 1, 4, 9, 10, 7, 16, 14];
+        let len = heap1.length;
+        buildHeap1(heap1);
+        console.log(heap1); // [1, 2, 3, 4, 7, 8, 9, 10, 14, 16]
+
+        // 小顶堆(降序排列)
+        // 建立堆
+        const buildHeap2 = (arr, n = arr.length) => {
+            // 建堆
+            for (let i = Math.floor(n / 2 - 1); i >= 0; i--) {
+                heapify2(arr, n, i);
+            }
+            // 排序
+            for (let i = n - 1; i > 0; i--) {
+                [arr[i], arr[0]] = [arr[0], arr[i]];
+                heapify2(arr, i, 0); // 将堆顶放到最后一位后数组还剩下 i 个元素
+            }
+        }
+
+        // 堆化
+        const heapify2 = (arr, n, i) => {
+            while (true) {
+                let smallest = i;
+                let lSon = i * 2 + 1;
+                let rSon = i * 2 + 2;
+
+                if (lSon < n && arr[lSon] < arr[smallest]) {
+                    smallest = lSon;
+                }
+                if (rSon < n && arr[rSon] < arr[smallest]) {
+                    smallest = rSon;
+                }
+
+                if (smallest !== i) {
+                    [arr[smallest], arr[i]] = [arr[i], arr[smallest]];
+                    i = smallest;
+                } else break;
+            }
+        }
+
+        const heap2 = [2, 3, 8, 1, 4, 9, 10, 7, 16, 14];
+        buildHeap2(heap2);
+        console.log(heap2); // [16, 14, 10, 9, 8, 7, 4, 3, 2, 1]
+    </script>
+</body>
+
+</html>

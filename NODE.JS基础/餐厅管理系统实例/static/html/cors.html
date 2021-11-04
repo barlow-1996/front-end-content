@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="upload()">提交</button>
+</body>
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+<script>
+  function upload() {
+    $.get('http://localhost:3000/cors', (data) => {
+      console.log(data);
+
+      // 发起一个服务器请求，请求跨域的服务器 'https://autumnfish.cn/api/joke/list?num=6'
+      // request: 将内置的 http 模块封装，可以发起服务器请求
+    })
+  }
+</script>
+</html>

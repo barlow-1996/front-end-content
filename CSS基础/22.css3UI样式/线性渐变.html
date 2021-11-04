@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #test1 {
+      width: 200px;
+      height: 300px;
+      border: 1px solid;
+      margin: 0 auto;
+      /* background-image: linear-gradient(red, yellow, green); */
+      /* background-image: linear-gradient(to right, red, yellow, green); */
+      background-image: linear-gradient(45deg, red, yellow, green);
+    }
+    #test2 {
+      width: 500px;
+      height: 200px;
+      border: 1px solid;
+      margin: 0 auto;
+      background-image: repeating-linear-gradient(90deg, rgba(0,0,0,0) 100px, rgba(167,178,222,1) 200px);
+    }
+    .guangban {
+      background-color: black;
+      text-align: center;
+    }
+    h1 {
+      display: inline-block;
+      color: rgba(255, 255, 255, .3);
+      font: bold 80px "微软雅黑";
+      background: linear-gradient(120deg, rgba(255,255,255,0) 100px, rgba(255,255,255,1) 180px, rgba(255,255,255,0) 270px);
+      background-clip: text;
+      background-repeat: no-repeat;
+      -webkit-background-clip: text;
+    }
+  </style>
+</head>
+<body>
+  <div id="test1"></div>
+  <div id="test2"></div>
+  <div class="guangban">
+    <h1>光斑动画特效</h1>
+  </div>
+  
+</body>
+<script type="text/javascript">
+  var h1 = document.getElementsByTagName('h1')[0];
+  var flag = -160;
+  setInterval(() => {
+    flag+=10
+    if(flag == 600) {
+      flag = -160
+    }
+    h1.style.backgroundPosition = flag + 'px'
+  }, 1000/60)
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 事件调用的方法没有参数 -->
+    <button @click="btn1Click">按钮1</button>
+
+    <!-- 在事件定义时，写方法时省略了()，但是方法本身需要一个参数的，这时，vue会默认将浏览器产生的event事件对象作为参数传入到方法中 -->
+    <button @click="btn2Click">按钮2</button>
+
+    <!-- 在方法定义时，我们需要event对象，同时又需要其他参数 -->
+    <button @click="btn3Click($event, 123)">按钮3</button>
+
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {
+        btn1Click() {
+          console.log("btn1Click");
+        },
+        btn2Click(event) {
+          console.log('-------------', event);
+        },
+        btn3Click(event, abc) {
+          console.log('+++++++++', abc, event);
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

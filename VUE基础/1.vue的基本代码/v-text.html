@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- v-text会清空原来的文本内容 -->
+        <div v-text="msg">原本的内容</div>
+        <!-- 插值表达式不会清空内容 -->
+        <div>原本的内容{{msg}}</div>
+        <div v-html="msg2">原来的内容</div>
+    </div>
+    
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '123',
+                msg2: '<h1>这是一个大标题</h1>'
+            }
+        })
+    </script>
+</body>
+</html>

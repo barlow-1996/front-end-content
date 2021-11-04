@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="获取元素" @click="getEle" ref="mybutton">
+        <h3 id="myh3" ref="myh3">哈哈哈 今天天气不错</h3>
+        <login ref="mylogin"></login>
+    </div>
+    <script>
+        var login = {
+            temlate: '<h1>登陆组件</h1>',
+            data(){
+                return {
+                    msg: 'son msg'
+                }
+            },
+            methods : {
+                show(){
+                    console.log("调用了子组件的show方法");
+                }
+            }
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+                getEle() {
+                    // document.getElementById("myh3").innerText    不提倡
+                    // ref 是 reference 的缩写，意思是引用
+                    
+                    console.log(this.$refs.myh3.innerText)
+                    console.log(this.$refs.mybutton.value)
+                    console.log(this.$refs.mylogin.msg)
+                    this.$refs.mylogin.show()
+                }
+            },
+            components: {
+                login
+            }
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="btnClick">按钮</button>
+    <cpn></cpn>  
+  </div>
+  <template id="cpn">
+    <div>
+      我是子组件
+    </div>
+  </template>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+
+      },
+      methods: {
+        btnClick() {
+          console.log(this.$children)
+          let result =  this.$children[0].showMessage()   // $children的下标值是该子组件在父组件中的排序
+          console.log(result);
+          console.log(this.$children[0].name)
+        }
+      },
+      components: {
+        cpn: {
+          template: '#cpn',
+          data() {
+            return {
+              name: '子组件的name'
+            }
+          },
+          methods: {
+            showMessage() {
+              console.log('子组件的message');
+              return 'ok';
+            }
+          },
+        }
+      },
+    });
+  </script>
+</body>
+
+</html>

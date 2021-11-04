@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="./Promise.js"></script>
+    <script>
+        const p = new Promise ((reslove, reject) => {
+            setTimeout(() => {
+                reject(1);
+            }, 100)
+        })
+        p.then(
+            value => {
+                console.log('onResolved1()', value)
+            },
+            reason => {
+                console.log('onRejected1()', reason)
+                return new Promise((reslove, reject) => {reject(2)})
+            }
+        ).then(
+            value => {
+                console.log('onResolved2()', value)
+            },
+            reason => {
+                console.log('onRejected2()', reason)
+                throw 3
+            }
+        ).then(
+            value => {
+                console.log('onResolved4()', value)
+            },
+            reason => {
+                console.log('onRejected4()', reason)
+            }
+        )
+        console.log('start');
+        // const p1 = Promise.resolve(1)
+        // const p2 = Promise.resolve(Promise.resolve(2))
+        // const p3 = Promise.resolve(Promise.reject(3)).catch(err => err)
+        // const pAll = Promise.all([p1, p2, p3])
+        // pAll.then(
+        //     values => {
+        //         console.log('all onResolved', values)
+        //     },
+        //     reason => {
+        //         console.log('all onRejected', reason)
+        //     }
+        // )
+
+        // const pRace = Promise.race([p1, p2, p3])
+        // pRace.then(
+        //     value => {
+        //         console.log('race onResolved', value);
+        //     },
+        //     reason => {
+        //         console.log('race onRejected', reason);
+        //     }
+        // )
+
+        // const p4 = Promise.resolveDelay(p2, 1000)
+        // p4.then(
+        //     value => {
+        //         console.log('delay resolved',value)
+        //     }
+        // )
+        // const p5 = Promise.rejectDelay(5, 2000)
+        // p5.then(
+        //     value => {},
+        //     reason => {
+        //         console.log('delay rejected',reason)
+        //     }
+        // )
+    </script>
+</body>
+</html>

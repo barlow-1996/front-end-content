@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="按钮" id="btn1">
+    <input type="checkbox" id="ckb1">
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        $('#btn1').click(function() {
+            // console.log($('#ckb1').attr('checked')) //为什么会返回undeined？在jQuery1.6后这类布尔属性不能再用attr方法访问，只能用prop方法
+            console.log($('#ckb1').prop('checked')) //如果多选框是选中状态，返回true；没选中返回false
+            $('#ckb1').prop('checked',true)
+        })
+    })
+</script>

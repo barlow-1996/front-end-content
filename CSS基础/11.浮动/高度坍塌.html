@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        .container{
+            background:lightblue ;
+            padding: 30px;
+            border: 2px solid;
+            /* 以下为解决措施方法一 */
+            overflow: hidden;
+        }
+        .item{
+            width: 200px;
+            height: 200px;
+            background: red;
+            margin: 6px;
+            float: left;
+        }
+        /* 以下为解决措施方法二 */
+        /* .clearfix::after{
+            content: "";
+            display: block;
+            clear: both;
+        } */
+        /* 原理：clear属性规定元素的哪一侧不允许其他浮动元素，both表示左右两侧均不允许浮动元素。
+        所以在 .clearfix 最后加上一个块盒，而这个块盒又没有任何内容，.clearfix 容器计算高度时又需要把该块盒计算在内，就解决了高度坍塌的问题 */
+    </style>
+</head>
+<body>
+    <div class="container clearfix">
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <div class="item"></div>
+        <!-- 以上为高度坍塌现象 -->
+        
+    </div>
+</body>
+</html>

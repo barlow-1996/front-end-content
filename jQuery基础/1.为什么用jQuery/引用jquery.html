@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="设置边框" id="btnone">
+    <input type="button" value="设置文字" id="btntwo">
+    <div></div>
+    <div></div>
+    <div></div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    // 入口函数
+    $(document).ready(function() {
+        // 设置边框
+        $('#btnone').click(function() {
+            $('div').css('border','1px solid red')
+        })
+        // 设置文本
+        $('#btntwo').click(function() {
+            $('div').text('这是我设置的文本')
+        })
+    })
+    $(document).ready(function() {
+        console.log("我又是一个入口函数")
+    })
+</script>

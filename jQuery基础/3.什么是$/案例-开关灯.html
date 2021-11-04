@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="开灯" id="turnOn">
+    <input type="button" value="关灯" id="turnOff">
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 给按钮添加事件，设置 body 的背景色
+        var btns = document.getElementsByTagName('input')
+
+        $(btns[0]).click(function() {
+            $('body').css('backgroundColor','white')
+        })
+        $(btns[1]).click(function() {
+            $('body').css('backgroundColor','black')
+        })
+    })
+</script>

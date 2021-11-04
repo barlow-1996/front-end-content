@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <button @click="componentId='login'">登录</button>
+        <button @click="componentId='register'">注册</button>
+        <!-- Vue 提供了 component,来展示对应名称的组件 -->
+        <!-- component 是一个占位符, :is 属性可以用来指定要展示的组件的名称 -->
+        <keep-alive>
+        <component :is="componentId"></component>
+        </keep-alive>
+    </div>
+    <script>
+        Vue.component('login', {
+            template: '<h3>登陆组件</h3>',
+            activated() {
+                alert('activated!');
+            },
+            deactivated() {
+                alert('deactivated!');
+            },
+        })
+        Vue.component('register', {
+            template: '<h3>注册组件</h3>'
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                componentId: 'login'
+            },
+            methods: {}
+        })
+        // 总结: 当前学了几个Vue提供的标签?
+        // component, template, transition, transitionGroup
+    </script>
+</body>
+</html>

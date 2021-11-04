@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script type="module">
+    import {height, weight, sum as addCount} from './ES module.js';
+    import {name, age, changeAge} from './ES module.js'; // 也可以分两次导入，导入的时候带大括号
+    // import {name} from './a.js'; 
+    // import {age} from './a.js';
+    import location from './ES module.js'; // export default 导出的东西在导入时不需要带大括号
+
+    console.log(height, weight); // 1.88 160
+    console.log(addCount(2,5)); // 7
+
+    console.log(name, age); // byl 20
+    changeAge();
+    console.log(age); // 21
+
+    console.log(location.address); // 重庆
+    console.log(location.universe); // 重庆大学
+  </script>
+</body>
+</html>

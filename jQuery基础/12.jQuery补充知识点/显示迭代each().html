@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul id="ulList">
+        <li>什么都看不见</li>
+        <li>什么都看不见</li>
+        <li>什么都看不见</li>
+        <li>什么都看不见</li>
+        <li>什么都看不见</li>
+        <li>什么都看不见</li>
+        <li>什么都看不见</li>
+        <li>什么都看不见</li>
+        <li>什么都看不见</li>
+        <li>什么都看不见</li>
+    </ul>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 找到所有li标签，分别设置透明度，透明度叠加到1
+        $('#ulList>li').each(function(index,element) {
+            // console.log(index); //index为每个li标签的索引
+            // console.log(element);  // 每一个li标签
+            $(element).css('opacity',index/10)
+        })
+    })
+</script>

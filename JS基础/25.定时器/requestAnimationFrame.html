@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #progress {
+      height: 500px;
+      width: 500px;
+      margin: auto;
+      position: relative;
+    }
+    progress {
+      height: 30px;
+      width: 300px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="progress">
+    <progress max="1000" value="0" myself="byl"></progress>
+  </div>
+  <script>
+    const progress = document.getElementsByTagName('progress')[0];
+    var max = progress.max;
+    let id;
+
+    // 回调函数
+    function render() {
+      progress.value++;
+      progress.innerText = progress.value;
+      if (progress.value < max) {
+        // 在动画没有结束前，递归渲染
+        id = window.requestAnimationFrame(render);
+      } else {
+        window.cancelAnimationFrame(id);
+      }
+    }
+
+    // 第一帧渲染
+    id = window.requestAnimationFrame(render);
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #test {
+      /* 默认情况下，背景图片是从padding-box开始绘制 
+                             从border-box开始剪裁*/
+      
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      padding: 50px;
+      width: 500px;
+      height: 500px;
+      background-color: pink;
+      background-image: url(./beijingtu.jpg);
+      background-repeat: no-repeat;
+      overflow: auto;
+      background-origin: padding-box;
+    }
+  </style>
+</head>
+<body>
+  <div id="test">
+    这是一个背景图 <br/>这是一个背景图 <br/>这是一个背景图 <br/>
+    这是一个背景图 <br/>这是一个背景图 <br/>这是一个背景图 <br/>
+    这是一个背景图 <br/>这是一个背景图 <br/>这是一个背景图 <br/>
+    这是一个背景图 <br/>这是一个背景图 <br/>这是一个背景图 <br/>
+    这是一个背景图 <br/>这是一个背景图 <br/>这是一个背景图 <br/>
+    这是一个背景图 <br/>这是一个背景图 <br/>这是一个背景图 <br/>
+    这是一个背景图 <br/>这是一个背景图 <br/>这是一个背景图 <br/>
+    这是一个背景图 <br/>这是一个背景图 <br/>这是一个背景图 <br/>
+    这是一个背景图 <br/>这是一个背景图 <br/>这是一个背景图 <br/>
+  </div>
+</body>
+</html>

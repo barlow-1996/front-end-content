@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let people = {
+      name: 'byl',
+      age: 19,
+      colors: ['yellow', 'black', 'red'],
+      obj: {
+        a: 'aaa',
+        b: 'bbb'
+      }
+    }
+
+    let person = new Proxy(people, {  
+      get(target, key){
+        console.log('获取people属性');
+        return Reflect.get(target, key);
+      },
+      set(target, key, newVal){
+        console.log('设置people属性');
+        // target[key] = newVal;
+        return Reflect.set(target, key, newVal);
+        // return false;
+      },
+      deleteProperty() {
+        console.log('删除people属性');
+      }
+    })
+
+    console.log(`我叫${person.name}, 今年${person.age}岁`); // 获取person属性 获取person属性  我叫byl, 今年19岁
+    person.age = 24; // 设置person属性
+
+    person.hobby = 'fuck';
+    console.log(person.hobby); //fuck
+
+    person.colors.push('white'); // 获取person属性
+
+    person.obj.b = 'ccc'; // 获取person属性，因为 Proxy 只代理对象外层属性，内层属性只会触发get，不会触发set
+
+    delete person.obj; // 删除people属性
+
+  </script>
+</body>
+
+</html>

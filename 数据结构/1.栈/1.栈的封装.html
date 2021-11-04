@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+
+        // 封装栈类
+        function Stark() {
+            // 栈的属性
+            this.items = [];
+
+            // 栈的方法
+            // 入栈
+            Stark.prototype.push = function(element) {
+                this.items.push(element);
+            }
+
+            //出栈
+            Stark.prototype.pop = function() {
+                return this.items.pop();
+            }
+
+            // 查看栈顶元素
+            Stark.prototype.peek = function() {
+                return this.items[this.items.length - 1];
+            }
+
+            // 判断栈是否为空
+            Stark.prototype.isEmpty = function() {
+                return this.items.length == 0;
+            }
+
+            // 查看栈里元素的个数
+            Stark.prototype.size = function () {
+                return this.items.length;
+            }
+
+            // 将栈的内容以字符串形式返回
+            Stark.prototype.toString = function() {
+                var stringStark = '';
+                for(let i = 0; i < this.items.length; i++) {
+                    stringStark += this.items[i] + ' ';
+                }
+                return stringStark;
+            }
+        }
+
+        // 栈的使用
+        var s = new Stark();
+        s.push(30);
+        s.push(40);
+        s.push(50);
+        console.log(s);
+        console.log(s.peek());
+        console.log(s.isEmpty());
+        console.log(s.size());
+        console.log(s.toString());
+    </script>
+</body>
+
+</html>

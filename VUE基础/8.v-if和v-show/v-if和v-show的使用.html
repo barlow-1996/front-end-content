@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="button" value="切换" @click="toggle">
+
+        <!-- v-if 特点：是每次都会重新删除和创建元素，每次改变都会使组件重新跑一遍生命周期 -->
+        <!-- v-if 原理：当 v-if 指令对应数据 为 false 时会预先创建一个注释节点在该位置作为占位节点，目的是既不展示该元素，也能标识其在页面的位置，以便在 patch 的时候将元素放回该位置 -->
+        <!--           当监听到对应的数据发生变化时，就会执行订阅更新的逻辑，对新旧组件进行patch -->
+        <h3 v-if="flag">这是用v-if控制的元素</h3>
+
+        <!-- v-show的特点是每次不会进行删除和创建操作,只是将元素的 display 属性变为 none -->
+        <span v-show="flag">这是用v-show控制的元素</span>
+
+        <!-- 如果元素涉及到频繁的切换,最好不要用v-if -->
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true
+            },
+            methods: {
+                toggle() {
+                    this.flag = !this.flag;
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

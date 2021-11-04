@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 单向链表只能从头部遍历到尾部，实现的原理是上一节点有下一节点的指针
+        // 在单向链表中，我们可以很轻松的达到下一节点，但回到上一节点却很麻烦
+
+        // 双向链表即可从头遍历到尾，也能从尾遍历到头
+        // 双向链表的实现原理是 一个节点既有前一个节点的指针，又有后一个节点的指针
+        // 双向列表中不仅有head指针指向第一个节点，还有tail指针指向最后一个节点
+        // 每个节点中有三个属性，pre指向上一节点，data存放该节点数据，next指向下一节点
+
+        // 封装双向链表
+        function DoublyLinkedList () {
+            // 属性
+            this.head = null
+            this.tail = null
+            this.length = 0
+            // 内部类：节点类
+            function Node (data) {
+                this.prev = null
+                this.data = data
+                this.next = null
+            }
+
+            // 方法
+            // 向链表尾部添加新的节点
+            DoublyLinkedList.prototype.append = function (data) {
+                // 1. 创建新的节点
+                var node = new Node(data)
+                // 2. 判断添加的是否为第一个节点
+                if (this.length == 0) { // 是第一个节点
+                    this.head = node
+                    this.tail = node
+                }else {
+                    node.prev = this.tail
+                    this.tail.next = node
+                    this.tail = node
+                }
+                this.length += 1
+            }
+
+            // 向特定位置插入新的节点
+            DoublyLinkedList.prototype.insert = function (position, data) {
+                // 越界判断
+                if(position < 0 || position > this.length) return false
+                var node = new Node(data)
+                // 判断原来的链表是否为空
+                if (this.length == 0) { 
+                    this.head = node
+                    this.tail = node
+                }else { // 若原链表不为空，则继续判断插入位置
+                    if (position == 0) {
+                        this.head.prev = node
+                        node.next = this.head
+                        this.head = node
+                    }else if (position == this.length) {
+                        this.tail.next = node
+                        node.prev = this.tail
+                        this.tail = node
+                    }else {
+                        var current = this.head
+                        var index = 0
+                        while (index < position) {
+                            current = current.next
+                            index++
+                        }
+                        node.next = current
+                        node.prev = current.prev
+                        current.prev.next = node
+                        current.prev = node
+                    }
+                }
+                this.length += 1
+                return true
+            }
+
+            // 获取对应位置的节点数据
+            DoublyLinkedList.prototype.get = function (position) {
+                // 越界判断
+                if(position < 0 || position >= this.length) return null
+
+                // 判断对应位置适合从前往后遍历还是从后往前遍历更简便
+                if(this.length / 2 > position) {
+                    var current = this.head
+                    var index = 0
+                    while (index < position) {
+                        current = current.next
+                        index++
+                    }
+                    return current.data
+                }else {
+                    var current = this.tail
+                    var index = this.length - 1
+                    while (index > position) {
+                        current = current.prev
+                        index--
+                    }
+                    return current.data
+                }
+            }
+
+            // 返回节点数据在对应位置的索引。若没有，则返回 -1
+            DoublyLinkedList.prototype.indexOf = function (data) {
+                var current = this.head
+                var index = 0
+                while (current) {
+                    if (current.data == data) {
+                        return index
+                    }
+                    current = current.next
+                    index++
+                }
+                return -1
+            }
+
+            // 修改对应位置的节点数据
+            DoublyLinkedList.prototype.update = function (position, data) {
+                 // 越界判断
+                 if(position < 0 || position >= this.length) return false
+
+                 // 判断对应位置适合从前往后遍历还是从后往前遍历更简便
+                if(this.length / 2 > position) {
+                    var current = this.head
+                    var index = 0
+                    while (index < position) {
+                        current = current.next
+                        index++
+                    }
+                    current.data = data
+                }else {
+                    var current = this.tail
+                    var index = this.length - 1
+                    while (index > position) {
+                        current = current.prev
+                        index--
+                    }
+                    current.data = data
+                }
+                return true
+            }
+
+            // 从对应位置删除该节点
+            DoublyLinkedList.prototype.removeAt = function (position) {
+                // 越界判断
+                if(position < 0 || position >= this.length) return null
+                var current = this.head
+                var index = 0
+                // 判断当前链表是否只有一个节点
+                if (this.length == 1) {
+                    this.head = null
+                    this.tail = null
+                } else { // 若链表长度不为1， 判断插入位置
+                    if (position == 0) { // 若要删除当前第一个节点
+                        this.head = this.head.next
+                        this.head.prev = null
+                    } else if (position == this.length - 1) { // 若要删除当前最后一个节点
+                        current = this. tail
+                        this.tail = this.tail.prev
+                        this.tail.next = null
+                    } else { // 若要删除中间的节点 
+                        while (index < position) {
+                            current = current.next
+                            index++
+                        }
+                        current.prev.next = current.next
+                        current.next.prev = current.prev
+                    }
+                }
+                this.length -= 1
+                return current.data
+            }
+
+            // 删除该数据所对应的节点
+            DoublyLinkedList.prototype.remove = function (data) {
+                var index = this.indexOf (data)
+                return this.removeAt(index)
+            }
+
+            // 判断链表是否为空
+            DoublyLinkedList.prototype.isEmpty = function () {
+                return this.length == 0
+            }
+
+            // 返回链表中包含节点的个数
+            DoublyLinkedList.prototype.size = function () {
+                return this.length
+            }
+
+            // 获取链表的第一个节点
+            DoublyLinkedList.prototype.getHead = function () {
+                return this.head.data
+            }
+
+            // 获取链表的最后一个节点
+            DoublyLinkedList.prototype.getTail = function () {
+                return this.tail.data
+            }
+
+            // 双向链表的 toString 方法
+            DoublyLinkedList.prototype.toString = function () {
+                return this.backwordString()
+            }
+
+            // 返回向前遍历的节点字符串形式
+            DoublyLinkedList.prototype.forwordString = function () {
+                var current = this.tail
+                var doublyString = ''
+                while (current) {
+                    doublyString += current.data + ' '
+                    current = current.prev
+                }
+                return doublyString
+            }
+            
+
+            // 返回向后遍历的节点字符串形式
+            DoublyLinkedList.prototype.backwordString = function () {
+                var current = this.head
+                var doublyString = ''
+                while (current) {
+                    doublyString += current.data + ' '
+                    current = current.next
+                }
+                return doublyString
+            }
+        }
+
+        // 使用双向链表
+        var doublyList = new DoublyLinkedList()
+        doublyList.append(20)
+        doublyList.append(30)
+        doublyList.append(40)
+        doublyList.append(50)
+        console.log(doublyList.backwordString())
+        console.log(doublyList.forwordString())
+        doublyList.insert(4, 60)
+        console.log(doublyList.backwordString())
+        console.log(doublyList.get(3))
+        console.log(doublyList.indexOf(50))
+        doublyList.update(4, 70)
+        console.log(doublyList.backwordString())
+
+        console.log(doublyList.removeAt(4))
+        console.log(doublyList.backwordString())
+
+        console.log(doublyList.remove(20))
+        console.log(doublyList.backwordString())
+
+        console.log(doublyList.getHead())
+        console.log(doublyList.getTail())
+
+    </script>
+</body>
+</html>

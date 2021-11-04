@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let arr = new Array(100000).fill(Math.ceil(Math.random() * 10));
+
+        // 1. 普通 for 循环(比较常规，性能不弱，能从任意位置开始遍历，但写法麻烦)
+        for(let i = 0; i < arr.length; i++) {};
+
+        // 优化(数组较大时优化效果会比较明显，性能最好)
+        const len = arr.length;
+        for(let i = 0; i < len; i++) {};
+
+        // 2. forEach 循环(用法简洁，性能比 for 循环弱，且不能提前退出循环)
+        // 若要提前退出循环，可抛出异常
+        arr.forEach((v, k) => {});
+
+        // 3. for-in 循环(效率最低，访问的是属性，不是值；且还会遍历原型链上的属性)
+        for(let key in arr) {};
+
+        // 4. for-of 循环(性能较好，但比不上 for 循环。遍历数组非常好用，且能提前退出循环)
+        for(let val of arr) {};
+
+        // 5. map 遍历(用法广泛，但性能较低)
+        arr.map((v, k) => {});
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    div {
+      cursor: pointer;
+    }
+
+    .grandfather {
+      width: 300px;
+      height: 300px;
+      position: relative;
+      background-color: red;
+    }
+
+    .father {
+      width: 200px;
+      height: 200px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background-color: yellow;
+    }
+
+    .son {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background-color: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="grandfather">
+    <div class="father">
+      <div class="son"></div>
+    </div>
+  </div>
+  <script>
+    let grandfather = document.querySelector('.grandfather');
+    let father = document.querySelector('.father');
+    let son = document.querySelector('.son');
+
+    grandfather.addEventListener('click', function () {
+      console.log('grandfather');
+    }, true);
+    grandfather.addEventListener('click', function () {
+      console.log('grandfather Bubble');
+    }, false);
+        
+    father.addEventListener('click', function (e) {
+      // e.stopPropagation();
+      e.stopImmediatePropagation(); // 当使用 stopImmediatePropagation 方法后，当前元素绑定的同类事件也会阻止，即下面的回调函数不会被调用
+      console.log('father');
+    }, true);
+    father.addEventListener('click', function (e) {
+      console.log('father');
+    }, true);
+
+    father.addEventListener('click', function () {
+      console.log('father Bubble');
+    }, false);
+    
+    son.addEventListener('click', function () {
+      console.log('son');
+    }, true);
+    son.addEventListener('click', function () {
+      console.log('son Bubble');
+    }, false);
+
+
+
+
+    /* 打印结果
+    grandfather
+    father
+    son
+    son Bubble
+    father Bubble
+    grandfather Bubble
+    */
+
+  </script>
+</body>
+
+</html>

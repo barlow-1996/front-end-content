@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 链表不同于数组，链表中的元素在内存中不必是连续的空间
+        // 链表的每个元素由一个存储元素自身数据的节点和一个指向下一个元素的指针组成
+        // 链表不必在创建时就确定大小，且大小可以无限延伸
+        // 链表在插入和删除数据时，时间复杂度很低，相对数组效率高很多
+        // 链表中有一个head指针，指向第一个节点。每个节点有两个属性，data用于存放该节点的数据，next是指向下一节点的指针
+        //链表的封装
+        function LinkedList() {
+            // 内部类：节点类
+            function Node(data) {
+                this.data = data;
+                this.next = null;
+            }
+
+            // 链表的属性
+            this.head = null;  // 指针
+            this.length = 0;
+
+            // 链表的方法
+            // 向链表尾部添加新的节点
+            LinkedList.prototype.append = function (data) {
+                // 1. 创建一个新节点
+                var node = new Node(data);
+                if (this.length == 0) {  // 2. 判断该节点是不是第一个节点，若是要将head指针指向该节点
+                    this.head = node;
+                } else {
+                    var current = this.head;
+                    while (current.next) {  // 若不是第一个节点，找到最后一个节点
+                        current = current.next;
+                    }
+                    // 让最后一个节点的next指向新节点
+                    current.next = node;
+                }
+                this.length += 1;
+            }
+
+            // 向链表特定位置插入新节点
+            LinkedList.prototype.insert = function (position, data) {
+                // 1. 对position进行越界判断
+                if (position < 0 || position > this.length) return false;
+                // 2. 根据data创建新节点
+                var node = new Node(data);
+                // 3. 判断插入的位置是否是第一个
+                if (position == 0) {
+                    node.next = this.head;
+                    this.head = node;
+                } else {
+                    var index = 0;
+                    var current = this.head;
+                    var prev = null;
+                    while (index < position) {
+                        prev = current;
+                        current = current.next;
+                        index++;
+                    }
+                    node.next = current;
+                    prev.next = node;
+                }
+                this.length += 1;
+                return true;
+            }
+
+            // 获取对应位置的节点数据
+            LinkedList.prototype.get = function(position) {
+                // 1. 对position进行越界判断
+                if (position < 0 || position >= this.length) return null;
+                // 2. 获取对应的数据
+                var current = this.head;
+                var index = 0;
+                while (index < position) {
+                    current = current.next;
+                    index++;
+                }
+                return current.data;
+            }
+
+            // 返回元素在列表的索引，若没有则返回 -1
+            LinkedList.prototype.indexOf = function (data) {
+                var current = 0;
+                var index = 0;
+                current = this.head;
+                while (index < this.length) {
+                    if (current.data == data) return index;
+                    current = current.next;
+                    index++;
+                }
+                return -1;
+            }
+
+            // 修改某个位置的元素
+            LinkedList.prototype.update = function (position, data) {
+                // 越界判断
+                if (position < 0 || position >= this.length) return false;
+                var current = 0,
+                    index = 0;
+                current = this.head;
+                while (index < position) {
+                    current = current.next;
+                    index++;
+                }
+                current.data = data;
+                return true;
+            }
+
+            // 从链表特定位置移除节点
+            LinkedList.prototype.removeAt = function (position) {
+                var index = 0,
+                    current = this.head,
+                    prev = null;
+                // 1. 越界判断
+                if (position < 0 || position >= this.length) return null;
+                // 2. 判断删除的是否是第一个节点
+                if (position == 0) {
+                    this.head = this.head.next;
+                }else {
+                    while (index < position) {
+                        prev = current;
+                        current = current.next;
+                        index++;
+                    }
+                    prev.next = current.next;
+                }
+                this.length -= 1;
+                return current.data;
+            }
+
+            // 从链表中移除所对应的节点
+            LinkedList.prototype.remove = function (data) {
+                // 1. 获取data在链表中的位置
+                var index = this.indexOf(data);
+                // 2. 根据位置信息去删除节点
+                return this.removeAt(index);
+            }
+
+            // 判断链表是否为空
+            LinkedList.prototype.isEmpty = function () {
+                return this.length == 0;
+            }
+
+            // 查询链表中包含元素的个数
+            LinkedList.prototype.size = function () {
+                return this.length;
+            }
+
+            // 链表的 toString 方法
+            LinkedList.prototype.toString = function () {
+                // 1. 定义变量
+                var current = this.head;
+                var linkedString = '';
+                // 2. 循环获取每个节点
+                while (current) {
+                    linkedString += current.data + ' ';
+                    current = current.next;
+                }
+                return linkedString;
+            }
+        }
+
+        // 链表的使用
+        var linkedList = new LinkedList();
+        linkedList.append(20);
+        linkedList.append(30);
+        linkedList.append(40);
+        console.log(linkedList);
+        console.log(linkedList.toString());
+        linkedList.insert(1,50);
+        console.log(linkedList.toString());
+        console.log(linkedList.get(2));
+        console.log(linkedList.indexOf(50));
+        linkedList.update(3, 60);
+        console.log(linkedList.toString());
+        console.log(linkedList.removeAt(1));
+        console.log(linkedList.toString());
+        console.log(linkedList.length);
+        console.log(linkedList.remove(60));
+        console.log(linkedList.toString());
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            position: relative;
+            left: 0px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="按钮" id="btn"><br></br>
+    <div></div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.bootcss.com/jquery-color/2.1.2/jquery.color.js"></script>
+
+<script>
+    $(function() {
+        $('#btn').on('click',function() {
+            //让div做动画
+            $('div').animate({
+                left: 500,
+                height: 100,
+                width: 100,
+                backgroundColor: 'green'  //animate动画不会改变背景色
+                // 如果非要改就要使用插件
+                // 什么是插件？用来做扩展功能的
+
+
+                // jQuery插件库：www.jq2.com
+
+            },2000)
+        })
+    })
+</script>

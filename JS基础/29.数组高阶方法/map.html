@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    const nums = [10, 20, 111, 222, 444, 40, 50]
+    // map里面要定义一个回调函数
+    // map回调函数返回的是想对数组的每一项做出的变化
+    // map 中的回调函数提供 3 个参数，第一个是每次遍历的值，第二个是每次遍历的索引，第三个遍历的这个数组
+
+    // 这里会将新的数组赋值给newNums
+    let newNums = nums.map(function (n) { // 该回调函数会在每一次遍历出一个数的时候就执行一次
+      return n * 2   // 将旧数组中的每一项都乘2，然后放到新数组中
+    })
+    console.log(newNums)
+
+    // 手写 map：
+    Array.prototype._map = function (fn, context) {
+      // 因为返回一个新数组 所以要定义一个新的
+      let arr = [];
+      if (typeof fn !== 'function') {
+        // 如果第一个参数不是函数则报错
+        console.error('参数错误');
+      } else {
+        let len = this.length; // 注意这里的this指向数组
+        for (let k = 0; k < len; k++) {
+          arr.push(fn.call(context, this[k], k, this));
+        }
+      }
+      return arr;
+    }
+
+    let newArr = nums._map(v => v / 10);
+    console.log(newArr); // [1, 2, 11.1, 22.2, 44.4, 4, 5]
+
+    // 面试题
+    ['1', '2', '3'].map(parseInt) // [1, NaN, NaN]    parseInt(string, radix) => parseInt('1', 0) parseInt('2', 1) parseInt('3', 2)
+  </script>
+</body>
+
+</html>

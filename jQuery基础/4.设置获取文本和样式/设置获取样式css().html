@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #div1 {
+            height: 200px;
+            background-color: pink;
+            border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="获取样式" id="getBtn">
+    <input type="button" value="设置样式" id="setBtn">
+    <div id="div1" style="width: 200px;"></div>
+    <div id="div2" style="width: 300px;"></div>
+    <div id="div3" style="width: 400px;"></div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    // css()方法： 设置获取样式
+    $(function() {
+        // 获取样式
+        $('#getBtn').click(function() {
+            console.log($('#div1').css('width'))
+            console.log($('div').css('width')) // 获取包含了多个 dom 元素的样式，只能获取到第一个元素对应的样式值
+        })
+
+        // 设置样式
+        $('#setBtn').click(function() {
+            // 设置单样式
+            $('#div1').css('width','500px')
+            $('#div1').css('height',500)
+            // 设置多样式
+            $('#div2').css({
+                'height':500,
+                backgroundColor:'green',
+                'border': '5px solid blue'
+            })
+        })
+    })
+</script>

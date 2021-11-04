@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 非递归写法
+    function deepFirstSearch1(node) {
+      var nodes = [];
+      if (node != null) {
+        var stack = [node];
+        // stack.push(node);
+        while (stack.length) {
+          let currentCount = stack.length;
+          for (var i = currentCount - 1; i >= 0; i--) {
+            let item = stack.pop();
+            nodes.push(item.val);
+            item.right && stack.push(item.right);
+            item.left && stack.push(item.left);
+          }
+        }
+      }
+      return nodes;
+    }
+
+    // 递归写法
+    function deepFirstSearch2(node) {
+      let nodes = [];
+      if(node) {
+          nodes.push(node.val);
+          let lChild = [];
+          let rChild = [];
+          if(node.left) {
+              lChild = deepFirstSearch2(node.left);
+          }
+          if(node.right) {
+              rChild = deepFirstSearch2(node.right);
+          }
+
+          nodes = nodes.concat(lChild, rChild);
+      }
+      return nodes;
+    }
+  </script>
+</body>
+
+</html>

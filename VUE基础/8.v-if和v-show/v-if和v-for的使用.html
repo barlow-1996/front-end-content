@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 注意：v-for 和 v-if 不能同时使用，v-for 的优先级比 v-if 更高，vue 会先循环 v-for 的列表再去看 v-if, 会导致列表每一项都会添加一个 v-if, 造成性能浪费 -->
+        <!-- <div v-for="(item, index) in colors" v-if="flag">
+                {{item}}
+            </div> -->
+
+        <!-- 可以通过 v-if 对 v-for 嵌套来实现想要的效果 -->
+        <div v-if="flag">
+            <div v-for="(item, index) in colors">
+                {{item}}
+            </div>
+        </div>
+
+        <!-- 也可使用 computed 计算属性，让遍历替换为已过滤的计算属性 -->
+        <div v-for="(item, index) in complatedTasks">
+            {{item.content}}
+        </div>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                colors: ['red', 'blue', 'green'],
+                tasks: [
+                    {content: '吃饭', isDone: true},
+                    {content: '睡觉', isDone: true},
+                    {content: '打豆豆', isDone: false}
+                ],
+                flag: true
+            },
+            methods: {},
+            computed: {
+                complatedTasks() {
+                    return this.tasks.filter(v => v.isDone);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

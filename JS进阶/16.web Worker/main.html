@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="box"></div>
+  <script>
+
+    var box = document.getElementById('box');
+
+    if (window.Worker) {
+      var worker = new Worker("./worker.js");
+      worker.postMessage(10);
+
+      worker.onmessage = e => {
+        box.innerText = e.data;
+        if (e.data == 10) {
+          worker.terminate(); // 终止 worker
+        }
+      }
+    } else {
+      alert("您的浏览器不支持 Web Worker！");
+    }
+  </script>
+</body>
+</html>

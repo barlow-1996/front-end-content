@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .comment li {
+            float: left;
+            cursor: pointer;
+            margin-left: 10px;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <ul class="comment">
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+        <li>☆</li>
+    </ul>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        $('.comment>li').on('mouseenter',function() {
+            // 当前鼠标移入的li和他之前的兄弟li都显示实心五角星
+            $(this).text('★').prevAll().text('★') // prev方法是找到上一个兄弟，prevAll方法是找到之前所有的兄弟
+            $(this).nextAll().text('☆')  // next方法是找到下一个兄弟，nextAll方法是找到后面所有的兄弟
+        }).on('mouseleave',function() {
+            // 鼠标移出后所有的li标签都变成空心五角星
+            $('.comment>li').text('☆')
+            // 获取点击事件的独一无二的li属性
+            $('.comment>li[clickCurrent]').text('★').prevAll().text('★')
+        }).on('click',function() {
+            // 给当前鼠标点击的这个li添加一个独一无二的属性
+            $(this).attr('clickCurrent','current').siblings().removeAttr('clickCurrent')
+        })
+    })
+</script>

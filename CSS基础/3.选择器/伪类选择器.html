@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    a:link {
+      color: pink;
+    }
+
+    a:visited {
+      color: deeppink;
+    }
+    /* 以上两个伪类选择器只能用在超链接中 */
+
+    a {
+      text-decoration: none;
+    }
+
+    div {
+      width: 200px;
+      height: 200px;
+      background-color: pink;
+      text-align: center;
+      line-height: 200px;
+    }
+
+    div:hover {
+      background-color: deeppink;
+    }
+
+    div:active {
+      background-color: lightblue;
+    }
+
+    :target {
+      display: block;
+    }
+
+    /* 无效 因为第一个元素不是span */
+    /* #div3 span:nth-child(1){
+      color: red;
+    } */
+    #div3 p:nth-child(1){
+      color: red;
+    }
+
+    #div3 span:nth-of-type(1){
+      color: greenyellow;
+    }
+
+    #div3 h6:first-of-type{
+      color: goldenrod;
+    }
+
+    #list li:nth-child(odd) {
+      background-color: red;
+    }
+    #list li:nth-child(even) {
+      background-color: green;
+    }
+  </style>
+</head>
+<body>
+  <a href="http://www.baidu.com">点击一下</a>
+
+  <a href="#div1">a1</a>
+  <a href="#div2">a2</a>
+  <a href="#div3">a3</a>
+  <div id="div1">
+    div1
+  </div>
+  <div id="div2">
+    div2
+  </div>
+  <div id="div3">
+    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Mollitia, similique!</p>
+    <span>Lorem, ipsum.</span>
+    <h6>Lorem ipsum dolor sit amet.</h6>
+    <ul id="list">
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+      <li>4</li>
+      <li>5</li>
+      <li>6</li>
+    </ul>
+  </div>
+</body>
+</html>

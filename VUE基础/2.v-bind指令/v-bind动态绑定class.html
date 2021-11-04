@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    .active1 {
+      color: red;
+      background-color: green;
+    }
+    .line2 {
+      color: green;
+      background-color: red;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 一般动态绑定class用到的情形：有一个列表，让被选中的那个字体变色 -->
+    <h2 :class="active">{{message}}</h2>
+    
+    <!-- 对象语法 -->
+    <!-- :class="{类名1: Boolean, 类名2: Boolean}" -->
+    <h2 :class="{active1: isActive, line2: isLine}">{{message}}</h2>
+    <!-- 或者 -->
+    <h2 :class="getClass()">{{message}}</h2>
+    <button @click="btnClick">按钮</button>
+
+    <!-- 数组语法(用的少) -->
+    <h2 :class="[active]">{{message}}</h2>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        message: '你好啊',
+        active: 'active1',
+        isActive: false,
+        isLine: true
+      },
+      methods: {
+        btnClick() {
+          this.isActive = !this.isActive;
+          this.isLine = !this.isLine;
+        },
+        getClass() {
+          return {active: this.isActive, line: this.isLine};
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

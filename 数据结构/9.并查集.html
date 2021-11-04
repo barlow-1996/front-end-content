@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 并查集（树）是一种将一个集合以树形结构进行组合的数据结构
+    // 每一个节点保存着到它的父节点的引用
+
+
+    // 如果已知 A 是 B 的朋友，B 是 C 的朋友，那么我们可以认为 A 也是 C 的朋友。所谓的朋友圈，是指所有朋友的集合。
+    // 给定一个 N * N 的矩阵 M，表示班级中学生之间的朋友关系。如果Mi = 1，
+    // 表示已知第 i 个和 j 个学生互为朋友关系，否则为不知道。你必须输出所有学生中的已知的朋友圈总数。
+    class BingChaSet {
+      constructor(n) {
+        // 初始化每个元素的父集就是它自身
+        this.parent = new Array(n).fill(0).map((v, k) => k);
+
+        // 定义权数组用来按秩合并
+        this.rank = new Array(n).fill(1);
+      }
+
+      // 确定元素属于哪一个子集
+      find(x) {
+        // 不断向上查找找到它的根节点
+        while (this.parent[x] !== x) {
+          // 以下是路径压缩(当数据量较大时, 路径压缩会提高效率)
+          // this.parent[x] = this.parent[this.parent[x]]; 
+          x = this.parent[x];
+        }
+        return x;
+      }
+
+      // 将两个子集合并成同一个集合
+      union(x, y){
+        let xFather = this.find(x);
+        let yFather = this.find(y);
+        // 以下是常规做法
+        if(xFather !== yFather){
+          this.parent[yFather] = xFather;
+        }
+
+        // 以下是按秩合并
+        // if(this.rank[xFather] <= this.rank[yFather]){
+        //   this.parent[xFather] = yFather;
+        // }else{
+        //   this.parent[yFather] = xFather;
+        // }
+        // if(this.rank[xFather] == this.rank[yFather] && xFather != yFather){
+        //   this.rank[yFather]++; // 如果深度相同且根节点不同，则新的根节点的深度+1
+        // }
+      }
+    }
+
+    // 测试代码
+    var findCircleNum = function(M) {
+      let length = M.length;
+      let set = new BingChaSet(length);
+
+      for(let i = 0; i < length; i++){
+        for(let j = i + 1; j < length; j++){
+          if(M[i][j] === 1){
+            set.union(i, j);
+          }
+        }
+      }
+
+      let count = 0;
+      set.parent.forEach((v, t) => {
+        v === t && count++;
+      })
+
+      return count;
+    }
+
+    console.log(findCircleNum([[1,1,0],[1,1,1],[0,1,1]])) // 1
+  </script>
+</body>
+
+</html>

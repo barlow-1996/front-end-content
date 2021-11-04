@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .move {
+            width: 200px;
+            height: 200px;
+            border: 2px solid red;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="move">move</div>
+    </div>
+    <script>
+        // 1. 实现元素拖拽
+        let flag = false;
+        let position = null;
+        const clientWidth = document.documentElement.clientWidth;
+        const clientHeight = document.documentElement.clientHeight;
+        const move = document.getElementsByClassName('move')[0];
+        move.addEventListener('mousedown', function(e) {
+            flag = true;
+            position = [e.clientX, e.clientY]; // 获取鼠标按下的坐标
+        })
+        move.addEventListener('mousemove', function(e) {
+            if (!flag) return;
+            // 获取鼠标移动的坐标
+            const x = e.clientX;
+            const y = e.clientY;
+            // 获取鼠标移动的距离
+            const offsetX = x - position[0];
+            const offsetY = y - position[1];
+            // 获取元素移动前的坐标
+            const left = parseInt(move.style.left || 0);
+            const top = parseInt(move.style.top || 0);
+            // 获取移动的偏移距离
+            const offsetLeft = left + offsetX;
+            const offsetTop = top + offsetY;
+            // 考虑边界
+            move.style.left = offsetLeft < 0 ? 0 : (offsetLeft < clientWidth - move.clientWidth ? offsetLeft : clientWidth - move.clientWidth) + 'px';
+            move.style.top = offsetTop < 0 ? 0 : (offsetTop < clientHeight - move.clientHeight ? offsetTop : clientHeight - move.clientHeight) + 'px';
+            position = [x, y];
+        })
+        move.addEventListener('mouseup', function(e) {
+            flag = false;
+        })
+
+        
+        // 2. 获取某一 dom 节点的所有祖先节点
+        function findParents(dom) {
+            const res = [];
+            var parent = dom.parentNode;
+            // console.log(parent.tagName);
+            while(parent) {
+                res.push(parent);
+                parent = parent.parentNode;
+            }
+            return res;
+        }
+        console.log(findParents(move));
+    </script>
+</body>
+</html>

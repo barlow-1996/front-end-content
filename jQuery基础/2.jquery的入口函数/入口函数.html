@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    // jquery 入口函数有两种写法
+    // 1：
+    $(document).ready(function() {
+        alert('helloWorld!')
+    })
+    // 2:
+    $(function() {
+        alert('helloWorld,too!')
+    })      // 简便而且最常用
+
+    // 和 js 中的 window.onload 入口函数的区别：
+    // 1. onload不能写多个，但 jQuery 入口函数能写多个
+    // 2. 执行时机不同：jQuery 入口函数要快于 onload。jQuery入口函数要等待页面上dom树加载完成后执行；window.onload 要等到页面上所有资源（外部css/js链接，图片）加载完成后才执行。
+</script>

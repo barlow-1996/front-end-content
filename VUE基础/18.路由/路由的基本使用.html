@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+    <style>
+        .router-link-active {
+            color: red;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 80px;
+            text-decoration: underline;
+        }
+
+        /* 为选中路由设置高亮 */
+
+
+        /* 为切换路由加动画 */
+        .v-enter,
+        .v-leave-to {
+            opacity: 0;
+            transform: translateX(140px);
+
+        }
+
+        .v-enter-active,
+        .v-leave-active {
+            transition: all 0.5s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 方式一: -->
+        <!-- 这里的 URL前面必须加 # ,这是 hash 的标识符 -->
+        <!-- <a href="#/login">登录</a>
+        <a href="#/register">注册</a> -->
+
+
+
+
+
+        <!-- 这是 vue-router 提供的元素,专门又来当作占位符,将来路由规则匹配的组件就会展示在这里面 -->
+        <transition mode="out-in">
+            <router-view></router-view>
+        </transition>
+
+
+
+
+
+
+        <!-- 方式二: -->
+        <router-link to="/login">登录</router-link>
+        <router-link to="/register">注册</router-link>
+        <!-- router-link 默认渲染一个 a 标签 -->
+
+
+
+    </div>
+    <script>
+        // 组建的模板对象
+        var login = {
+            template: '<h1>登陆组件</h1>'
+        }
+        var register = {
+            template: '<h1>注册组件</h1>'
+        }
+
+
+        // 创建一个路由对象，当导入 vue-router 包之后，在 window 全局对象中，就有了一个路由的构造函数，叫做 VueRouter
+        // 在 new 路由对象时，可以为构造函数传递一个配置对象
+        var routerObj = new VueRouter({
+            // route // 这个配置对象中的 route 表示路由匹配规则
+            routes: [ //路由匹配规则
+                // 每个路由规则对有一个对象，这个规则对象身上有两个必须的属性
+                // 属性1 是 path ， 表示监听 哪个路由链接地址
+                // 属性2 是 component , 表示如果路由是前面匹配到的地址，则展示 component 属性对应的组件
+                {
+                    path: '/login',
+                    component: login
+                },
+                {
+                    path: '/register',
+                    component: register,
+                    // 设置组件的独享守卫，参数与 beforeEach 一样
+                    beforeEnter: (to, from, next) => {
+                        alert('welcome to register!');
+                        next();
+                    }
+                },
+                // 注意: component 的属性值必须是一个组建的模板对象
+
+
+
+                { path: '/', redirect: '/login' } // 这里的 redirect 和 Node 中 redirect 两码事
+                // 这样可以默认初始展示的页面
+            ]
+        })
+
+        // 路由守卫
+        routerObj.beforeEach((to, from, next) => {
+            console.log(to.matched);
+            alert('goodbye');
+            next(); // 进行管道中的下一个钩子
+            // next(false); // 传入 false 则中断当前导航， URL地址会重置到from 路由对应的地址
+        })
+
+        routerObj.afterEach((to, from) => {
+            alert('hello');
+        })
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+            },
+            router: routerObj // 将路由规则对象注册到 vm 实例上,用来监听 URL地址变化,然后展示组件
+        })
+    </script>
+</body>
+
+</html>

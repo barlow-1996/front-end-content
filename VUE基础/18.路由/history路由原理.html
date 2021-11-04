@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <a href="/1" class="spa">1</a>
+  <a href="/2" class="spa">2</a>
+  <a href="/3" class="spa">3</a>
+  <script>
+    document.querySelectorAll('.spa').forEach(item => {
+      item.addEventListener('click', event => {
+        event.preventDefault();
+        let link = item.textContent;
+        if (window.history && history.pushState) {
+          // 支持 History API
+          window.history.pushState({name: 'history'}, link, link);
+        } else {
+          alert("您的浏览器不支持 History");
+        }
+      })
+    })
+
+    window.addEventListener('popstate', event => {
+      console.log(location.href);
+      console.log(event.state);
+    })
+  </script>
+</body>
+</html>

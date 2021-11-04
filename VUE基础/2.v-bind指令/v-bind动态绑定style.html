@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h2 :style="{fontSize:'50px'}">{{messageh2}}</h2>
+        <h3 :style="{fontSize: finalNum + 'px' }">{{messageh3}}</h3>
+        <h6 :style="{fontSize:finalSize}">{{messageh6}}</h6>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                messageh2: '你好h2',
+                messageh3: '你好h3',
+                messageh6: '你好h6',
+                finalSize: '100px',
+                finalNum: 30
+            },
+            methods: {}
+        });
+    </script>
+</body>
+
+</html>

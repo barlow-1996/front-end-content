@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 100px;
+            height: 100px;
+            margin-top: 10px;
+        }
+        .bgc {
+            background-color: blue;
+        }
+        .fontSize {
+            font-size: 30px;
+        }
+        .width200 {
+            width: 200px;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="添加类" id="addClass">
+    <input type="button" value="移除类" id="removeClass">
+    <input type="button" value="判断类" id="hasClass">
+    <input type="button" value="切换类" id="toggleClass">
+    <div id="div1" class="bgc">div1</div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 1.添加类 addClass()方法
+        $('#addClass').click(function() {
+            // 给id为div1的元素添加类
+            // $('#div1').addClass('fontSize') // 添加单个类
+            $('#div1').addClass('fontSize width200')  // 添加多个类
+        })
+        // 2.移除类 removeClass()方法
+        $('#removeClass').click(function() {
+            // 给id为div1的元素移除类
+            $('#div1').removeClass('fontSize')  //移除多个类与添加类的写法一样
+            // $('#div1').removeClass() // 括号里什么都不写会移除该元素的所有类
+        })
+        // 3.判断类 hasClass()方法
+        $('#hasClass').click(function() {
+            console.log($('#div1').hasClass('fontSize')) // 判断一个元素有没有某个类，如果有返回true，没有返回false
+        })
+        // 4.切换类 toggleClass()方法
+        $('#toggleClass').click(function() {
+            // 如果元素有某个类，就移除这了类；如果没有，就添加这个类。
+            $('#div1').toggleClass('fontSize')
+        })
+    })
+</script>

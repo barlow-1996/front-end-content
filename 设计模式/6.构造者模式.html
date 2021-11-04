@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <form action="create" id="create">
+    <div>
+      姓名
+      <input type="text" name="name" autofocus>
+    </div>
+    <div>
+      性别
+      <input type="radio" value="男" name="gender" checked>男
+      <input type="radio" value="女" name="gender">女
+    </div>
+    <div>
+      头发长度
+      <input type="number" name="hairLength">
+    </div>
+    <button type="submit">创建学生</button>
+  </form>
+
+
+  <script>
+    let studentCount = 0;
+    let createForm = document.getElementById('create');
+
+    init()
+    function init() {
+      createForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        var name = document.querySelector('[name="name"]').value;
+        var gender = document.querySelector('[name="gender"]:checked').value;
+        var hairLength = document.querySelector('[name="hairLength"]').value;
+        // console.log(name, gender, hairLength);
+
+        try {
+          const builder = new StudentBuilder();
+          builder.setName(name);
+          builder.setGender(gender);
+          builder.setHariLength(hairLength);
+          const student = builder.build();
+          console.log(student);
+        } catch(e) {
+          alert(e);
+        }
+        
+      })
+
+    }
+
+    class Student { }
+
+    class StudentBuilder {
+      constructor() {
+        this.student = new Student();
+      }
+      setName(name) {
+        this.student.name = name;
+      }
+      setGender(gender) {
+        if (gender != '男' && gender != '女') {
+          throw 'wtf?';
+        }
+        this.student.gender = gender;
+      }
+      setHariLength(hairLength) {
+        if (
+          (this.student.gender == '男' && hairLength > 1) ||
+          (this.student.gender == '女' && hairLength > 25)
+        ) throw '回去剪头';
+        this.student.hairLength = hairLength;
+      }
+      build() {
+        studentCount++;
+        console.log(studentCount);
+        return this.student;
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 实现浅拷贝方法1：遍历
+    function copy(obj){
+      let result = Array.isArray(obj) ? [] : {};
+      for(let key in obj){
+        result[key] = obj[key];
+      }
+      return result;
+    }
+    var obj = {
+      name: 'byl',
+      colors: ['red', 'green', 'blue']
+    }
+
+    var copyObj = copy(obj);
+    console.log(copyObj); // {colors: (3) ["red", "green", "blue"], name: "byl"}
+
+    obj.colors.push('black');
+    console.log(copyObj.colors); // ["red", "green", "blue", "black"]
+
+    obj.name = 'hmy';
+    console.log(copyObj.name); // 'byl'
+
+    // 实现浅拷贝方法2：Object.assign({}, obj)
+    var obj2 = {
+      name: 'byl',
+      colors: ['red', 'green', 'blue']
+    }
+    var copyObj2 = Object.assign({}, obj2);
+    console.log(copyObj2);
+
+    obj2.colors.push('black');
+    console.log(copyObj2.colors); // ["red", "green", "blue", "black"]
+
+    obj2.name = 'hmy';
+    console.log(copyObj2.name); // 'byl'
+
+    // 实现浅拷贝方法3：扩展运算符
+    var obj3 = {
+      name: 'byl',
+      colors: ['red', 'green', 'blue']
+    }
+    var copyObj3 = {...obj3};
+    console.log(copyObj3);
+  </script>
+</body>
+</html>

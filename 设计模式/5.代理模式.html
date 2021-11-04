@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 保护代理实现了访问主体的限制行为，以过滤字符作为简单的例子:
+    // 主体：发送消息
+    function sendMsg(msg) {
+      console.log(msg);
+    }
+
+    // 代理：对消息进行过滤
+    function proxySendMsg(msg) {
+      // 无消息则直接返回
+      if (typeof msg === 'undefined') {
+        console.log('消息无效');
+        return;
+      }
+
+      // 有消息则进行过滤
+      msg = ('' + msg).replace(/\d/g, '');
+
+      sendMsg(msg);
+    }
+
+
+    sendMsg('abcd1234'); // abcd1234
+    proxySendMsg('abcd1234'); // abcd
+    proxySendMsg(); // 消息无效
+  </script>
+</body>
+
+</html>

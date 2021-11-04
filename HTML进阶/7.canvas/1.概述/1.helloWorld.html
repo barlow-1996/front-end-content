@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="500" height="400" id="myCanvas">
+        <!-- 标签内部可以设置替换语句，用于在浏览器版本不支持 canvas 时显示 -->
+        当前浏览器版本不支持 canvas，请升级浏览器
+    </canvas>
+
+    <script>
+        // 得到画布
+        const canvas = document.getElementById('myCanvas');
+        console.log(canvas);
+
+        // 得到画布的上下文(上下文有两个，2d 和 3d)，所有的图像绘制都是上下文的属性或方法，和 canvas 标签无关
+        const ctx = canvas.getContext('2d');
+        console.log(ctx);
+
+        // 填充矩形
+        ctx.fillStyle = 'red';
+        ctx.fillRect(100, 100, 200, 50);
+        
+    </script>
+</body>
+</html>

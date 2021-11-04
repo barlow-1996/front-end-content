@@ -1,0 +1,18 @@
+.header::before{
+    content: "♥";
+    background: red;
+    color:green;
+}
+.header::after{
+    content: "hello!!";
+    display: block;
+    background: red;
+}
+
+.body::first-line{
+    color: gold;
+}
+
+.footer::first-letter{
+    color: aqua;
+}

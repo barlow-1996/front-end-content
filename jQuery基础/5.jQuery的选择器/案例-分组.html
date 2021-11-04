@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul class="parentWrap">
+        <li class="menuGroup">
+            <span class="groupTitle">分组1</span>
+            <div style="display:none">我是弹出来的div1内容</div>
+        </li>
+        <li class="menuGroup">
+            <span class="groupTitle">分组2</span>
+            <div style="display:none">我是弹出来的div2内容</div>
+        </li>
+        <li class="menuGroup">
+            <span class="groupTitle">分组3</span>
+            <div style="display:none">我是弹出来的div3内容</div>
+        </li>
+        <li class="menuGroup">
+            <span class="groupTitle">分组4</span>
+            <div style="display:none">我是弹出来的div4内容</div>
+        </li>
+    </ul>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 点击标题li标签，对应的div显示，他的兄弟标签li下面的div隐藏
+        $('.menuGroup').click(function() {
+            $(this).children('div').show().parent().siblings('li').children('div').hide();
+            // siblings表示除了该元素的所有其他兄弟元素
+            // show()方法会返回一个 jquery对象，所以可以在 show() 后面继续调用其他方法。这就是 jquery的特性：链式编程
+        })
+    })
+</script>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 静态作用域: 指的是一段代码在它执行之前就已经确定了它的作用域，简单来说就是在执行之前就确定了它可以应用哪些地方的作用域(变量)
+    var a = 10;
+
+    function fn() {
+      var b = 1;
+      console.log(a + b);
+    }
+    fn(); // 11
+    // 在创建 fn 函数时时就已经确定了它可以作用哪些变量，如果函数fn里面有变量a就直接操作变量a，如果没有就往上一级查找，这就是静态作用域
+
+    // 动态作用域: 指的是函数的作用域是在函数调用时才决定的
+    function foo() {
+      console.log(a);
+    }
+    function bar() {
+      var a = 3;
+      foo();
+    }
+    var a = 2;
+    bar(); // 2;
+    // bar 调用时里面的 foo 被调用，foo 函数要查找变量 a，由于 foo 被解析时在全局作用域，所以只能在全局作用域中找 a,输出结果为 2，而非 bar 作用域中的 a
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  /* 当sticky元素在视口区域内，它的行为就像 position:relative;
+  在滑动过程中，父元素开始脱离视口,若距离视口顶部的距离达到sticky粘性定位的距离时，position:sticky这时的效果相当于fixed定位，固定到适当位置 */
+
+  /* position: sticky 使用条件： */
+  /* 1.父元素不能overflow:hidden或者overflow:auto属性
+     2.必须指定top、bottom、left、right4个值之一，否则只会处于相对定位 
+     3.父元素的高度不能低于sticky元素的高度 
+     4、sticky元素仅在其父元素内生效 */
+     
+     /* 粘性定位不会脱离文档流 */
+  .father {
+    margin-top: 500px;
+    height: 4000px;
+    width: 500px;
+    background-color: lightblue;
+    position: relative;
+
+  }
+
+  .sticky {
+    width: 200px;
+    height: 200px;
+    background-color: gold;
+    position: sticky;
+    top:100px;
+    /* left: 0; */
+  }
+
+  .test {
+    width: 200px;
+    height: 1000px;
+    background-color: lightgreen;
+  }
+</style>
+<body>
+  <div class="father">
+    <div class="sticky"></div>
+  </div>
+  <div class="test"></div>
+</body>
+</html>

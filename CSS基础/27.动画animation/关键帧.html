@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #wrap {
+      width: 300px;
+      height: 300px;
+      border: 1px solid;
+      margin: 200px auto;
+      position: relative;
+    }
+    #test {
+      height: 100px;
+      width: 100px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      background: pink;
+      text-align: center;
+      border-radius: 50%;
+      font: 20px/100px "微软雅黑";
+      animation-name: move;
+      animation-duration: 1s;
+      animation-timing-function: linear;
+      animation-iteration-count: 3;
+      animation-fill-mode: both;
+      animation-direction: normal;
+    }
+    /* 关键帧 */
+    @keyframes move {
+      0%{
+        transform: translateY(-100px);
+      }
+      50% {
+        transform: translateY(-50px);
+      }
+      100%{
+        transform: translateY(100px);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div id="test">
+      你好啊
+    </div>
+  </div>
+</body>
+</html>

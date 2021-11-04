@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .container {
+      display: flex;
+      width: 500px;
+      height: 500px;
+      background-color: lightblue;
+      /* 项目设置了 margin:auto 后再设置父元素的 justify-content 或者 align-items 则不生效，因为 margin的优先级更高一些 */
+      /* justify-content: center;
+      align-items: flex-end; */
+    }
+    .item {
+      width: 50px;
+      height: 50px;
+      background-color: gold;
+      /* 在 flex 项目中设置 margin: auto; 后会在主轴方向上实现 space-around 效果(justify-content: space-around;)，即富裕空间分配到每个项目之间 */
+      /* 在 flex 项目中设置 margin: auto; 后会在侧轴方向上实现居中效果(align-items: center;)，即富裕空间分配到项目两边 */
+      margin: auto;
+      /* 同样，设置了 margin:auto 后再设置子元素的 align-self 也不生效，因为 margin的优先级更高一些 */
+      align-self: flex-start;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+    <div class="item"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    addEventListener('load', () => {
+      console.log('load is done!');
+    })
+
+    addEventListener('DOMContentLoaded', () => {
+      console.log('DOMContentLoaded is done!');
+    })
+
+    // 打印顺序:
+    // DOMContentLoaded is done!
+    // load is done!
+
+    // 当 DOMContentLoaded 事件触发时，仅当DOM加载完成，不包括样式表，图片，flash。
+    // 而 load 事件触发时，浏览器已经完成页面加载(css,js,img,flash都加载完成)。
+  </script>
+</body>
+</html>

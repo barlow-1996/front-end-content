@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // new 关键字能够使一个普通的函数变成一个构造函数
+
+    /*
+    new 关键字做了四件事情：
+    1. 创建了一个新的对象，将 this 指向该对象
+    2. 为该对象指定 __proto__ 属性
+    3. 调用构造函数，给该对象添加属性和方法
+    4. 返回这个对象
+    */
+   function myNew() {
+     let _constructor = [].shift.call(arguments); // 获取构造函数
+     let obj = Object.create(_constructor.prototype); // 创建一个新的对象，为该对象指定 __proto__ 属性
+     var ret = _constructor.call(obj, ...arguments); // 调用构造函数，给该对象添加属性和方法
+     // 优先返回构造函数返回的对象
+     return typeof ret === 'object' ? ret : obj;
+   }
+
+  </script>
+</body>
+</html>

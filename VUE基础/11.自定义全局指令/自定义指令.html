@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <label >
+            Id:
+            <input type="text">
+        </label>
+        <label >
+            name:
+            <!-- 注意：Vue中所有指令在调用时都以 v- 开头 -->
+            <input type="text" v-focus>
+        </label>
+    </div>
+    <script>
+        // 使用 vue.directive（）定义全局指令
+        // 其中，参数1：指令的名称，在定义时指令的名称前不需要加 v- 前缀，
+        // 但在调用时必须在指令名称前加上 v- 前缀进行调用
+        // 参数2：是一个对象，身上有一些指令相关的函数，这些函数可以在特定的阶段执行相关的操作
+
+        // v-focus 指令可让元素在页面渲染完成后自动选中输入框
+        Vue.directive('focus',{
+            bind: function(el){
+                // 每当指令绑定到元素上时，会立即执行这个bind函数，只执行一次
+                // 注意：在每个函数中，第一个参数永远是el，表示被绑定了指令的那个元素，这个el参数是一个原生的JS对象
+                // 在元素刚绑定了指令时，还没有插入到DOM中去，这时调用focus方法没用
+                // el.focus()
+            },
+            inserted: function(el){
+                // 表示元素插入到dom中时，会执行inserted函数[触发一次]
+                el.focus();
+            },
+            updated: function(){
+                // 当组件更新时，会执行updated函数，可能会触发多次
+            }
+        })
+
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+
+            }
+        })
+    </script>
+</body>
+</html>

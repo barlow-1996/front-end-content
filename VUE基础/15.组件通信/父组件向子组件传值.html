@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 父组件可以在引用子组件时通过属性绑定的形式，把需要传递给子组件的数据以属性绑定的形式
+        传递到子组件内部，供子组件访问 -->
+        <!-- 注意：在v-bind中目前不支持驼峰形式，所以要转化成以下形式 -->
+        <com1 :c-msg="msg" :c-movies="movies"></com1>  
+    </div>
+
+    <template id="com1">
+        <div>
+            <h1 @click="change"> 这是子组件 ----{{cMsg}} </h1>
+            <ul>
+                <li v-for="(item, index) in cMovies" :key="index">{{item}}</li>
+            </ul>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '123 啊~ 父组件中的数据',
+                movies: ["海王", "海贼王", "海尔兄弟"]
+            },
+            methods: {
+               
+            },
+            components: {
+                com1:{
+                    template: '#com1',
+                    data () {   //这里面的数据是子组件自身私有的
+                        return {
+                            title: '123',
+                            content: 'qqq'
+                        }
+                    },
+                    // 注意： 组件中所有的props中的数据都是通过父组件传递给子组件的
+
+                    // 1. props数组形式定义
+                    // props: ['cMsg'] ,//把父组件传递过来的 cMsg属性先在props数组中定义一下，这样才能使用
+
+                    // 2. props对象形式定义
+                    props: {  // 相比上面那种数组形式，这种对象形式是最常用的
+                        // 2.1 类型限制，这样的话传过来的cMsg就必须是字符串类型
+                        // cMsg: String
+                        // 2.2.限制类型，设置默认值以及必传值，如果还没收到这个数据的话，可以设置个默认值
+                        cMsg: {
+                            type: String,
+                            default: 'aaaa',
+                            required: true // 设置该属性是让父组件必须要传这个值，如果收不到父组件传的这个值就会报错
+                        },
+                        // 注意：类型是对象或数组时，默认值必须是一个函数
+                        cMovies: {
+                            type: Array,
+                            // default: []   所以这样写会报错
+                            default() {
+                                return []
+                            }
+                        }
+                    },
+                    methods: {
+                        change(){
+                            // this.cMsg = '被修改了' // 报错
+                            // props里的数据都是只读的，无法重新赋值
+                            // 因为 Vue 是单项数据流，易于检测数据的流动，出现了错误可以更加迅速的定位到错误发生的位置。Vue 通过 setter 属性进行监测，修改值会触发 setter，从而报错
+                            // 如果父组件传的值为对象，则子组件可以改变该对象里面的属性，且父组件数组也会跟着变(父组件传过来的是引用)。而单向数据流保证了父组件的状态不会被子组件意外修改
+                        }
+                    }         
+                }
+            }
+        })
+    </script>
+</body>
+</html>

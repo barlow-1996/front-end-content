@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!--  provide 和 inject 成对出现。父组件中通过 provide 来提供变量，子组件中通过 inject 来注入变量 -->
+    <!-- 无论子组件有多深，都可以获取到父组件提供的变量 -->
+
+    <!-- provide 缺陷： -->
+    <!-- 1.数据不是响应式的 -->
+    <!-- 2.对于引用类型来说，传递的是它的指针，所以子组件改变了数据父组件也会改变数据 -->
+    <div id="app">
+        <mycom1></mycom1>
+    </div>
+    <template id="tmpl1">
+        <div>
+            <h3>mycom1</h3>
+            <span>{{msg1}}</span>
+            <mycom2></mycom2>
+        </div>
+    </template>
+    <template id="tmpl2">
+        <div>
+            <h3>mycom2</h3>
+            <span>{{msg2}}</span>
+        </div>
+    </template>
+    <script>
+        Vue.component('mycom1',{
+            template:'#tmpl1',
+            inject: ['msg1'],
+            data() {
+                return {}
+            },
+            methods: {
+            }
+        })
+        Vue.component('mycom2',{
+            template:'#tmpl2',
+            inject: ['msg2'],
+            data() {
+                return {
+                }
+            },
+        })
+        var vm = new Vue({
+            el: '#app',
+            provide: {
+                msg1: 'message1 from father',
+                msg2: 'message2 from father'
+            },
+            data: {
+
+            },
+            methods: {
+                
+            }
+        })
+    </script>
+</body>
+</html>

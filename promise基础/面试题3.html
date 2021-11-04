@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        const first = () => (new Promise((resolve, reject) => {
+            console.log(3)
+            let p = new Promise((resolve, reject) => {
+                console.log(7)
+                setTimeout(() => {
+                    console.log(5)
+                    resolve(6) // 执行这个代码之前，p对应的promise状态已经改变，不会再执行第二次resolve
+                }, 0)
+                resolve(1)
+            })
+            resolve(2)
+            p.then((arg) => {
+                console.log(arg)
+            })
+        }))
+
+        first().then((arg) => {
+            console.log(arg)
+        })
+        console.log(4)
+
+        // 宏队列：[5 ]
+        // 微队列：[1 2]
+        // 输出顺序： 3 7 4 1 2 5
+    </script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function compareVersion(version1, version2) {
+            if (version1 && version2) {
+                if (version1 === version2) return 'same';
+                const arr1 = version1.split('.');
+                const arr2 = version2.split('.');
+                let index = 0;
+
+                while(index < arr1.length && index < arr2.length) {
+                    if (arr1[index] !== arr2[index]) {
+                        return arr1[index] > arr2[index] ? version1 : version2;
+                    }
+                    index++;
+                }
+
+                return arr1.length > arr2.length ? version1 : version2;
+            } else {
+                console.log('版本号为空');
+                return false;
+            }
+        }
+
+        console.log(compareVersion('1.2.0', '1.2')); // true
+    </script>
+</body>
+</html>

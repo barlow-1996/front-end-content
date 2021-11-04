@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>漂亮的单选框</title>
+    <style>
+        .check-item .check{
+            width: 12px;
+            height: 12px;
+            border: 1px solid #999999;
+            border-radius: 50%;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .check-item input:checked+.check{
+            border-color: #008c8c;
+        }
+        .check-item input:checked+.check::after{
+            content: "";
+            display: block;
+            width: 5px;
+            height: 5px;
+            background: #008c8c;
+            margin-left: 3.5px;
+            margin-top: 3.5px;
+            border-radius: 50%;
+        }
+        .check-item input:checked~span{
+            color: #008c8c;
+        }
+        /* 选中的是.radio-item input:checked后面的span元素 */
+        .check-item input[type="checkbox"]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    请选择性别：
+    <label  class="check-item">
+        <input type="checkbox" name="gender">
+        <span class="checkbox"></span>
+        <span class="option">男</span>
+    </label>
+    <label  class="check-item">
+        <input type="checkbox" name="gender">
+        <span class="checkbox"></span>
+        <span class="option">女</span>
+    </label>
+</body> 
+</html>

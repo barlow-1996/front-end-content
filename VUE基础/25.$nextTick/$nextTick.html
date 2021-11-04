@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+  <div id="app">
+    <span v-if="flag">I'm here</span>
+    <button @click="change">change</button>
+  </div>
+
+  <script>
+    const vm = new Vue({
+      el: '#app',
+      data: {
+        flag: false
+      },
+      methods: {
+        change() {
+          this.flag = true;
+          // 因为 vue 的 dom 更新是异步的，所以这时访问还是之前 dom 的状态
+          console.log(document.querySelector('span')); // null
+
+          // nextTick 中的回调函数会在 dom 重新渲染挂载完毕后执行
+          this.$nextTick(() => {
+            console.log(document.querySelector('span')); // <span></span>
+          })
+          // 或者用 setTimeout：
+          // setTimeout(() => {
+          //   console.log(document.querySelector('span'));
+          // }, 0);
+        }
+      },
+    })
+  </script>
+</body>
+</html>

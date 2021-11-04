@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function Person() {}
+    var p1 = new Person()
+    console.log(Person.prototype)
+    console.log(Person.__proto__ === Function.prototype); // true
+    console.log(Function.prototype.__proto__ === Object.prototype); // true
+    console.log(Person.prototype.constructor === Person); // true
+    console.log(p1.constructor === Person); // true
+    console.log(Person.prototype.__proto__ === Object.prototype); // true
+    console.log(p1.__proto__ === Person.prototype); // true
+    console.log(p1.__proto__.__proto__ === Object.prototype); // true
+    console.log(Object.prototype.__proto__ === null); // true
+
+    // Object 和 Function 本身都是一个函数对象，函数是由 Function 生成的，所以 __proto__ 都指向 Function.prototype
+    console.log(Object.__proto__ === Function.prototype); // true
+    console.log(Function.__proto__ === Function.prototype); // true
+    console.log(Object.prototype.constructor === Object); // true
+    console.log(Object.prototype === Function); // true
+
+  </script>
+</body>
+
+</html>

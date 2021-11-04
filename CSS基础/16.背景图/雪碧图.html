@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* 雪碧图就是将各种小图标合成到一张图片上，然后用 background-position 来显示需要的图片部分 */
+        /* 雪碧图的好处：1. 减少了加载网页时对服务器的请求次数；2. 提高页面加载速度 */
+        div{
+            width: 300px;
+            height: 300px;
+            /* border: 2px solid; */
+            background-image: url(./xuebitu.jpg);
+            background-repeat: no-repeat;
+            background-position: -300px -175px;
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div></div>
+</body>
+</html>

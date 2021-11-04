@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .content1 p {
+      color: red;
+    }
+
+    .content2 > p {
+      color: red;
+    }
+
+    .content3 + div {
+      color: green;
+    }
+
+    .content4 ~ div {
+      color: blue;
+    }
+
+    .content5,.content6,.content7 {
+      color:lawngreen;
+    }
+
+    div.content8 {
+    color:lightblue;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 1. 后代选择器 -->
+  <div class="content1">
+    <p>第一个p</p>
+    <p>第二个p</p>
+    <div>
+      <p>第三个p</p>
+    </div>
+  </div>
+  <!-- div里面的所有 p元素 变色 -->
+
+  <!-- 2. 子元素选择器 -->
+  <div class="content2">
+    <div>
+      <p>子元素里的p</p>
+    </div>
+    <p>
+      直系子元素1
+    </p>
+    <p>
+      直系子元素2
+    </p>
+  </div>
+  <!-- div里面只有直系子元素变色 -->
+
+  <!-- 3. 相邻兄弟选择器 -->
+  <div>
+    我是相临元素1
+  </div>
+  <div class="content3">
+    <div>我是content3内容</div>
+  </div>
+  <div>
+    我是相临元素2
+  </div>
+  <div>我是相临元素3</div>
+  <p>我是相临元素4</p>
+  <div>
+    我是相临元素5
+  </div>
+  <!-- 只有相邻元素2变色（只看后面的元素，所以相邻元素1不变色） -->
+
+  <!-- 4. 兄弟元素选择器 -->
+  <div>
+    我是相临元素1
+  </div>
+  <div class="content4">
+    <div>我是content4内容</div>
+  </div>
+  <div>
+    我是相临元素2
+  </div>
+  <div>我是相临元素3</div>
+  <p>我是相临元素4
+    <div>是我元素4-1</div>
+    <p>我是元素4-2
+      <div>是我元素4-2-1</div>
+    </p>
+  </p>
+  <div>
+    我是相临元素5
+  </div>
+  <!-- 只有相临元素2、3、5、4-1、4-2-1颜色为蓝色（只看后面的元素，所以相邻元素1不变色） -->
+
+  <!-- 5. 多个类公用样式 -->
+  <div>
+    <div class="content5">div内容</div>
+    <p class="content6">p内容</p>
+    <span class="content7">span内容</span>
+  </div>
+  <!-- 选中的元素都变色 -->
+
+  <!-- 6. 并且选择器 -->
+  <div>
+    <div class="content8">
+        我是div标签1
+    </div>
+    <p class="content8">
+        我是p标签
+    </p>
+    <div class="content9">
+        我是div标签2
+    </div>
+  </div>
+  <!-- 必须是div标签且类名为 content8 才变色 -->
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- select单选 -->
+    <!-- 注意：这里的v-model不是在每个option上进行绑定，而是在select上绑定 -->
+    <select name="abc" v-model="fruit">
+      <option value="苹果">苹果</option>
+      <option value="香蕉">香蕉</option>
+      <option value="西瓜">西瓜</option>
+      <option value="橘子">橘子</option>
+      <option value="香梨">香梨</option>
+    </select>
+    <h2>您选择的水果是： {{fruit}}</h2>
+
+    <!-- select多选 -->
+    <!-- select加上mutiple属性可进行多选，按住ctrl键能选择多个 -->
+    <select name="abc" v-model="fruits" multiple>
+      <option value="苹果">苹果</option>
+      <option value="香蕉">香蕉</option>
+      <option value="西瓜">西瓜</option>
+      <option value="橘子">橘子</option>
+      <option value="香梨">香梨</option>
+    </select>
+    <h2>您选择的水果有： {{fruits}}</h2>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        fruit: '苹果',
+        fruits: []
+      },
+      methods: {}
+    });
+  </script>
+</body>
+
+</html>

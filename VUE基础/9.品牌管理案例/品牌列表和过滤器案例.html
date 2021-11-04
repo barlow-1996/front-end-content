@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> -->
+    <script src="https://cdn.bootcss.com/vue/2.6.11/vue.common.dev.js"></script>
+</head>
+<body>
+    <div id="app">
+        <label>
+            id:
+            <input type="text" v-model="id">
+        </label>
+        <label>
+            name:
+            <input type="text" v-model="name" @keydown.enter = "add">
+            <!-- 绑定按键修饰符，按下回车可以直接添加 -->
+        </label>
+        <input type="button" value="添加" @click="add">
+        <label>
+            搜索名称关键字:
+            <input type="text" v-model="keywords" v-focus  v-color v-fontweight="50" v-fontsize="'30px'">
+        </label>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Ctime</th>
+                    <th>Operation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="item in search(keywords)" :key="item.id">
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.ctime | dateFormat}}</td>
+                    <td>
+                        <a href="" @click.prevent="del(item.id)">删除</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <script>
+         // 全局的过滤器，进行时间的格式化
+        Vue.filter('dateFormat', function(dateStr, pattern = ''){
+
+            // 根据给定的时间字符串，得到特定的时间
+            var dt = new Date(dateStr)
+            // yyyy-mm-dd
+            var y = dt.getFullYear()
+            var m = dt.getMonth() + 1
+            var d = dt.getDate()
+
+            if(pattern.toLowerCase() === 'yyyy-mm-dd'){
+                return y + '-' + m + '-' + d
+            }else{
+                var h = dt.getHours()
+                var m = dt.getMinutes()
+                var s = dt.getSeconds()
+                return y + '-' + m + '-' + d +'' + h + ':' + m + ':' + s
+            }
+        })
+
+
+        // 使用 Vue.directive() 定义全局的指令
+        // 其中： 参数1： 指令的名称，注意在定义的时候指令的名称前不需要加 v- 前缀， 在调用时必须在指令名称前加 v- 前缀
+        // 参数2 ： 是个对象，在这个对象身上，有一些指令相关的函数，这些函数在特定的阶段执行相关操作
+        Vue.directive('focus' , {
+            bind: function(el, binding){     // 每当指令绑定到元素上时，会立即执行这个 bind 函数，只执行一次
+                // 在每个参数中，第一个参数永远是 el ，表示被绑定指令的那个元素
+                // 第二个参数是 binding, binding 有很多属性：
+                // 1. name  binding.name 指令名， 不包括 v- 前缀
+                console.log(binding.name); // focus
+                // 2. value binding.value 指令的绑定值
+                // 3. expression binding.expression 绑定值的字符串形式
+                el.focus();
+                // 在元素刚绑定指令时，还没有插入到 DOM 中去，这时候调用 focus 方法没有作用
+            },
+            inserted: function(el){
+                // 表示元素插入到 DOM 中时，会执行这个函数，只触发一次
+                el.focus()
+            },
+            updated () {
+                // 当 VNode 更新时会执行这个函数，可能会触发多次
+            }
+        })
+        
+
+        // 设置字体颜色的自定义指令
+        Vue.directive('color',{
+            bind: function(el){
+                el.style.color = 'red'
+                // 设置样式时无需插入到 DOM 中去，跟上面的 focus 不一样
+                // 和 js 有关的操作最好都放在 inserted 中， 和样式有关的操作一般都可在 bind 中执行
+            }
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                id:'',
+                name:'',
+                keywords:'',
+                list:[
+                    {id:1,name:'奔驰',ctime:new Date()},
+                    {id:2,name:'宝马',ctime:new Date()}
+                ]
+            },
+            methods: {
+                add(){
+                    var car = {id: this.id,name: this.name,ctime:new Date()};
+                    this.list.push(car)
+                },
+                del(id){
+                    this.list.some((item, i)=>{
+                        if(item.id == id){
+                            this.list.splice(i , 1)
+                            // 在数组的some方法中，如果 return true 就会立即终止这个数组的后续循环
+                            return true;
+                        }
+                    })
+                },
+                search(keywords){
+                    var newList = []
+                    this.list.forEach ( item => {
+                        if(item.name.indexOf(keywords) != -1){
+                            newList.push(item)
+                        }
+                    });
+                    return newList
+                }
+            },
+            filters: {
+                // 定义私有过滤器，过滤器有两个条件， 过滤器名称 和 处理函数
+                // 处理函数以值作为参数，返回处理之后的值
+            },
+            directives: {     //定义私有指令
+                'fontweight': {
+                    bind: function (el, binding){
+                        el.style.fontWeight = binding.value
+                    }
+                },
+                // 若钩子函数只在 bind 和 update 中执行， 则可以省略
+                'fontsize': function (el, binding){
+                    el.style.fontSize = parseInt(binding.value) + 'px'
+                }
+                // 这个 function 等同于把代码写到 bind 和 update 中去
+            }
+            
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 双飞翼布局：两侧宽度固定，中间自适应 */
+    /* 三栏布局，中间一栏先加载、渲染出来 */
+    .column {
+      height: 200px;
+      float: left;
+    }
+
+    .middle {
+      width: 100%;
+      background-color: green;
+    }
+
+    .middle .middleWrapper {
+      margin: 0 200px;
+    }
+
+    .left {
+      width: 200px;
+      background-color: red;
+      margin-left: -100%;
+    }
+
+    .right {
+      width: 200px;
+      background-color: blue;
+      margin-left: -200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="content">
+    <!-- 确保中间区域先被渲染 -->
+    <div class="middle column">
+      <div class="middleWrapper">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus aperiam pariatur ipsum laborum beatae. Nesciunt ab aliquid tenetur similique dicta officiis, cum possimus quo iusto recusandae, suscipit rem aut quis quia repudiandae expedita rerum, labore voluptates. Aut cupiditate consequatur soluta veniam aliquid sequi repudiandae eligendi totam dolore, quisquam assumenda veritatis amet unde necessitatibus quidem qui possimus harum distinctio hic. Illo quod facilis recusandae accusamus ipsa temporibus, tenetur fuga, error labore, consectetur dignissimos vel? Ab hic officiis sapiente id, asperiores quos temporibus. Quas quod enim, tenetur repudiandae, necessitatibus quidem animi omnis blanditiis hic saepe consequatur ratione soluta sunt, officia eos cumque?
+      </div>
+    </div>
+    <div class="left column">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Voluptatem, neque?</div>
+    <div class="right column">Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum, iure.</div>
+  </div>
+</body>
+
+</html>

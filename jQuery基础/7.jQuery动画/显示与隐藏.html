@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="显示" id="show">
+    <input type="button" value="隐藏" id="hide">
+    <input type="button" value="切换" id="toggle"><br></br>
+    <div id="div1"></div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 1.显示
+        $('#show').click(function() {
+            // 给id为div1的元素动画显示效果
+            // 如果show这个方法没有参数，那就没有动画效果
+            // 参数1：代表执行动画的时长 可以是毫秒数，也可以是代表时长的字符串(fast/normal/slow)
+            // 参数2：代表动画执行完毕后的回调函数
+            // $('#div1').show(2000)
+            $('#div1').show(2000,function() {
+                alert('动画执行完毕了！')
+            })
+        })
+        // 2.隐藏
+        $('#hide').click(function() {
+            // 给id为div1的元素动画隐藏效果
+            // 如果hide这个方法没有参数，那就没有动画效果
+            // $('#div1').hide(2000)
+            $('#div1').hide(2000,function() {
+                alert('隐藏了')
+            })
+        })
+        // 3.切换
+        $('#toggle').click(function() {
+            // 如果元素隐藏状态，切换就会动画显示；如果元素是显示状态，就会动画隐藏
+            $('#div1').toggle(1000)
+        })
+    })
+</script>

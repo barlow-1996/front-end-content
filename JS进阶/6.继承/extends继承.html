@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    class Father {
+      constructor(name, height) {
+        this.name = name;
+        this.height = height;
+      }
+      toString() {
+        return 'hello';
+      }
+    }
+
+    class Son extends Father {
+      // 子类必须在 constructor 方法中调用 super 方法，否则新建实例时会报错
+      // 这是因为子类没有自己的 this 对象，而是继承父类的 this 对象，如果不调用super方法，子类就得不到this对象
+      // 调用 super 可以实例化它的父类作为子类的原型，这样才能创建出子类的 this。 因此只有调用 super 之后，才可以使用this关键字
+      constructor(name, height, color) {
+        super(name, height);
+        this.color = color;
+      }
+      toString() {
+        // 调用父类方法
+        return `${this.color} ${super.toString()}`;
+      }
+    }
+
+    var person = new Son('byl', 180, 'blue');
+    console.log(person.toString()); // blue hello
+
+    // 子类的 __proto__ 属性指向父类，表示构造函数的继承；子类 prototype 的 __proto__ 指向父类的 prototype, 表示原型的继承
+    console.log(Son.__proto__ === Father); // true
+    console.log(Son.prototype.__proto__ === Father.prototype); // true
+
+    // ES5 继承有变量提升，而 ES6 没有，class 与 const、let 类似有暂时性死区
+    const bar = new Bar(); // 不会报错
+    function Bar() {
+      this.bar = 42;
+    }
+    const foo = new Foo(); // ReferenceError: Foo is not defined
+    class Foo {
+      constructor() {
+        this.foo = 42;
+      }
+    }
+  </script>
+</body>
+
+</html>

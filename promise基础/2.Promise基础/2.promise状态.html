@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // pending 状态
+    let promise = new Promise((resolved, rejected) => {})
+    console.log(promise);  // Promise{<pending>}
+
+    // resolved 状态
+    let promise1 = new Promise((resolved, rejected) => {
+      resolved('成功状态');
+    })
+    console.log(promise1); // Promise {<fulfilled>: "成功状态"}
+
+    // rejected 状态
+    let promise2 = new Promise((resolved, rejected) => {
+      rejected('失败状态');
+    })
+    console.log(promise2); // Promise {<rejected>: "失败状态"}
+  </script>
+</body>
+</html>

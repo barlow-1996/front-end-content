@@ -1,0 +1,13 @@
+{
+  /* tsconfig.json 这个json文件可以写注释
+      该文件是 ts 解析器的配置文件，解析器可以根据它的信息对代码进行解析
+  */
+  // 解析器的选项，是最重要的一个配置项，它决定了解析器如何去解析
+  "compilerOptions": {
+    // 用来指定 ts 文件要被解析成 哪个 ES 版本
+    "target": "ES6",
+    // 用来指定要使用的模块化规范("commonjs"\"amd"\"es6"...)
+    "module": "ES6",
+    "strict": true
+  }
+}

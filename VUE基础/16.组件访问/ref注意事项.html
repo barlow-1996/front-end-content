@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <style>
+    .box {
+      height: 300px;
+      width: 300px;
+      background-color: lightblue;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <input type="text" ref="input" value="111">
+
+    <button @click="change">change</button>
+    <div class="box" ref="box" v-if="flag"></div>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        flag: true
+      },
+      methods: {
+        change() {
+          this.flag = !this.flag;
+          // console.log(this.$refs.box); // 1. 因为$refs 不是响应式的，对 dom 使用 v-if 或 v-show 只在组件渲染完成后才会生效
+          setTimeout(() => {
+            console.log(this.$refs.box); // 解决方案：放到 setTimeout 中
+          }, 0);
+        }
+      },
+      created() {
+        // console.log(this.$refs.input.value); // 2. refs 绑定在 dom 上时，created页面还没有挂载上去，没有el属性，this.refs无法调用dom
+      },
+      mounted() {
+        console.log(this.$refs.input.value); // 在 mounted 阶段可以使用
+      },
+    });
+  </script>
+</body>
+
+</html>

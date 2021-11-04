@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div style="width:200px; float:left; margin-right:200px;border:solid 1px #333;">
+    <div id="color">Frame Color</div>
+  </div>
+  <div>
+    <iframe id="child" src="http://127.0.0.1:5500/%E7%BD%91%E7%BB%9C%E5%9F%BA%E7%A1%80/%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/postMessage/testb.html"></iframe>
+  </div>
+  <script>
+    var iframe = document.getElementById('child');
+    window.onload = function() {
+      console.log(iframe.contentWindow === window.frames[0]); // true
+      // postMessage 之前写的是你要通信的 window 对象
+      /*postMessage(data,origin)方法接受两个参数：
+        data： html5规范支持任意基本类型或可复制的对象，但部分浏览器只支持字符串，所以传参时最好用JSON.stringify()序列化
+        origin： 协议 + 主机 + 端口号，也可以设置为 "*"，表示可以传递给任意窗口，如果要指定和当前窗口同源的话设置为"/"*/
+      window.frames[0].postMessage('getColor', 'http://127.0.0.1:5500');
+    }
+
+    window.addEventListener('message', function(e) {
+      console.log(e.data);
+      var color = e.data;
+      document.getElementById('color').style.backgroundColor = color;
+    })
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- v-else -->
+    <h2 v-if="isShow">
+      <div>abc</div>
+      <div>abc</div>
+      <div>abc</div>
+      <div>abc</div>
+      <div>abc</div>
+    </h2>
+    <h1 v-else>isShow为false时显示我</h1>
+    <input type="button" value="切换" @click="toggle">
+
+    <!-- v-else-if -->
+    <p></p>
+    <input type="number" v-model="score">
+    <h2 v-if="score>=90">优秀</h2>
+    <h2 v-else-if="score>=80">良好</h2>
+    <h2 v-else-if="score>=60">及格</h2>
+    <h2 v-else>不及格</h2>
+  </div>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        isShow: true,
+        score: 66
+      },
+      methods: {
+        toggle() {
+          this.isShow = !this.isShow
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

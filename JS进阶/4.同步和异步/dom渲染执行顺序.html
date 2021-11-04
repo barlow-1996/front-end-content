@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="main">
+
+  </div>
+  <script>
+    const main = document.getElementById('main');
+    const frg = document.createDocumentFragment();
+
+    for (let i = 0; i < 10; i++) {
+      const li = document.createElement('li');
+      li.innerHTML = i;
+      frg.appendChild(li);
+    }
+    main.appendChild(frg);
+
+    new Promise((resolve) => {
+      resolve();
+    }).then(() => {
+      console.log('微任务已经执行');
+      alert('dom还未渲染');
+    });
+
+    setTimeout(() => {
+      console.log('宏任务执行');
+      alert('dom已渲染');
+    });
+
+    // 因此，当需要在异步任务中实现 DOM 修改时，把它包装成微任务最合理
+
+  </script>
+</body>
+
+</html>

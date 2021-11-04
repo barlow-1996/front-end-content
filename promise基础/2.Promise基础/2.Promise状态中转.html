@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let p1 = new Promise((resolved, rejected) => {
+      rejected('拒接');
+    });
+
+    new Promise((resolved, rejected) => {
+      resolved(p1); // 状态中转时的起决定作用的是传入的值的状态，p1为 rejected，所以这里就算调用了 resolved 也会进入失败回调
+    }).then(
+      data => {
+        console.log(data);
+      },
+      error => {
+        console.log("error" + error);
+      }
+    )
+    // error拒绝
+  </script>
+</body>
+</html>

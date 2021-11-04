@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function mergeSort(arr, left, right, res) {
+            if (left < right) {
+                const mid = Math.floor((left + right) / 2);
+                mergeSort(arr, left, mid, res);
+                mergeSort(arr, mid + 1, right, res);
+                arr = mergeArr(arr, left, mid, right, res);
+            }
+            return arr;
+        }
+
+        function mergeArr(arr, left, mid, right, res) {
+            let i = left,
+                j = mid + 1;
+            let index = 0;
+
+            while(i <= mid && j <= right) {
+                res[index++] = arr[i] < arr[j] ? arr[i++] : arr[j++];
+            }
+            while(i <= mid) {
+                res[index++] = arr[i++];
+            }
+            while(j <= right) {
+                res[index++] = arr[j++];
+            }
+            for(let i = 0; i < index; i++) {
+                arr[left + i] = res[i];
+            }
+
+            return arr;
+        }
+
+        const arr = [8, 4, 5, 7, 1, 3, 6, 2];
+        mergeSort(arr, 0, arr.length - 1, []);
+        console.log(arr); // [1, 2, 3, 4, 5, 6, 7, 8]
+    </script>
+</body>
+</html>

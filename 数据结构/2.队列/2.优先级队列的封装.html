@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 优先级队列在插入一个元素时会考虑该数据的优先级，和其他数据的优先级进行比较
+        // 比较完成后，就可以得到该元素在队列中的正确位置
+
+        // 优先级队列的封装
+        function PriorityQueue() {
+            // 在PriorityQueue里又创建了一个类，保存每个数据以及对应的优先级（可以理解为内部类）
+            function QueueElement(element, priority) {
+                this.element = element;
+                this.priority = priority;
+            }
+
+            // 队列的属性
+            this.items = [];
+
+            // 队列的方法
+            // 插入队列
+            PriorityQueue.prototype.enqueue = function (element, priority) {
+                // 1. 创建QueueElement对象
+                var queueElement = new QueueElement(element, priority);
+                // 2. 判断队列是否为空
+                if (this.items.length == 0) {
+                    this.items.push(queueElement);
+                } else {
+                    var added = false;
+                    for (let i = 0; i < this.items.length; i++) {
+                        if (queueElement.priority < this.items[i].priority) {
+                            this.items.splice(i, 0, queueElement);
+                            added = true;
+                            break;
+                        }
+                    }
+                    if (!added) this.items.push(queueElement);
+                }
+            }
+
+            // 删除头部元素，并返回该元素
+            PriorityQueue.prototype.dequeue = function () {
+                return this.items.shift();
+            }
+
+            // 查看队列中的第一个元素
+            PriorityQueue.prototype.front = function () {
+                return this.items[0];
+            }
+
+            // 查询队列是否为空
+            PriorityQueue.prototype.isEmpty = function () {
+                return this.items.length == 0;
+            }
+
+            // 查询队列中的元素个数
+            PriorityQueue.prototype.size = function () {
+                return this.items.length;
+            }
+
+            // 将队列中内容转成字符串格式
+            PriorityQueue.prototype.toString = function () {
+                var queueString = '';
+                for(let i = 0; i < this.items.length; i++) {
+                    queueString += this.items[i].element + '-' + this.items[i].priority + ' ';
+                }
+                return queueString;
+            }
+        }
+
+        // 优先级队列的使用
+        var pq = new PriorityQueue();
+        pq.enqueue(10,1);
+        pq.enqueue(20,2);
+        pq.enqueue(30,3);
+        console.log(pq);
+        console.log(pq.isEmpty());
+        pq.dequeue();
+        console.log(pq.toString());
+    </script>
+</body>
+
+</html>

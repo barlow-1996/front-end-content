@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+
+        <div v-for="(item, index) in list" :key="index">
+            {{item}}:
+            <input type="text">
+        </div>
+        <button @click="deleteItem">deleteItem</button>
+
+        <div v-for="(person, index) in people" :key="index" >{{person.name}}</div>
+        <button @click="deletePerson">deletePerson</button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list: ['name', 'age', 'sex', 'hobby'],
+                people: [{
+                        id: 1,
+                        name: "Person1"
+                    },
+                    {
+                        id: 2,
+                        name: "Person2"
+                    },
+                    {
+                        id: 3,
+                        name: "Person3"
+                    }
+                ]
+            },
+            methods: {
+                // 1. 如果 v-for 里嵌套了 input 标签，用 index 作为 key 会出现 input 输入错位的问题
+                deleteItem() {
+                    this.list.splice(1, 1);
+                },
+                // 2. 如果将 person1 这个对象删除，则 person2 和 person3 的 index 和 key 就会发生变化，这样会将 person2 和 person3 重新渲染，浪费性能
+                deletePerson() {
+                    this.people.splice(1, 1);
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

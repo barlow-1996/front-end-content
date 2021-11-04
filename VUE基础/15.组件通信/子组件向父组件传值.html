@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <!-- 子组件向父组件传递方法，使用的是事件绑定机制 -->
+        <com @com-func1="show" @func2="showData"></com>
+        {{text1}}
+        {{text2}}
+    </div>
+    <template id="tmpl">
+        <div>
+            <h1>这是子组件</h1>
+            <input type="button" value="这是子组件按钮，点击它触发父组件传递过来的方法" @click="myClick1">
+            <input type="button" value="这是子组件按钮，点击它触发父组件传递过来的有参数的方法" @click="myClick2">
+        </div>
+    </template>
+    <script>
+        var com = { // 定义了一个字面量类型的 组件模板对象
+            template: '#tmpl' , 
+            data() { 
+                return{
+                    sonData1: "子组件数据1",
+                    sonData2: "子组件数据2"
+                }
+            },
+            methods: {
+                myClick1(){
+                    // 点击子组件按钮时，如何拿到父组件传递过来的 func 方法并调用呢？
+                    this.$emit("com-func1");
+                    // vue 实例中的 $emit 采用了发布订阅模式，当触发该事件时，会对每个回调函数进行调用，并将参数传入回调函数中
+                },
+                myClick2() {
+                    // 调用父组件的方法，并向方法传参
+                    this.$emit("func2",this.sonData1, this.sonData2)
+                    // 利用此方法可以让子组件给父组件传值
+                    // 首先让父组件调用这个方法，然后父组件将拿到的这个参数赋值在自己的 data 中
+                }
+            }
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                msg: '123 啊~ 父组件中的数据',
+                text1:'',
+                text2:''
+            },
+            methods: {
+               show() {
+                this.text1 = "调用了父组件身上的 show 方法"
+               },
+               showData(data1, data2) {
+                this.text2 = "调用了父组件身上的 showData 方法" + '--------->' + data1 + "---" + data2
+               }
+            },
+            components: {
+                com
+            }
+        }) 
+    </script>
+</body>
+</html>

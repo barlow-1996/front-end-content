@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 系统时间补偿法
+
+    function timer(speed) {
+      var counter = 1,
+          start = new Date().getTime();
+
+      function instance() {
+        var ideal = (counter * speed),
+            real = new Date().getTime() - start;
+
+        counter++;
+        var diff = (real - ideal);
+
+        // 具体操作代码
+        console.log('hello');
+
+        setTimeout(instance, (speed - diff)); // 通过系统时间进行修复
+
+      };
+
+      setTimeout(instance, speed);
+    }
+
+    timer(500);
+  </script>
+</body>
+
+</html>

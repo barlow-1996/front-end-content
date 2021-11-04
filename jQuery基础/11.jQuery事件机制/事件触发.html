@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+        width: 200px;
+        height: 200px;
+        margin-top: 10px;
+        border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="触发事件" id="btn1">
+    <input type="button" value="自定义事件" id="btn2">
+    <div class="one" id="one">
+
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 事件触发 trigger
+        
+        $('#one').on('click',function() {
+            console.log('这是触发了的点击事件');
+        })
+
+        var i = 0
+
+        $('#btn1').on('click',function() {
+            i++;
+            if(i==3) {
+                // 条件满足时触发点击事件
+                $('#one').trigger('click')
+            }
+        })
+
+        // --------------------------------------------------------------
+        // 触发器trigger还可以触发自定义事件
+        $('#one').on('myself',function() {
+            console.log('这是我自定义的事件');
+        })
+        // 自定义的事件没有执行条件，所以只能用触发器触发它
+        $('#btn2').on('click',function() {
+            i++;
+            if(i==3) {
+                // 条件满足时触发点击事件
+                $('#one').trigger('myself')
+            }
+        })
+    })
+</script>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 手写 Promise 步骤：
+    // 1. 创建 Promise 构造方法，声明 status 和 value 属性
+    // 2. 定义执行器的执行回调方法 resolve 和 reject
+    // 3. 在构造函数内执行执行器函数，并绑定 resolve 和 reject 指向
+    // 4. 在构造函数原型链上定义 then 方法,并设置 then 的成功回调和失败回调
+    // 5. 在 then 函数中返回一个 Promise 对象,并根据 status 决定执行哪个回调,返回新 Promise 对象的回调结果(返回新的 Promise 对象是为了实现链式调用)
+
+    function myPromise(exec) {
+      this.status = 'pending';
+      this.value = undefined;
+      this.resolvedCallbacks = [];
+      this.rejectedCallbacks = [];
+
+      function resolve(value) {
+        if (this.status === 'pending') {
+          this.status = 'resolved';
+          this.value = value;
+          this.resolvedCallbacks.map(callback => {
+            callback(value);
+          })
+        }
+      }
+
+      function reject(err) {
+        if (this.status === 'pending') {
+          this.status = 'rejected';
+          this.value = err;
+          this.rejectedCallbacks.map(callback => {
+            callback(value);
+          })
+        }
+      }
+
+      try {
+        exec(resolve.bind(this), reject.bind(this));
+      } catch (error) {
+        reject(error);
+      }
+    }
+
+    myPromise.prototype.then = function (onResolved, onRejected) {
+      // 给成功回调和失败回调设置默认值
+      onResolved = typeof onResolved === "function" ? onResolved : () => this.value;
+      onRejected = typeof onRejected === "function" ? onRejected : () => this.value;
+
+      const handle = (result, newPromise, resolve, reject) => {
+        if (result == newPromise) {
+          throw new Error('can not return oneself');
+        }
+      }
+
+      const newPromise = new Promise((resolve, reject) => {
+
+
+
+        // 当执行器中的 resolve/reject 放入 setTimeout 中异步执行时，then方法会同步执行，所以需要对 pending 状态的 then 进行处理
+        if (this.status === 'pending') {
+          // 由于可能会对一个 promise 指定了多个成功/失败的回调，所以要用数组存放回调
+          const result = this.resolvedCallbacks.push(onResolved);
+          const result = this.rejectedCallbacks.push(onRejected);
+        }
+
+        // 调用回调函数是异步的，所以需要放进 setTimeout 中
+        if (this.status === 'resolved') {
+          setTimeout(() => {
+            const result = onResolved(this.value);
+            handle(result, newPromise, resolve, reject);
+          }, 0);
+        }
+        if (this.status === 'rejected') {
+          setTimeout(() => {
+            const result = onRejected(this.value);
+            handle(result, newPromise, resolve, reject);
+          }, 0);
+        }
+      })
+
+      return newPromise
+    }
+
+    let p = new myPromise((resolve, reject) => {
+      // setTimeout(() => {
+      //   resolve(1);
+      // }, 1000)
+      // resolve(1);
+      reject(12);
+    })
+    p.then(
+      value => {
+        console.log(value);
+      },
+      reason => {
+        console.log(reason);
+      }
+    )
+
+    console.log(p);
+  </script>
+</body>
+
+</html>

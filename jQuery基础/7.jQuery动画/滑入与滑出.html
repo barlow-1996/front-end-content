@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <input type="button" value="滑入" id="slideDown">
+    <input type="button" value="滑出" id="slideUp">
+    <input type="button" value="切换" id="slideToggle"><br></br>
+    <div id="div1"></div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 1.滑入 slideDown(参数1，参数2)
+        $('#slideDown').click(function() {
+            // 给id为div1的元素动画滑入效果
+            // 参数1：代表执行动画的时长 可以是毫秒数，也可以是代表时长的字符串(fast/normal/slow)
+            // 参数2：代表动画执行完毕后的回调函数
+            $('#div1').slideDown() // 没有给参数，相当于给了一个默认的时长，normal，代表400毫秒
+        })
+        // 2.隐藏 slideUp(参数1，参数2)
+        $('#slideUp').click(function() {
+            // 给id为div1的元素动画滑出效果
+            $('#div1').slideUp(1000,function() {
+                alert('隐藏了')
+            })
+        })
+        // 3.切换 slideToggle()
+        $('#slideToggle').click(function() {
+            // 如果元素是滑出状态，切换就会滑入显示；如果元素是滑入状态，就会动画滑出
+            $('#div1').slideToggle(1000)
+        })
+    })
+</script>

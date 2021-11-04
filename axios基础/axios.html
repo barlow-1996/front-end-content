@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <div id="app">
+        <input type="button" value="get" @click="get">
+        <input type="button" value="post">
+        <ul>
+            <li v-for="(item, index) in list">{{index}}----------{{item}}</li>
+        </ul>
+        <mycom1></mycom1>
+        <zujian></zujian>
+    </div>
+    <template id="tmp1">
+        <h1>我是全局组件里的h1</h1>
+    </template>
+    <template id="tmp2">
+        <h1>我是私有组件中的h1</h1>
+    </template>
+    
+    <script>
+        Vue.component('mycom1',{
+            template:'#tmp1'
+        })
+
+
+
+        var vm = new new Vue({
+            el:"#app",
+            data: {
+                list:[]
+            },
+            methods: {
+                get() {
+                    var that = this;
+                    axios.get('https://autumnfish.cn/api/joke/list?num=6')
+                        .then(function (response) {
+                          that.list = response.data.jokes;
+                        })
+                        .catch(function (error) {
+                          console.log(error);
+                        });
+                }
+            },
+            components: {
+                zujian:{
+                    template:'#tmp2',
+                    data() {
+                        return {
+
+                        }
+                    },
+                    methods: {
+                        
+                    },
+                }
+            }
+        })
+    </script>
+</body>
+</html>

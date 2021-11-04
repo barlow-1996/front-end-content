@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const promise = new Promise((resolved, rejected) => {
+      rejected('hadf');
+    })
+    .then(
+      value => {
+        console.log(value);
+      },
+      // err => {
+      //   console.log(err);
+      // }
+    )
+    // catch 后面的 .then 会走成功回调
+    .catch(
+      err => err
+    )
+    .then(
+      value => {
+        console.log(value); // hadf
+      }
+    )
+    .finally(() => {
+      console.log('永远会执行');
+    })
+
+     // 无论前面的 Promise 状态成功或失败，finally代码块里面的代码最后都会执行
+     // .catch 就相当于 .then 的第二个失败的函数，如果设置了.then 失败函数并且设置了.catch，只执行 .then 的失败函数
+  </script>
+</body>
+</html>

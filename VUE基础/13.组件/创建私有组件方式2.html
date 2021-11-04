@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>这是父组件</div>
+        <login @click.native="fn"></login>
+    </div>
+    <template id="tmpl2">
+        <div>
+            <h1>这是私有的 login 组件</h1>
+            <h2>{{title}}</h2>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            methods: {
+                fn() {
+                    alert('hello');
+                }
+            },
+            components: {
+                // 定义实例内部私有组件
+                login: {
+                    template: '#tmpl2',
+                    data() {
+                        return {
+                            title: '这是标题'
+                        }
+                    },
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

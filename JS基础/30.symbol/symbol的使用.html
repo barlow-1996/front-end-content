@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let user1 = 'byl';
+    let user2 = 'byl';
+    let user = {
+      [user1]: {age: 20, sex: 0},
+      [user2]: {age: 40, sex: 1}
+    }
+    console.log(user); // byl: {age: 40, sex: 1}
+    // 由此可以看出，当一个对象中含有多个相同的key时，后面的会覆盖前面的
+    // 为了区分这些 key，就可以使用 symbol
+
+    let user3 = {
+      name: 'byl',
+      key: Symbol()
+    }
+    let user4 = {
+      name: 'byl',
+      key: Symbol()
+    }
+    let anotherUser = {
+      [user3.key]: {age: 20, sex: 0},
+      [user4.key]: {age: 40, sex: 1}
+    }
+    console.log(anotherUser);
+    // Symbol(): {age: 20, sex: 0}
+    // Symbol(): {age: 40, sex: 1}
+  </script>
+</body>
+</html>

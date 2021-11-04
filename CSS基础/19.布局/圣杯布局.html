@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    /* 圣杯布局：两侧宽度固定，中间自适应 */
+    /* 三栏布局，中间一栏先加载、渲染出来 */
+    .column {
+      float: left;
+      height: 200px;
+      position: relative;
+    }
+
+    .container {
+      padding: 0 200px;
+    }
+    .middle {
+      width: 100%;
+      background-color: green;
+    }
+
+    .left {
+      width: 200px;
+      background-color: red;
+      margin-left: -100%;
+      left: -200px;
+    }
+
+    .right {
+      width: 200px;
+      background-color: blue;
+      margin-left: -200px;
+      right: -200px;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="middle column">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus neque aliquam ipsa accusamus doloribus ullam tempora ad distinctio! Modi nostrum reiciendis, voluptas fugit soluta nisi doloribus aliquam vel expedita! Alias molestiae perferendis dolorum suscipit omnis illo non, repudiandae asperiores aspernatur ab sed saepe aliquid quidem voluptate. Eveniet officia, ducimus quis maiores, magnam ullam similique hic animi laboriosam dolor dolores optio minima. Architecto, modi itaque asperiores repellat maiores laudantium nostrum exercitationem totam necessitatibus culpa ipsam iure maxime rem sint quam, tempore expedita beatae eum adipisci. Ex, quidem facere dolorem eius harum earum rerum qui maiores necessitatibus et, sit obcaecati, enim reprehenderit!</div>
+    <div class="left column">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sit, itaque?</div>
+    <div class="right column">Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusamus, minus?</div>
+  </div>
+</body>
+
+</html>

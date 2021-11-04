@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let url = 'http://www.baidu.com/index/?lx=1&name=汉字内容&from=http://www.baidu.com/';
+    // 对整个 URL 进行编码，处理空格/中文....
+    // encodeURI / decodeURI(解码)
+    let encode = encodeURI(url);
+    console.log(encode); // http://www.baidu.com/index/?lx=1&name=%E6%B1%89%E5%AD%97%E5%86%85%E5%AE%B9&from=http://www.baidu.com/
+    console.log(decodeURI(encode)); 
+
+    // 对传递的参数信息进行编码
+    // encodeURIComponent / decodeURIComponent
+    let url1 = `http://www.baidu.com/index/?lx=1&name=${encodeURIComponent('汉字内容')}&from=http://www.baidu.com/`
+    console.log(url1); // http://www.baidu.com/index/?lx=1&name=%E6%B1%89%E5%AD%97%E5%86%85%E5%AE%B9&from=http://www.baidu.com/
+  </script>
+</body>
+</html>

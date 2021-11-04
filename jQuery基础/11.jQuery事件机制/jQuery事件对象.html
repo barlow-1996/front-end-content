@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+        width: 200px;
+        height: 200px;
+        margin-top: 10px;
+        border: 1px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="one" id="one">
+        <input type="button" value="按钮" id="btn">
+        <br></br>
+        <a href="https://www.baidu.com">百度一下</a>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 什么是事件对象
+        // 注册一个事件，系统会帮我们生成一个对象记录这个事件触发的一些信息，比如触发事件时有没有按住哪个键
+        // 用事件参数e来获取事件对象,jQuery事件对象是对原生js的封装，处理好了兼容性
+        $('#one').on('click',function(e) {
+            // console.log(e)
+
+            // 事件对象中有三个常有的坐标
+            console.log('screenX' + e.screenX + ':' + e.screenY); // screen表示屏幕左上角到触发事件鼠标位置的距离
+            console.log('pageX' + e.pageX + ':' + e.pageY);  // page表示页面的左上角到触发事件鼠标位置的距离
+            console.log('clientX' + e.clientX + ':' + e.clientY);  // client表示可视区左上角到触发事件鼠标位置的距离
+
+
+            // e.stopPropagation() // 阻止事件冒泡
+            // e.preventDefault() //阻止默认行为
+            return false; // 既能阻止事件冒泡，又能阻止默认行为
+
+        })
+        // e.keycode 能获取按下的是哪个键
+        $(document).on('keydown',function(e) {
+            console.log(e.keyCode);
+        })
+    })
+</script>

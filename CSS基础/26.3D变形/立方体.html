@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #wrap {
+      width: 300px;
+      height: 300px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      border: 1px solid;
+      perspective: 200px;
+      transform-style: preserve-3d;
+    }
+    .box {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      transition: 3s;
+      transform-style: preserve-3d;
+      transform-origin: center center -50px;
+    }
+    .box  > div {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background: pink;
+      font-size: 3em;
+      font-weight: bold;
+      text-align: center;
+      line-height: 100px;
+    }
+    /* 上 */
+    .box  > div:nth-child(5) {
+      transform-origin: bottom;
+      transform: rotateX(90deg);
+      top: -100px;
+    }
+    /* 下 */
+    .box  > div:nth-child(6) {
+      transform-origin: top;
+      transform: rotateX(-90deg);
+      bottom: -100px;
+    }
+    /* 左 */
+    .box  > div:nth-child(3) {
+      transform-origin: right;
+      transform: rotateY(-90deg);
+      left: -100px;
+    }
+    /* 右 */
+    .box  > div:nth-child(4) {
+      transform-origin: left;
+      transform: rotateY(90deg);
+      right: -100px;
+    }
+    /* 后 */
+    .box  > div:nth-child(2) {
+      transform: translateZ(-100px) rotateX(180deg);
+    }
+    /* 前 */
+    .box  > div:nth-child(2) {
+      z-index: 1;
+    }
+    #wrap:hover .box {
+      transform: rotateX(360deg);
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div class="box">
+      <div>1</div>
+      <div>2</div>
+      <div>3</div>
+      <div>4</div>
+      <div>5</div>
+      <div>6</div>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        
+        try{
+            console.log("a")
+            console.log(b)
+            console.log("c")
+            // 当try里面的代码发生错误时，会直接跳到catch部分，发生错误的代码下面的代码不会执行。
+        }catch(e){
+            console.log(e.name + ":" + e.message)
+            // e是error，JS将e封装好了两个错误信息的方法。e.name显示错误名称，e.message显示错误信息。
+        }
+        
+        console.log("d")
+    </script>
+</body>
+</html>

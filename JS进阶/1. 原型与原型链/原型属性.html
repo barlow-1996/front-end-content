@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function Ground(lastname) {
+      this.lastname = lastname;
+    }
+    Ground.prototype.name = 'Ground';
+    Ground.prototype.lastname = 'lastname';
+    var ground = new Ground('----lastname----');
+
+    function Father() {
+      this.age = 18;
+    }
+    Father.prototype = ground;
+    var father = new Father();
+
+    function Son() {
+      this.sex = '--??--';
+    }
+    Son.prototype = father;
+    var son = new Son();
+
+    console.log(son);          //Son {sex: "--??--"}
+    console.log(son.sex);      // '--??--'
+    console.log(son.age);  	   // 18
+    console.log(son.name);     // 'Ground'
+    console.log(son.lastname); // '----lastname----'
+    console.log(son.fooo);     // undefined
+
+    son.lastname = 'byl'; // 修改不了原型链上的属性,只能修改自身的属性
+    console.log(son);     // Son {sex: "--??--", lastname: "byl"}
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div>
+        <button onclick="testGet()">GET</button>
+        <button onclick="testPost()">POST</button>
+        <button onclick="testPut()">PUT</button>
+        <button onclick="testDelete()">DELETE</button>
+    </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.js"></script>
+    <script>
+        // 该测试文件使用 json-server，在终端输入 json-server --watch db.json 开始测试
+
+        function testGet() {
+            axios.get('http://localhost:3000/posts?id=1')
+            .then(response => {
+                console.log('/posts get', response.data);
+            })
+        }
+        function testPost() {
+            axios.post('http://localhost:3000/posts', {"title": "json-server3", "author": "typicode3"})
+            .then(response => {
+                console.log('/posts post', response.data);
+            })
+        }
+        function testPut() {
+            axios.put('http://localhost:3000/posts/2', {"title": "json-server...", "author": "typicode..."})
+            .then(response => {
+                console.log('/posts put', response.data);
+            })
+        }
+        function testDelete() {
+            axios.delete('http://localhost:3000/posts/3')
+            .then(response => {
+                console.log('/posts delete', response.data);
+            })
+        }
+    </script>
+</body>
+
+</html>

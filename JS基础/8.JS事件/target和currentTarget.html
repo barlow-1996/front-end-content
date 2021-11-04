@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .father{
+      width: 500px;
+      height: 500px;
+      background-color: lightskyblue;
+      position: relative;
+    }
+    .son{
+      width: 200px;
+      height: 200px;
+      background-color: lightblue;
+      position: absolute;
+      bottom: 0;
+      top: 0;
+      right: 0;
+      left: 0;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="father">
+    <div class="son">
+
+    </div>
+  </div>
+  <script>
+    // target 指向事件触发的真实元素, currentTarget 指向事件触发的绑定元素
+    // this 指向始终与 currentTarget 一致
+    let father = document.querySelector('.father');
+    let son = document.querySelector('.son');
+
+    // 将事件绑定在子元素上，点击子元素
+    son.addEventListener('click', function(e) {
+      console.log(e.target); // <div class="son"></div>
+      console.log(e.currentTarget); // <div class="son"></div>
+      console.log(this); // <div class="son"></div>
+      console.log(e.target === e.currentTarget); // true
+      console.log(e.target === this); // true
+      console.log(e.currentTarget === this); // true
+      // 当事件是自身元素触发时，currentTarget 和 target 指向同一个元素
+    });
+
+    // 将事件绑定在父元素上，点击子元素
+    father.addEventListener('click', function(e) {
+      console.log(e.target); // <div class="son"></div>
+      console.log(e.currentTarget); // <div class="father"></div>
+      console.log(this); // <div class="father"></div>
+      console.log(e.target === e.currentTarget); // false
+      console.log(e.target === this); // false
+      console.log(e.currentTarget === this); // true
+      // 当事件是子元素触发时，currentTarget 为绑定事件的元素，target 为子元素
+    });
+  </script>
+</body>
+</html>

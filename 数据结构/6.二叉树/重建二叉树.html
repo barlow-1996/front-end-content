@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function treeNode(val) {
+      this.val = val;
+      this.left = this.right = null;
+    }
+
+    // 前序 + 中序
+    function rebuild1(preOrder, midOrder) {
+      if (!preOrder.length || !midOrder.length) {
+        return null;
+      }
+
+      // 创建根节点
+      let node = new treeNode(preOrder[0]);
+      // 获取根节点在中序遍历中的位置，还能表示左子树的个数
+      let i = midOrder.indexOf(preOrder[0]);
+
+      node.left = rebuild1(preOrder.slice(1, i + 1), midOrder.slice(0, i));
+      node.right = rebuild1(preOrder.slice(i + 1), midOrder.slice(i + 1));
+
+      return node;
+    }
+
+    console.log(rebuild1([1, 2, 4, 3, 5, 6], [2, 4, 1, 5, 3, 6]));
+
+    // 前序 + 后序
+    function rebuild2(preOrder, postOrder) {
+      if (!preOrder.length || !postOrder.length) {
+        return null;
+      }
+
+      // 创建根节点
+      let node = new TreeNode(preOrder[0]);
+      // 找到左子树的个数
+      let leftlen = postOrder.indexOf(preOrder[1]) + 1;
+      node.left = rebuild2(preOrder.slice(1, leftlen + 1), postOrder.slice(0, leftlen));
+      node.right = rebuild2(preOrder.slice(leftlen + 1), postOrder.slice(leftlen, -1));
+
+      return node;
+    }
+
+    // 中序 + 后序
+    function rebuild3(midOrder, postOrder) {
+      if (!midOrder.length || !postOrder.length) {
+        return null;
+      }
+      let node = postOrder.pop(); // 头节点
+      let index = midOrder.indexOf(node); // 头节点在中序遍历数组中的位置
+      let root = new TreeNode(node); // 构造一棵树
+      root.left = rebuild3(midOrder.slice(0, index), postOrder.slice(0, index));
+      root.right = rebuild3(midOrder.slice(index + 1), postOrder.slice(index));
+
+      return root;
+    }
+  </script>
+</body>
+
+</html>

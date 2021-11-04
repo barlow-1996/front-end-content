@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="500" height="400" id="myCanvas" style="border: 1px solid black;"></canvas>
+
+    <script>
+        // 得到画布
+        const canvas = document.getElementById('myCanvas');
+        console.log(canvas);
+
+        // 得到画布的上下文(上下文有两个，2d 和 3d)，所有的图像绘制都是上下文的属性或方法，和 canvas 标签无关
+        const ctx = canvas.getContext('2d');
+        console.log(ctx);
+
+        ctx.fillStyle = 'red';
+        
+        let left = 100;
+        // 动画过程
+        setInterval(() => {
+            // 清除画布
+            ctx.clearRect(0, 0, 600, 600);
+            left++;
+            // 重新填充
+            ctx.fillRect(left, 100, 100, 100);
+        }, 10);
+    </script>
+</body>
+</html>

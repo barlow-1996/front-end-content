@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 深复制方法1：
+    function deepClone(obj, set = new Set()) {
+      if (!obj || (typeof obj !== 'object')) return obj;
+      var result = Array.isArray(obj) ? [] : {};
+      Object.keys(obj).forEach(key => {
+        // 防止循环引用
+        if (typeof obj[key] === 'object') {
+          if (set.has(obj[key])) {
+            result[key] = null;
+          } else {
+            set.add(obj[key]);
+            result[key] = deepClone(obj[key], set);
+          }
+        } else {
+          result[key] = obj[key];
+        }
+      })
+      // for (var key in obj){
+      //   if(obj.hasOwnProperty(key)){
+      //     result[key] = (typeof obj[key]) === 'object' ? deepClone(obj[key]) : obj[key];
+      //   }
+      // }
+      return result;
+    }
+
+    var obj1 = {
+      x: 1,
+    }
+    var obj2 = {
+      x: 2
+    }
+    obj1.next = obj2;
+    obj2.next = obj1;
+
+    var obj3 = deepClone(obj1);
+    console.log(obj3); // {colors: (3) ["red", "green", "blue"], name: "byl"}
+
+
+    // 深复制方法2：JSON.parse + JSON.stringify
+    // 但是用 JSON 方法无法拷贝 function、undefined和正则表达式
+    var copyObj2 = JSON.parse(JSON.stringify(obj));
+    console.log(copyObj2);
+    obj.colors.push('yellow');
+    console.log(copyObj2.colors); // ["red", "green", "blue", "black"]
+
+  </script>
+</body>
+
+</html>

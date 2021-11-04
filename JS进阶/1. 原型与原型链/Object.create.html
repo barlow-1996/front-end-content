@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    var oto = {
+      name: "oto", age: "1231"
+    }
+    var obj = Object.create(oto); // 调用 create 方法里面的参数就是原型
+
+    console.log(obj.__proto__) // oto
+    console.log(obj.__proto__ === oto); // true
+    console.log(obj.__proto__.__proto__ === Object.prototype); // true
+
+    var obj2 = Object.create(null);
+    // 该对象相当于一个空对象，没有原型
+    console.log(obj2); // No Properties
+    console.log(obj2.__proto__); // undefined
+    // 若人为加 __proto __，系统不会读里面的属性和方法
+    obj2.__proto__ = {name: 'byl', say: function(){}}
+    console.log(obj2.name); // undefined
+    console.log(obj2.say);  // undefined
+  </script>
+</body>
+
+</html>

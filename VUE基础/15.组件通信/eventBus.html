@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <!-- EventBus 通过新建一个 Vue 对象 bus，通过bus.$emit触发事件,bus.$on监听触发的事件 -->
+    <div id="app">
+        <mycom1></mycom1>
+        <mycom2></mycom2>
+    </div>
+    <template id="tmpl1">
+        <div>
+            <h3>mycom1</h3>
+            <button @click="emit">发送消息</button>
+        </div>
+    </template>
+    <template id="tmpl2">
+        <div>
+            <h3>mycom2</h3>
+            <span>{{msg2}}</span>
+        </div>
+    </template>
+    <script>
+        Vue.component('mycom1',{
+            template:'#tmpl1',
+            data() {
+                return {
+                    msg1: 'message from mycom1'
+                }
+            },
+            methods: {
+                emit() {
+                    // 触发全局事件 sendMsg
+                    bus.$emit('sendMsg', this.msg1);
+                }
+            }
+        })
+        Vue.component('mycom2',{
+            template:'#tmpl2',
+            data() {
+                return {
+                    msg2: 'hello'
+                }
+            },
+            mounted() {
+                bus.$on('sendMsg', (val) => this.msg2 = val);
+            },
+        })
+        // 创建 eventBus
+        var bus = new Vue();
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                
+            }
+        })
+    </script>
+</body>
+</html>

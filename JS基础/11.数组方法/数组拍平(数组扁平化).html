@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var arr = [1,2,[3,4,5,[6,7,8],9],10,[11,12]];
+
+    // 1. 递归 【指定层数】
+    function flat1(arr, d = 1) {
+      let res = [];
+      arr.forEach(v => {
+        if (Array.isArray(v) && d > 0) {
+          res = res.concat(flat1(v, d - 1));
+        } else {
+          res.push(v);
+        }
+      })
+
+      return res;
+    }
+
+    console.log(flat1(arr)); // [1, 2, 3, 4, 5, [6, 7, 8], 9, 10, 11, 12]
+
+    // 2. 递归 + reduce 【指定层数】
+    function flat2(arr, d = 1) {
+      return d > 0 ? arr.reduce((a, v) => a.concat(Array.isArray(v) ? flat2(v, d - 1) : v), []) : arr.slice();
+    }
+
+    console.log(flat2(arr)); // [1, 2, 3, 4, 5, [6, 7, 8], 9, 10, 11, 12]
+
+    // 3. 迭代
+    function flat3(arr) {
+      for(let i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+          arr.splice(i, 1, ...arr[i]);
+          i--;
+        }
+      }
+
+      return arr;
+    }
+
+    console.log(flat3(arr)); // // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+    // 4. ES6 新增转一维数组方法 flat(n)
+    // flat 接收一个参数 n，n 为多少就展开多少层，默认只展开 1 层
+    // 如想无论多少层都展开为一维数组，则将参数值设为Infinity
+    console.log(arr.flat(Infinity)); // [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+
+    // 5. toString
+    // arr.toString() // "1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12"
+    let res = arr.toString().split(',').map(v => Number(v)); // toString() 也可以改为 join()
+    console.log(res);
+  </script>
+</body>
+</html>

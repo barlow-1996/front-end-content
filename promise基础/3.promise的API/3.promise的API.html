@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let promise = new Promise((reslove,reject) => {
+            setTimeout(() => {
+                // reslove('成功的数据');
+                reject('失败的数据');
+            },3000)
+        }).then(
+            value => {
+                console.log('onResloved()1', value);
+            }
+        ).catch(
+            err => {
+                console.log('onRejected()1', err);
+            }
+        )
+        console.log(promise); // Promise {<resolved>}
+
+        // 产生一个成功值为1的promise对象
+        const p1 = new Promise((reslove,reject) => {
+            reslove(1);
+        })
+        const p2 = Promise.reject(2).catch(err => err);;  // 简洁语法
+        const p3 = 3;
+
+        const pAll = Promise.all([p1, p2, p3]);
+        // 若p1,p2有失败的回调，则all也会执行失败的回调，且返回p1,p2中第一个执行失败回调的对象的返回值
+        // 若p1,p2都是成功的回调，则all会执行成功的回调，且返回p1,p2成功回调的返回值的数组
+        pAll.then(
+            values => {
+                console.log('all onResolved()', values); // all onResolved() [1, 2]
+            },
+            reason => {
+                console.log('all onRejected()', reason); // all onRejected() 2
+            }
+        )
+
+        const pAllSettled = Promise.allSettled([p1, p2, p3])
+
+        pAllSettled.then(
+            value => {
+                console.log(value);
+                // [{status: "fulfilled", value: 1}, {status: "rejected", reason: 2}]
+            }
+        )
+
+        
+        const pRace = Promise.race([p1, p2, p3])
+        // 看p1,p2哪个先完成回调函数的执行，如果先执行的那个对象执行了失败的回调，则race也会执行失败的回调，且返回值就是那个对象的返回值
+        // 如果先执行的那个对象执行了成功的回调，则race也会执行成功的回调，且返回值就是那个对象的返回值
+        pRace.then(
+            value => {
+                console.log('all onResolved()', value); // all onResolved() 1
+            },
+            reason => {
+                console.log('all onRejected()', reason);
+            }
+        )
+    </script>
+</body>
+</html>

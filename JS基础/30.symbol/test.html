@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let a = Symbol('id');
+    console.log(a.description); // id
+    console.log(Symbol.keyFor(a)); // undefined
+    let b = Symbol('id');
+    console.log(a == b); // false
+
+    let id1 = Symbol("id");
+    let obj = {
+      [id1]: 'symbol',
+      name: 'byl',
+      age: 20
+    };
+    for (let option in obj) {
+      console.log(obj[option]); // byl 20
+    }
+    console.log(Object.keys(obj)); // ["name", "age"]
+
+    // 访问 symbol
+    let id2 = Symbol("id");
+    let obj2 = {
+      [id2]: 'symbol'
+    };
+    let array = Object.getOwnPropertySymbols(obj2);
+    console.log(array); //[Symbol(id)]
+    console.log(obj2[array[0]]);  //'symbol'
+
+    let s1 = Symbol.for();
+    let s2 = Symbol.for();
+    console.log(s1 === s2); // true
+    let s3 = Symbol.for('name');
+    let s4 = Symbol.for('name');
+    console.log(s3 === s4); // true
+    let s5 = Symbol.for('name');
+    let s6 = Symbol.for('age');
+    console.log(s5 === s6); // false
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    var person = {
+      name: 'BYL',
+      colors: ['red', 'blue', 'green']
+    }
+
+    // 原型式继承(一个参数)
+    var anotherPerson1 = Object.create(person);
+    var anotherPerson2 = Object.create(person);
+
+    anotherPerson1.name = 'baobao';
+
+    anotherPerson1.colors.push('pink');
+    anotherPerson2.colors.push('black');
+
+    console.log(anotherPerson1.name); // 'baobao'
+    console.log(anotherPerson2.colors); // ["red", "blue", "green", "pink", "black"]
+
+    // 原型式继承(两个参数)
+    var anotherPerson = Object.create(person, {
+      name: {
+        value: 'HMY'
+      }
+    })
+
+    console.log(anotherPerson.name); // HMY
+  </script>
+</body>
+</html>

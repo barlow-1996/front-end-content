@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    let p1 = new Promise((resolved, rejected) => {
+      rejected('fulfilled');
+    })
+
+    let p2 = p1.then(
+        value => {
+          console.log('value1', value);
+        },
+        reason => {
+          console.log('reason1', reason); // reason1 fulfilled
+          return Promise.resolve('111')
+        }
+        // reason => { return Promise.reject('111')}
+        // Promise.resolve('111') 就相当于 new Promise((resolved, rejected) => {resolved('111')})
+        // Promise.reject('111') 就相当于 new Promise((resolved, rejected) => {rejected('111')})
+      )
+      .then(
+        value => {
+          console.log('value2', value); // value2 111
+        },
+        reason => {
+          console.log('reason2', reason);
+        }
+      )
+  </script>
+</body>
+
+</html>

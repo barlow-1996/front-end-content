@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="500" height="400" id="myCanvas" style="border: 1px solid black;"></canvas>
+
+    <script>
+        // 得到画布
+        const canvas = document.getElementById('myCanvas');
+
+        // 得到画布的上下文(上下文有两个，2d 和 3d)，所有的图像绘制都是上下文的属性或方法，和 canvas 标签无关
+        const ctx = canvas.getContext('2d');
+
+        // 线性渐变
+        const linear1 = ctx.createLinearGradient(0, 0, 200, 200);
+        linear1.addColorStop(0, 'red');
+        linear1.addColorStop(0.5, 'blue');
+        linear1.addColorStop(1, 'green');
+        ctx.fillStyle = linear1;
+        ctx.fillRect(10, 10, 200, 100);
+
+        // 径向渐变
+        const linear2 = ctx.createRadialGradient(250,   70,   20,   200,  60,  100);
+        linear2.addColorStop(0, 'red');
+        linear2.addColorStop(0.5, 'blue');
+        linear2.addColorStop(1, 'green');
+        ctx.fillStyle = linear2;
+        ctx.fillRect(10, 200, 200, 100);
+    </script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 队列是一种受限的线性表，先进先出
+        // 只允许从表的前端进行删除操作，后端进行插入操作
+
+        // 队列的封装
+        function Queue() {
+            // 队列的属性
+            this.items = [];
+
+            // 队列的方法
+            // 向尾部添加新元素
+            Queue.prototype.enqueue = function (element) {
+                this.items.push(element);
+            }
+
+            // 删除头部元素，并返回该元素
+            Queue.prototype.dequeue = function () {
+                return this.items.length == 0 ? -1 : this.items.shift();
+            }
+
+            // 查看队列中的第一个元素
+            Queue.prototype.front = function () {
+                return this.items[0];
+            }
+
+            // 查询队列是否为空
+            Queue.prototype.isEmpty = function () {
+                return this.items.length == 0;
+            }
+
+            // 查询队列中的元素个数
+            Queue.prototype.size = function () {
+                return this.items.length;
+            }
+
+            // 将队列中内容转成字符串格式
+            Queue.prototype.toString = function () {
+                var queueString = '';
+                for(let i = 0; i < this.items.length; i++) {
+                    queueString += this.items[i] + ' ';
+                }
+                return queueString;
+            }
+        }
+
+        // 队列的使用
+        var queue = new Queue();
+        // queue.enqueue(10);
+        // queue.enqueue(20);
+        // queue.enqueue(30);
+        console.log(queue.dequeue());
+        console.log(queue);
+        console.log(queue.front());
+        console.log(queue.isEmpty());
+        console.log(queue.size());
+        console.log(queue.toString());
+
+
+    </script>
+</body>
+
+</html>

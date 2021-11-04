@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. caller: 返回一个调用当前函数的引用，如果由顶层调用则返回 null
+        var callerTest = function () {
+            console.log(callerTest.caller);
+        };
+
+        function a() {
+            callerTest();
+        }
+        a(); // 输出 function a() {callerTest();}
+        callerTest(); // 输出 null
+
+        // 2. callee: callee 是 arguments 对象的一个属性，表示对函数对象本身的引用
+        // callee 有个 length 属性，可以表示 形参的长度
+
+        // 可打印其本身
+        function calleeDemo() {
+            alert(arguments.callee);
+        }
+        // 可用于验证参数
+        function calleeLengthDemo(arg1, arg2) {
+            // arguments.length 是实参长度
+            // arguments.callee.length 是形参长度
+            if (arguments.length == arguments.callee.length) { 
+                window.alert("验证形参和实参长度正确！");
+                return;
+            } else {
+                alert("实参长度：" + arguments.length);
+                alert("形参长度： " + arguments.callee.length);
+            }
+        }
+    </script>
+</body>
+
+</html>

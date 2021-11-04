@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <mycom1></mycom1>
+        <mycom1></mycom1>
+        <mycom1></mycom1>
+    </div>
+    <template id="tmpl">
+        <div>
+            <input type="button" value="+1" @click="increment">
+            <h3>{{count}}</h3>
+        </div>
+    </template>
+    <script>
+        Vue.component('mycom1', {
+            template: '#tmpl',
+            data () {
+                return {
+                    // 组件中的 data 跟实例中的有点不一样,实例中的 data 为一个对象,但组件中的 data 必须是一个方法
+                    // 组件中的 data 除了必须是方法之外,方法内部还必须要返回一个对象
+                    count: 0
+                    // 组件中的 data 数据和实例中的使用方式完全一样
+                }
+            },
+            // 为什么组件中的 data 要以函数返回值的方式定义？
+            // 因为这样是为了每次复用同一组件时都会返回一份新的 data
+            // 而如果写成对象的形式，则所有组件都会共享一份 data，产生一个组件的值变了所有组件的值一起变的结果
+
+            // 组件中的 data 不能使用箭头函数
+            // 因为箭头函数绑定了父级作用域的上下文，this 将不会按照期望指向 Vue 实例。使用箭头函数后 this 将无法访问 data 中的数据，而是指向 undefined
+            methods: {
+                increment() {
+                    this.count++
+                },
+                decrement() {
+                    this.count--
+                }
+            }
+        })
+
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                
+            }
+        })
+    </script>
+</body>
+</html>

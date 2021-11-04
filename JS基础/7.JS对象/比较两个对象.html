@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 比较两个对象(不是指针)是否相等
+    // 方法一：JSON.stringify
+    let obj1 = { name: 'byl', age: 20 };
+    let obj2 = { name: 'byl', age: 20 };
+    console.log(JSON.stringify(obj1) === JSON.stringify(obj2)); // true
+    // 该方法的缺陷是当两个对象中的 key 顺序不同时相比会出错
+    obj2 = { age: 20, name: 'byl' };
+    console.log(JSON.stringify(obj1) === JSON.stringify(obj2)); // false
+
+    // 方法二：遍历对象
+    function deepEqual(x, y) {
+      if (x === y) {
+        return true;
+      } else if (x instanceof Object && y instanceof Object) {
+        if (Object.keys(x).length !== Object.keys(y).length) {
+          return false;
+        } else {
+          for (let key in x) {
+            if (y.hasOwnProperty(key)) {
+              if (!deepEqual(x[key], y[key])) return false;
+            } else {
+              return false;
+            }
+          }
+          return true;
+        }
+      } else return false;
+    }
+
+    let obj3 = {
+      name: 'byl',
+      age: 20,
+      obj: {
+        a: 'nba',
+        b: 'cba'
+      }
+    }
+    let obj4 = {
+      obj: {
+        b: 'cba',
+        a: 'nba'
+      },
+      age: 20,
+      name: 'byl'
+    }
+
+    console.log(deepEqual(obj3, obj4)); // true
+  </script>
+</body>
+
+</html>

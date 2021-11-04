@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function fn(a, b) {
+      console.log(arguments); // Arguments(5) [1, 2, 3, 4, 5, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+      let innerFn = () => {
+        console.log(arguments); // Arguments(5) [1, 2, 3, 4, 5, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+      }
+      innerFn();
+      console.log(innerFn.prototype); // undefined
+    }
+
+    fn(1, 2, 3, 4, 5);
+    console.log(fn.prototype); // {constructor: ƒ fn(a, b), __proto__: Object}
+  </script>
+</body>
+</html>

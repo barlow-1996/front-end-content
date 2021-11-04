@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 图片预先加载到浏览器中，当用户需要查看时可直接在本地缓存中获取
+    // 场景：需要完全资源加载完毕达到流畅体验的应用，如H5小游戏，小程序等
+    /* 预加载优点：
+       保证了图片快速、无缝的发布，提高了用户体验
+       缺点：
+       增加了服务器压力
+    */
+
+    // 预加载原理：用js创建一个看不见的Image标签，浏览器会发出请求
+    // 到了页面上真正要显示这张图片的时候，浏览器检查缓存发现已经下载好了，就直接显示，给用户一种秒加载的感觉
+    function preloader() {
+      if (document.getElementById) {
+        document.getElementById("preload-01").style.background = "url(http://domain.tld/image-01.png) no-repeat -9999px -9999px";
+        document.getElementById("preload-02").style.background = "url(http://domain.tld/image-02.png) no-repeat -9999px -9999px";
+        document.getElementById("preload-03").style.background = "url(http://domain.tld/image-03.png) no-repeat -9999px -9999px";
+      }
+    }
+
+    // 通过该函数延迟预加载的时间，直到页面加载完毕
+    function addLoadEvent(func) {
+      var oldonload = window.onload;
+      if (typeof window.onload != 'function') {
+        window.onload = func;
+      } else {
+        window.onload = function () {
+          if (oldonload) {
+            oldonload();
+          }
+          func();
+        }
+      }
+    }
+    addLoadEvent(preloader);
+  </script>
+</body>
+
+</html>

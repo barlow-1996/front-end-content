@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    Function.prototype.myBind = function(context, ...args) {
+      let that = this;
+      return function() {
+        return that.apply(context, args.concat([...arguments]));
+      }
+    }
+
+
+    const obj = { name: '写代码像蔡徐抻' };
+    function foo(a, b, c) {
+      console.log(this.name); // '写代码像蔡徐抻'
+      console.log(a, b, c); // a d e
+    }
+
+    foo.myBind(obj, 'a')('d', 'e');
+  </script>
+</body>
+
+</html>

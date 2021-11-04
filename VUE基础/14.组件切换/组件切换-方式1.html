@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <a href="" @click.prevent="flag=true">登录</a>
+        <a href="" @click.prevent="flag=false">注册</a>
+        <mycom1 v-if="flag"></mycom1>
+        <mycom2 v-else="flag"></mycom2>
+    </div>
+    <template id="tmpl1">
+        <div>
+            <h3>登录组件</h3>
+        </div>
+    </template>
+    <template id="tmpl2">
+        <div>
+            <h3>注册组件</h3>
+            <span>{{msg}}</span>
+        </div>
+    </template>
+    <script>
+        Vue.component('mycom1',{
+            template:'#tmpl1'
+        })
+        Vue.component('mycom2',{
+            template:'#tmpl2',
+            data() {
+                return {
+                    msg: 'hello'
+                }
+            },
+            created() {
+                console.log('created');
+            },
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                flag: true
+            },
+            methods: {
+                
+            }
+        })
+    </script>
+</body>
+</html>

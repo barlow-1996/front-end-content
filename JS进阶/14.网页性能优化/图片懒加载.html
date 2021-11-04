@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    img {
+      display: block;
+      width: 100%;
+      height: 300px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <img src="" data-src="./images/1.jpg" alt="">
+  <img src="" data-src="./images/2.jpg" alt="">
+  <img src="" data-src="./images/3.jpg" alt="">
+  <img src="" data-src="./images/4.jpg" alt="">
+  <img src="" data-src="./images/5.jpg" alt="">
+  <img src="" data-src="./images/6.jpg" alt="">
+  <img src="" data-src="./images/7.jpg" alt="">
+  <img src="" data-src="./images/8.jpg" alt="">
+  <img src="" data-src="./images/9.jpg" alt="">
+  <img src="" data-src="./images/10.jpg" alt="">
+  <script>
+    // 若页面很长，长到浏览器可视区装不下，则懒加载就是优先加载可视区内容，其他部分等进入了可视区再加载
+    // 适用场景：电商等图片很多的页面
+    /* 懒加载优点：
+       1. 部分加载能够减少等待时间，提升用户体验
+       2. 节约用户流量，全部加载会耗费大量流量
+    */
+
+    // 懒加载原理：浏览器是否发起请求根据图片是否有src属性决定，当图片没进入可视区前不给src赋值，这样浏览器就不会发送请求了
+    // 判断图片是否进入可视区：scrollTop(滚动条距文档顶部距离) + clientHeight(可视区高度) > offsetTop(元素距文档顶部距离) 则表示图片进入可视区
+
+    var imgs = document.querySelectorAll('img');
+    function lazyLoad(imgs) {
+      var H = document.documentElement.clientHeight; // 获取可视区域高度
+
+      // 兼容获取 scrollTop，消除标准模式和怪异模式之间的差别
+      // 标准模式下 能通过 document.documentElement 获取，但怪异模式只能通过 document.body 获取(HTML 文档第一行 <!DOCTYPE html> 就是声明文档为 标准模式)
+      var S = document.documentElement.scrollTop || document.body.scrollTop; // 获取滚动条离顶部的距离
+      for(let i = 0; i < imgs.length; i++){
+        // 判断是否进入可视区
+        if(H + S > getTop(imgs[i])) {
+          imgs[i].src = imgs[i].getAttribute('data-src'); // 获取自定义属性的值必须使用 getAttribute 方法
+        }
+      }
+    }
+
+    // offsetTop是元素相对于offsetParent的距离，循环累加就能获取到文档顶部的距离
+    function getTop(e) {
+      var T = 0;
+      while(e) {
+        T += e.offSetTop;
+        e = e.offSetParent;
+      }
+      return T;
+    }
+
+    // 页面初始化时先触发一次，且在每次滚动条滚动时触发
+    window.onload = window.onscroll = function() {
+      lazyLoad(imgs);
+    }
+
+
+  </script>
+</body>
+
+</html>

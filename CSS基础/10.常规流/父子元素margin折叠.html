@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .father {
+      height: 500px;
+      width: 500px;
+      background-color: lightblue;
+      margin: 0 auto;
+      /* border-top: 1px solid transparent; */
+      /* padding-top: 1px; */
+      overflow: hidden;
+    }
+
+    .son {
+      height: 200px;
+      width: 200px;
+      background-color: gold;
+      margin-top: 20px;
+    }
+
+    /* 当子元素设置 margin-top 后，子元素的上边并没有与父元素的上边分离，而是父元素的上边与外部元素产生了间距 */
+    /* 这是因为父元素和子元素的 margin 折叠所导致的 */
+
+    /* 方法： */
+    /* 1. 为父元素设置 padding 或 border，让父子元素的 margin 隔开 */
+    /* 2. 为父元素设置 overflow: hidden，变为 BFC */
+  </style>
+</head>
+<body>
+  <div class="father">
+    <div class="son"></div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <ul id="dlt">
+            <li class="tz">李云龙</li>
+            <li>赵刚</li>
+            <li>和尚</li>
+            <li>孔杰</li>
+            <li>丁伟</li>
+            <li class="hf">伙夫</li>
+            <li class="wsy">卫生员</li>
+        </ul>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        $('.tz').css('fontSize',30)
+        $('li').css('backgroundColor','red')
+        $('.hf,.wsy').css('backgroundColor','green')
+    })
+</script>

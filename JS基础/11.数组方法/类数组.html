@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div class="test"></div>
+  <div class="test"></div>
+  <div class="test"></div>
+  <div class="test"></div>
+  <div class="test"></div>
+  <script>
+    // 1. 什么是类数组
+    /*
+      类数组对象 (Array-like Object) 是类似数组一样有 length 属性和索引属性的对象
+      如: const arrayLike = {'0': 'a', '1': 'b', '2': 'c', length: 3}
+    */
+
+    // 2. 类数组对象转化为数组的方式
+    const arrayLike = {'0': 'a', '1': 'b', '2': 'c', length: 3};
+    // slice 方法（ES5）：
+    const array1 = Array.prototype.slice.call(arrayLike);
+    console.log(array1); // ['a', 'b', 'c']
+    const array2 = [].slice.call(arrayLike);
+    console.log(array2); // ['a', 'b', 'c']
+    // Array.from 方法（ES6）:
+    const array3 = Array.from(arrayLike) // ES6 写法
+    console.log(array3); // ['a', 'b', 'c']
+    // 扩展运算法（只能处理可迭代对象）
+    // const array4 = [...arrayLike]; // 这里会报错
+
+    // 3. 常见的类数组
+    // - arguments
+    function test(){
+      console.log(arguments); // Arguments(3) [1, 2, 3, callee: ƒ, Symbol(Symbol.iterator): ƒ]
+      console.log(Array.isArray(arguments)); // false
+    }
+    test(1, 2, 3);
+
+    // - NodeList
+    const nodeList = document.querySelectorAll('.test');
+    console.log(nodeList); // NodeList(5) [div.test, div.test, div.test, div.test, div.test]
+    console.log(Array.isArray(nodeList)); // false
+    console.log(Array.isArray([...nodeList])); // true
+
+    // - 字符串 String
+    const array = Array.from('abc');
+    console.log(array); // ['a', 'b', 'c']
+
+    // - Set
+    let set = new Set();
+    set.add(1);
+    set.add(2);
+    set.add(3);
+    console.log(Array.isArray(set)); // false
+    console.log(Array.from(set)); // [1, 2, 3]
+  </script>
+</body>
+</html>

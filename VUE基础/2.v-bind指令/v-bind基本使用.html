@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        button{
+            width: 30px;
+            height: 20px;
+        }
+    </style>
+
+</head>
+<body>
+    <div id="app">
+        <button type="button" value="按钮" :title="mytitle"></button>
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                mytitle: '这是自己定义的title'
+            }
+        })
+    </script>
+</body>
+</html>

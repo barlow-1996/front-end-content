@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 集合通常是由一组无序的、不能重复的元素组成
+        // 无序的说明无法通过下标值访问，不能重复说明相同的对象在集合中只存在一份
+        // ES6 中包含了Set类，其实也可以不封装直接使用它
+
+        // 集合的封装
+        function Set () {
+            // 属性
+            this.items = {}
+
+            // 方法
+            // 向集合中添加新项
+            Set.prototype.add = function (value) {
+                // 判断当前集合中是否已经包含了该元素
+                if (this.has(value)) {
+                    return false
+                }
+                // 将元素添加到集合中
+                this.items[value] = value
+                return true
+            }
+
+            // 从集合中移除一项
+            Set.prototype.remove = function (value) {
+                // 判断该集合中是否包含该元素
+                if ( !this.has(value)) {
+                    return false
+                }
+                // 若包含，将元素从属性中删除
+                delete this.items[value]
+                return true
+            }
+
+            // 判断目标值是否已经在集合中
+            Set.prototype.has = function (value) {
+                return this.items.hasOwnProperty(value)
+            }
+
+            // 移除集合中所有项
+            Set.prototype.clear = function () {
+                this.items = {}
+            }
+
+            // 返回集合中包含的元素数量
+            Set.prototype.size = function () {
+                return Object.keys(this.items).length
+            }
+
+            // 返回一个包含集合中所有值的数组
+            Set.prototype.values = function () {
+                return Object.keys(this.items)
+            }
+
+        }
+
+        // 集合的使用
+        var set = new Set()
+
+        set.add(10)
+        set.add(10) // 重复元素不添加
+        set.add(20)
+        set.add(30)
+        set.add(40)
+        console.log(set.values())
+
+        set.remove(10)
+        console.log(set.remove(100))
+        console.log(set.values())
+
+        console.log(set.has(20))
+        set.clear()
+        console.log(set.values())
+    </script>
+</body>
+</html>

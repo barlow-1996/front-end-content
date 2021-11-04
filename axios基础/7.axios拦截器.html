@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.js"></script>
+        <script>
+
+            // 添加请求拦截器(回调函数)
+            axios.interceptors.request.use(
+                config => {
+                    // 对发送请求之前做什么
+                    console.log('request interceptor1 success')
+                    return config
+                },
+                error => {
+                    // 对请求失败做什么
+                    console.log('request interceptor1 error')
+                    return Promise.reject(error)
+                }
+            )
+            axios.interceptors.request.use(
+                config => {
+                    console.log('request interceptor2 success')
+                    return config
+                },
+                error => {
+                    console.log('request interceptor2 error')
+                    return Promise.reject(error)
+                }
+            )
+
+            // 添加响应拦截器(回调函数)
+            axios.interceptors.response.use(
+                response => {
+                    // 对响应数据做什么
+                    console.log('response interceptor1 success')
+                    return response
+                },
+                error => {
+                    // 对响应失败做什么
+                    console.log('response interceptor1 error')
+                    return Promise.reject(error)
+                }
+            )
+            axios.interceptors.response.use(
+                response => {
+                    console.log('response interceptor2 success')
+                    return response
+                },
+                error => {
+                    console.log('response interceptor2 error')
+                    return Promise.reject(error)
+                }
+            )
+            
+
+            axios.get('http://localhost:3000/posts')
+            .then(
+                response => {
+                    console.log(response.data);
+                },
+                error => {
+                    console.log(error.message);
+                }
+            )
+
+            // 执行顺序：
+            // request intercepotor2
+            // request intercepotor1
+            // response intercepotor1
+            // response intercepotor2
+            // response.data
+
+            // 先执行请求拦截器，后执行响应拦截器。请求拦截器先写的后执行，响应拦截器先写的先执行
+
+            // 原因：
+            /*
+                axios 源码中有一个 chain 数组，这个数组负责保存请求拦截器函数、响应拦截器函数和默认就有的发送请求函数
+                依照 axios 请求的执行顺序，请求拦截器应该在发送请求之前执行，所以就将请求拦截器函数依次使用 unshift 方法添加到发送请求函数前面
+                而响应拦截器应该在发送请求之后执行，所以就将响应拦截器函数依次使用 push 方法添加到发送请求函数后面
+                接着 promise 开始遍历执行，所以就有了这样的执行顺序
+            */
+        </script>
+</body>
+</html>

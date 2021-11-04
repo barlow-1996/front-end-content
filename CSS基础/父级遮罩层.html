@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .father{
+      width: 500px;
+      height: 500px;
+      margin: auto;
+      background-color: lightblue;
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 40px;
+      font-weight: bold;
+    }
+
+    .son {
+      width: 200px;
+      height: 200px;
+      background-color: gold;
+    }
+
+    .mask {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      display: none;
+      background-color: rgba(0, 0, 0, 0.6);
+      
+    }
+
+    .son:hover .mask {
+      display: block;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="father">
+    <div class="son">
+      <div class="mask"></div>
+    </div>
+  </div>
+</body>
+</html>

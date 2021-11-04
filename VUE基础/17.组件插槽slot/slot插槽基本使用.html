@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <cpn>
+      <button>按钮</button>
+    </cpn>
+    <cpn>
+      <span>呵呵呵呵呵</span>
+    </cpn>
+    <cpn>
+    </cpn>
+  </div>
+  <!-- 当很多组件在结构上有很多共性时，我们为了简化代码，抽取共性，保留不同，最好的方式就是使用插槽 -->
+  <!-- 一旦我们预留了插槽，就可以让使用者根据自己的需求决定插槽中插入什么内容 -->
+  <template id="cpn">
+    <div>
+      <h2>我是子组件</h2>
+      <p>哈哈哈哈</p>
+      <!-- 当插槽的内容在大多数组件中都相同时，可以在slot标签里加一个默认值，当上面的组件标签里没有插入任何内容时则展示默认内容 -->
+      <slot><span>我是默认值</span></slot>
+    </div>
+  </template>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      components: {
+        cpn: {
+          template: '#cpn'
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        async function async1() {
+            console.log('async1 start');
+            await async2();
+            console.log('async1 end');
+        }
+        async function async2() {
+            console.log('async2');
+
+        }
+        async1();
+        console.log('start');
+        // 'async1 start' 'async2' 'start' 'async1 end'
+
+        async function hd() {
+            console.log('async function is running!');
+            const name1 = await new Promise(resolve => {
+                setTimeout(() => {
+                    resolve('byl');
+                }, 2000);
+            })
+            console.log(name1);
+            const name2 = await new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(name1 + 'hmy');
+                }, 2000);
+            })
+            console.log(name2);
+        }
+        hd();
+        console.log('run me before await!');
+        /*
+        async function is running!
+        run me before await!
+        byl(2s后打印)
+        bylhmy(再过2s后打印)
+        */
+
+        async function async3() {
+            console.log('async3 start');
+            await async4();
+            console.log('async3 end');
+            setTimeout(() => {
+                console.log('timer1');
+            }, 0);
+        }
+        async function async4() {
+            setTimeout(() => {
+                console.log('timer2');
+            }, 0);
+            console.log('async4');
+        }
+        async3();
+        setTimeout(() => {
+            console.log('timer3');
+        }, 0);
+        console.log('start');
+        // 'async3 start' 'async4' 'start' 'async3 end' 'timer2' 'timer3' 'timer1'
+    </script>
+</body>
+
+</html>

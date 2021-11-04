@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <cpn>
+      <template v-slot:head>
+        <h2>这是header中用具名插槽替换的元素</h2>
+        <p>哈哈哈哈</p>
+      </template>
+      <!-- 使用具名插槽时最好用template包起来，任何没有被包裹在带有v-slot的<template>中的内容都会被视为默认插槽的内容 -->
+      <h2>这是main区域默认插槽替换的元素</h2>
+      <p>呵呵呵呵呵</p>
+
+      <!-- v-slot: 可以简写成#，这是一个语法糖 -->
+      <template #foot>
+        <h2>这是footer中用具名插槽替换的元素</h2>
+        <p>嘻嘻嘻嘻嘻嘻</p>
+      </template>
+    </cpn>
+  </div>
+
+  <template id="cpn">
+    <div>
+      <header>
+        <slot name="head"><span>上面</span></slot>
+      </header>
+      <main>
+        <slot>中间</slot>
+      </main>
+      <footer>
+        <slot name="foot"><span>下面</span></slot>
+      </footer>
+    </div>
+  </template>
+
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {},
+      methods: {},
+      components: {
+        cpn: {
+          template: '#cpn'
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

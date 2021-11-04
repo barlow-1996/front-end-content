@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+        <table id="tb">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>5</td>
+                <td>6</td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    console.log($('#container').children('table'))  // children(selector) 选中子元素中的selector元素
+    console.log($('#tb').find('tr'))                // find（selector）  选中后代元素中的selector元素
+    $('#tb').find('tr').eq(1).text('这是我用eq方法选中的tr元素')  // eq(index)    选中该类元素索引为index的那个元素,index从0开始
+    $('#tb').find('tr').eq(1).siblings('tr').text('这是我用siblings方法选中的tr元素') // siblings(selector)   选中兄弟元素，不包括自己
+    // next()  选中下一个兄弟元素
+    // prev()  选中上一个兄弟元素
+</script>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            width: 100%;
+        }
+
+        #left,
+        #right {
+            width: 300px;
+            height: 200px;
+            background: red;
+        }
+
+        #left {
+            float: left;
+        }
+
+        #right {
+            float: right;
+        }
+
+        .main {
+            height: 200px;
+            
+            /* 创建 BFC 区域
+            overflow: hidden;  */
+            margin: 0 300px;
+            background-color: green;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div id="left">Lorem ipsum dolor sit amet consectetur adipisicing elit. facere ullam dolores a fugit
+        commodi ipsam. Illo perspiciatis odit excepturi repudiandae sit rem quasi explicabo deleniti, possimus nemo
+        ad officia autem, et eos facilis expedita.</div>
+    <div id="right">Lorem ipsum dolor sit amet consectetur adipisicing elit.ndi quo dolorem, qui nesciunt
+        magnam at doloribus! Vel praesentium obcaecati, quod libero veniam reprehenderit voluptatibus aliquid in
+        quisquam atque iusto sunt odio? Nostrum.</div>
+    <div class="main"> Autem modi atque culpa recusandae exercitationem laborum saepe illum corporis? Cum blanditiis
+        odio non odit aperiam pariatur vitae laborum maxime?</div>
+
+</body>
+
+</html>

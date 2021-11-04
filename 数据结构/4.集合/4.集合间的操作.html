@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 集合间通常的操作有：
+        // 并集：给定两个集合，返回一个包含两个集合所有元素的新集合
+        // 交集：给定两个集合，返回一个包含两个集合共有元素的新集合
+        // 差集：给定两个集合，返回一个包含所有存在于第一个集合但不存在于第二个集合的元素的新集合
+        // 子集：验证一个给定集合是否是另一集合的子集
+
+        function Set () {
+            this.items = {}
+
+            Set.prototype.add = function (value) {
+                if (this.has(value)) {
+                    return false
+                }
+                this.items[value] = value
+                return true
+            }
+
+            Set.prototype.remove = function (value) {
+                if ( !this.has(value)) {
+                    return false
+                }
+                delete this.items[value]
+                return true
+            }
+
+            Set.prototype.has = function (value) {
+                return this.items.hasOwnProperty(value)
+            }
+
+            Set.prototype.clear = function () {
+                this.items = {}
+            }
+
+            Set.prototype.size = function () {
+                return Object.keys(this.items).length
+            }
+
+            Set.prototype.values = function () {
+                return Object.keys(this.items)
+            }
+
+
+            // 求并集操作
+            Set.prototype.union = function (otherSet) {
+                // this:集合对象A
+                // otherSet:集合对象B
+
+                // 1. 创建新的集合
+                var unionSet = new Set()
+                // 2. 将A集合中所有的元素添加到新集合中
+                var values = this.values()
+                for (let i = 0; i < values.length; i++) {
+                    unionSet.add(values[i])
+                }
+                // 3. 取出B集合中的元素，判断是否需要添加到新集合
+                values = otherSet.values()
+                for (let i = 0; i < values.length; i++) {
+                    // add 方法中有重复元素判断，所以这里直接调用add即可
+                    unionSet.add(values[i])
+                }
+                return unionSet
+            }
+
+            // 求交集操作
+            Set.prototype.intersection = function (otherSet) {
+                // this:集合对象A
+                // otherSet:集合对象B
+
+                // 1. 创建新的集合
+                var intersectionSet = new Set()
+                // 2. 将A集合中所有的元素添加到新集合中
+                var values = this.values()
+                // 3. 判断是否同时存在于集合B中，存在就放入新集合
+                for (let i = 0; i < values.length; i++) {
+                    if (otherSet.has(values[i])) {
+                        intersectionSet.add(values[i])
+                    } 
+                }
+                return intersectionSet
+            }
+
+            // 求差集操作
+            Set.prototype.difference = function (otherSet) {
+                // this:集合对象A
+                // otherSet:集合对象B
+
+                // 1. 创建新的集合
+                var diffSet = new Set()
+                // 2. 将A集合中所有的元素添加到新集合中
+                var values = this.values()
+                // 3. 判断是否同时存在于集合B中，不存在就放入新集合
+                for (let i = 0; i < values.length; i++) {
+                    if (!otherSet.has(values[i])) {
+                        diffSet.add(values[i])
+                    }
+                }
+                return diffSet
+            }
+
+            // 求子集操作
+            Set.prototype.subset = function (otherSet) {
+                // this:集合对象A
+                // otherSet:集合对象B
+
+                // 1. 遍历集合A中所有的元素，若A中有集合B中不存在的元素，则false
+                // 若遍历完整个集合，依然没有返回false，则返回true
+                var values = this.values()
+                for (let i = 0; i < values.length; i++) {
+                    if (!otherSet.has(values[i])) {
+                        return false
+                    }
+                }
+                return true
+            }
+        }
+
+        var setA = new Set()
+        var setB = new Set()
+
+        setA.add(10)
+        setA.add(20)
+        setA.add(30)
+        setA.add(40)
+
+        setB.add(30)
+        setB.add(40)
+        setB.add(50)
+
+        console.log(setA.union(setB).values())
+        console.log(setA.intersection(setB).values())
+        console.log(setA.difference(setB).values())
+        console.log(setA.subset(setB))
+    </script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 作用域插槽就是父组件替换插槽的标签，但是内容由子组件来提供 -->
+    <div id="app">
+        <!-- 父组件想办法拿到子组件里的数据，然后在父组件的作用域里进行展示 -->
+        <!-- 以下方法错误，在父组件组作用域内拿不到子组件的数据 -->
+        <!-- <cpn>
+            <template #son>
+                <ul>
+                    <li v-for="item in pLanguages">{{item}}</li>
+                </ul>
+            </template>
+        </cpn> -->
+
+        <cdn>
+            <template #son="sonProps">
+                <ul>
+                    <li v-for="item in sonProps.sonLags">{{item}}</li>
+                </ul>
+            </template>
+            
+            <!-- 注意：v-slot 缩写只在其有参数的时候才可用，这里不能直接写成 #="defaultProps" -->
+            <template v-slot="defaultProps">
+                <span v-for="item in defaultProps.data">{{item}} - </span>
+            </template>
+        </cdn>
+
+        <!-- 注意：当组件中只需要操作默认插槽时，组件的标签可以被当作插槽的模板来使用。这样我们就可以把v-slot写在组件上，不用加template标签 -->
+        <cdn v-slot="sonProps">
+            <ul>
+                <li v-for="item in sonProps.data">{{item}}</li>
+            </ul>
+        </cdn>
+    </div>
+
+    <template id="cdn">
+        <div>
+            <h1>这是子组件</h1>
+            <span>哈哈哈哈</span>
+            <slot name="son" :sonLags="pLanguages"></slot>
+            <slot :data="pLanguages"></slot>
+        </div>
+    </template>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {},
+            components: {
+                cdn: {
+                    template: '#cdn',
+                    data() {
+                        return {
+                            pLanguages: ['JavaScript', 'python', 'c++', 'java', 'c#', 'swift'],
+                        }
+                    },
+                },
+            },
+        })
+    </script>
+</body>
+
+</html>

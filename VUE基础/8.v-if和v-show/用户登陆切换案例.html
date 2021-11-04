@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <span v-if="isUser">
+      <label>
+        用户账号:
+        <input type="text" placeholder="用户账号" key="username">
+      </label>
+    </span>
+    <span v-else>
+      <label>
+        用户邮箱:
+        <input type="text" placeholder="用户邮箱" key="userEmail">
+      </label>
+    </span>
+    <button @click="toggle">切换类型</button>
+    <!-- 或者用： -->
+    <!-- <button @click="isUser = !isUser">切换类型</button> -->
+  </div>
+  <!-- 以上案例有一个小问题：就是当在username输入框输入一半时切换到userEmail输入框后，原来输入的那部分内容不会消失，仍然保留到了新的输入框中。 -->
+  <!-- 解决：以上问题跟vue的虚拟DOM有关，如果有清空内容的需求，可以在input标签中加一个key属性作为标识。当上面两个输入框的key不一样时，内容就不会进行复用。  -->
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        isUser: true,
+      },
+      methods: {
+        toggle() {
+          this.isUser = !this.isUser
+        },
+      },
+    })
+  </script>
+</body>
+
+</html>

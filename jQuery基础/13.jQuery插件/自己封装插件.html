@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div></div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="./jQuery-bgColor.js"></script>
+<script>
+    $(function() {
+        // 如何自己封装插件？
+        // 给jQuery原型添加方法
+        $('div').width(200).height(200).bgColor('blue')
+        console.log($.add(2,2));
+    })
+</script>

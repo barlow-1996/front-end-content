@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="按钮" id="btn">
+    <input type="text" id="text" value="请输入账号">
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 设置或获取表单内容 val()
+        $('#btn').click(function() {
+            console.log($('#text').val()) // val()不给参数就是获取内容
+
+            $('#text').val('我是设置的值')
+        })
+    })
+</script>

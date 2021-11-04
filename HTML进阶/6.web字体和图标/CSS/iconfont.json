@@ -1,0 +1,30 @@
+{
+  "id": "1487716",
+  "name": "ce'shi",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "784988",
+      "name": "地图",
+      "font_class": "ditu",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "1987009",
+      "name": "用户",
+      "font_class": "user",
+      "unicode": "e6a6",
+      "unicode_decimal": 59046
+    },
+    {
+      "icon_id": "8103412",
+      "name": "箭头",
+      "font_class": "danseshixintubiao-",
+      "unicode": "e62e",
+      "unicode_decimal": 58926
+    }
+  ]
+}

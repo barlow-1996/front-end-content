@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <input type="text" id="text">
+  <button onclick="sendServer()">发送消息</button>
+  <script>
+    const ws = new WebSocket('ws://localhost:8080');
+
+    // 与服务器建立连接
+    ws.onopen = function() {
+      console.log('与服务器连接成功');
+    }
+
+    // 监听消息
+    // 客户端的请求头报文新增 update: websocket (申请协议升级)
+    ws.onmessage = msg => {
+      let data = JSON.parse(msg.data);
+      console.log(data.msg);
+      alert('来自服务器的消息：' + data.msg);
+      // let data = JSON.parse(msg.data);
+      // switch(data.type) {
+      //   case 1:
+      //     alert('恭喜中奖');
+      //     break;
+      //   case 2:
+      //     alert('会员到期');
+      //     break;
+      //   case 3:
+      //     alert('收到信息请注意查收')
+      //     break;
+      // }
+    }
+
+    // 断开连接
+    ws.onclose = function() {
+      console.log('服务器端主动断开连接');
+    }
+
+    function sendServer() {
+      // 发送消息
+      let msg = document.getElementById('text').value;
+      ws.send(msg);
+    }
+  </script>
+</body>
+</html>

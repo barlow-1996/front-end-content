@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+</head>
+<body>
+    <div id="app">
+        <router-link to="/account">account</router-link>
+        <router-view></router-view>
+    </div>
+    <template id="tmpl">
+        <div>
+           <h1>这是 account 组件</h1> 
+           <router-link to="/account/login">登录</router-link>
+           <router-link to="/account/register">注册</router-link>
+           <router-view></router-view>
+        </div>
+    </template>
+    <script>
+        //  这是组建的模板对象
+        var account = {
+            template: '#tmpl'
+        }
+
+        var login = {
+            template: '<h3>登陆组件</h3>'
+        }
+
+        var register = {
+            template: '<h3>注册组件</h3>'
+        }
+
+
+        var router = new VueRouter({
+            routes:[
+                {
+                    path: '',
+                    redirect: '/account'
+                },
+                {
+                    // 当以 "/" 开头的路由会被当成根路径
+                    path: '/account',
+                    component: account,
+                    // 使用 children 属性实现子路由, 同时子路由的 path 前面不要带 / ,否则永远以根路径开始请求
+                    children:[
+                        { path: 'login', component: login },
+                        { path: 'register', component: register }
+                    ]
+                },
+                
+            ]
+        })
+
+
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                
+            },
+            methods: {
+                
+            },
+            router
+        })
+    </script>
+</body>
+</html>

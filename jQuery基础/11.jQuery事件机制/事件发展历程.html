@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    div {
+        width: 200px;
+        height: 200px;
+        margin-top: 10px;
+    }
+    .one {
+        border: 1px solid red;
+    }
+</style>
+<body>
+    <input type="button" value="按钮" id="btn">
+    <div class="one" id="one">
+
+    </div>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 用原生js注册相同的事件后，后面的会把前面的事件覆盖
+        // jQuery给元素注册同样的事件，后面的不会覆盖前面的
+        // $('#btn').click(function() {
+        //     alert('lalala')
+        // })
+        // $('#btn').click(function() {
+        //     alert('lalalalalalal')
+        // })
+
+        // jQuery1.7之后，用on统一了所有事件的注册方式
+        // 但是on简单注册方式不支持动态注册
+        $('#btn').on('click',function() {
+            alert('我是点击事件')
+        })
+
+        //想要支持动态注册，就要用on委托注册方式
+        // $(selector).on('事件名称','想要动态注册事件的元素'.function() {})
+        // selector为想要动态注册事件的元素的父元素
+        // $(this)仍然指向想要动态注册的那个元素
+    })
+</script>

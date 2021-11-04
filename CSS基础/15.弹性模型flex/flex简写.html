@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #wrap {
+      width: 400px;
+      height: 300px;
+      border: 1px solid;
+      margin: 100px auto;
+      display: flex;
+    }
+
+    #wrap>.item {
+      height: 50px;
+      background-color: pink;
+      text-align: center;
+      line-height: 50px;
+
+      /* flex-grow: 1;
+      flex-shrink: 1;
+      flex-basis: 0%; */
+      /* 以上3行代码可简写成： */
+      flex: 1;
+
+      /* 
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: auto; 
+        可简写成：flex: auto;
+      */
+
+      /* 
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: auto; 
+        可简写成：flex: none;
+      */
+    }
+  </style>
+</head>
+
+<body>
+  <div id="wrap">
+    <div class="item">1</div>
+    <div class="item">22</div>
+    <div class="item">333</div>
+    <div class="item">4444</div>
+    <div class="item">55555</div>
+  </div>
+</body>
+
+</html>

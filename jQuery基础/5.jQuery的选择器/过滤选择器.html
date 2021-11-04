@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li>我是第1个li标签</li>
+        <li>我是第2个li标签</li>
+        <li>我是第3个li标签</li>
+        <li>我是第4个li标签</li>
+        <li>我是第5个li标签</li>
+        <li>我是第6个li标签</li>
+        <li>我是第7个li标签</li>
+        <li>我是第8个li标签</li>
+        <li>我是第9个li标签</li>
+        <li>我是第10个li标签</li>
+    </ul>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 设置奇数行li标签颜色为蓝色
+        $('li:odd').css('backgroundColor','skyblue') // :odd可以选中所有索引为奇数的元素
+
+        // 设置偶数行li标签颜色为粉色
+        $('li:even').css('backgroundColor','pink')  // :even可以选中所有索引为偶数的元素
+
+        // 让首尾两行li标签颜色为红色
+        $('li:eq(0),li:eq(9)').css('backgroundColor','red') // :eq(index)可以选中指定索引的元素
+    })
+</script>

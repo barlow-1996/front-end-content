@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html {
+      height: 100%;
+    }
+    body {
+      width: 60%;
+      height: 60%;
+      border: 1px solid;
+      margin: 100px auto 0;
+    }
+    body:hover #test{
+      width: 100px;
+      height: 100px;
+      font: 30px/100px "微软雅黑"
+    }
+    #test {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background-color: pink;
+      text-align: center;
+      line-height: 200px;
+      font: 50px/200px "微软雅黑";
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      transition-property: width, height;
+      transition-duration: 5s;
+    }
+  </style>
+</head>
+<body>
+  <div id="test">
+    你好啊
+  </div>
+</body>
+</html>

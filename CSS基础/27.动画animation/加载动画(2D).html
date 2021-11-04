@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
+    #wrap {
+      height: 100%;
+      background: gray;
+    }
+    .inner {
+      text-align: center;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    .inner > span {
+      position: relative;
+    }
+    @keyframes move {
+      from {
+        top: 0px;
+      }
+      to {
+        top: -10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="wrap">
+    <div class="inner">
+      <span>L</span>
+      <span>o</span>
+      <span>a</span>
+      <span>d</span>
+      <span>i</span>
+      <span>n</span>
+      <span>g</span>
+      <span>.</span>
+      <span>.</span>
+      <span>.</span>
+    </div>
+  </div>
+  <script>
+    window.onload = function () {
+      var spanNodes = document.querySelectorAll(".inner > span");
+      var colors = ["red", "orange", "yellow", "green", "blue", "pink", "deeppink", "red", "orange", "yellow"];
+      for(let i = 0; i < spanNodes.length; i++) {
+        spanNodes[i].style.animation = "move .3s " + (i*50) + "ms linear infinite alternate";
+        spanNodes[i].style.color = colors[i];
+      }
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        const obj = {
+            "a_b": {
+                "a_b_c": {
+                    "a_b_c_d": "a_b_c_d"
+                }
+            }
+        };
+
+        function translate(obj) {
+            const toCamel = str => {
+                return str.replace(/_(\w)/g, (match, group) => group.toUpperCase());
+            }
+
+            if (obj instanceof Object) {
+                Object.keys(obj).forEach(k => {
+                    const newKey = toCamel(k);
+                    if (newKey !== k) {
+                        obj[newKey] = obj[k];
+                        delete obj[k];
+                    }
+                    translate(obj[newKey]);
+                })
+            }
+
+            return obj;
+        }
+
+        console.log(translate(obj)); // {"aB": {"aBC": {"aBCD": "a_b_c_d"}}}
+    </script>
+</body>
+
+</html>

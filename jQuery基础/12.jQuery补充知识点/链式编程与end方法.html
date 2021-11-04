@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+
+    </div>
+    <span></span>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 什么时候可以链式编程？
+        // 如果给元素调用一个方法，并且返回一个jQuery对象，那就可以继续使用jQuery方法
+        $('div').width(100).height(100).css('backgroundColor','red')
+        // $('div').width(100).width().height(100)  这里会报错，因为width（）返回的是一个数值，不是jQuery对象
+
+        // end()方法，回到链式编程的上一个状态
+        console.log($('div').width(100).height(100).css('backgroundColor','red').next().text('我是span').end()); // 这里的返回值会回到div元素，而不是span元素
+        
+    })
+</script>

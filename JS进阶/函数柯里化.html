@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 函数柯里化: 通过函数调用继续返回函数的方式，实现多次接收参数最后统一处理的函数编写
+
+    // 柯里化作用：
+    // 1. 可以延迟计算。柯里化会将传入的参数放入数组内存储，当没有参数传入时才进行调用
+    // 2. 参数复用。当要多次调用同一函数，且参数大部分相同时就可以使用柯里化处理
+
+    // 函数柯里化通用写法:
+    function curry(fn, curArgs) {
+      return function () {
+        let args = Array.prototype.slice.call(arguments);
+        if(curArgs !== undefined) {
+          args = args.concat(curArgs);
+        }
+
+        if(args.length < fn.length) {
+          return curry(fn, args);
+        }
+        return fn.apply(null, args);
+      }
+    }
+
+    // 普通的add函数
+    function add(x, y, z) {
+      return x + y + z;
+    }
+
+    let curryingAdd1 = curry(add);
+    console.log(curryingAdd1(1)(2, 3)); // 6
+    console.log(curryingAdd1(1, 2, 3)); // 6
+    console.log(curryingAdd1(1)(2)(3)); // 6
+    
+  </script>
+</body>
+
+</html>

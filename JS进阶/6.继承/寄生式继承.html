@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+
+    // 寄生式继承
+    function createAnother(original) {
+      var clone = Object.create(original);
+      // 下面可创建属于自己的属性和方法
+      clone.sayHi = function() {
+        return 'hi';
+      }
+      return clone;
+    }
+
+    var person = {
+      name: 'BYL',
+      colors: ['red', 'blue', 'green'],
+      sayHello(){
+        console.log('hello');
+      }
+    }
+
+    var anotherPerson1 = createAnother(person);
+    var anotherPerson2 = createAnother(person);
+    console.log(anotherPerson1.sayHi()); // hi
+
+    anotherPerson1.colors.push('yellow');
+    console.log(anotherPerson1.colors); // hello
+    console.log(anotherPerson2.colors); // hello
+  </script>
+</body>
+
+</html>

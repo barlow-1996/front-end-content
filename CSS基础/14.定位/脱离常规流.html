@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .item {
+      width: 200px;
+      height: 200px;
+      background: red;
+      margin: 6px;
+      display: inline-block;
+    }
+
+    /* 两种定位效果不同，因为 absolute 脱离了常规流，后面的元素会忽略它，而 relative 未脱离文档流，不会被后面元素忽略 */
+    .div2 {
+      /* position: absolute; */
+      position: relative;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="item"></div>
+  <div class="item div2"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+  <div class="item"></div>
+</body>
+
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    function breadthFirstSearch(node) {
+      var nodes = [];
+      if (node != null) {
+        var queue = [node];
+        // queue.unshift(node);
+        while (queue.length) {
+          let currentCount = queue.length;  
+          for (var i = 0; i < currentCount; i++){
+            let item = queue.shift();
+            nodes.push(item.val); 
+            item.left && queue.push(item.left);
+            item.right && queue.push(item.right);
+          }
+        }
+      }
+      return nodes;
+    }
+  </script>
+</body>
+
+</html>

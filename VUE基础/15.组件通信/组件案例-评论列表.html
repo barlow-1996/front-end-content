@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="app">
+        <ul class="list-group">
+            <li class="list-group-item" v-for="item in list" :key="item.id">
+                <p class="badge">评论人：{{item.user}}</p>
+                <p class="badge">评论内容：{{item.content}}</p>
+            </li>
+        </ul>
+        <com @func="sendComment"></com>
+    </div>
+    <template id="tmpl">
+        <div>
+            <div class="form-group">
+                <label>
+                    评论人：
+                    <input type="text" class="form-group" v-model="user">
+                </label>
+            </div>
+            <div class="form-group">
+                <label>
+                    评论内容：
+                    <input type="text" class="form-group" v-model="content">
+                </label>
+                
+            </div>
+            <div class="form-group">
+                <input type="button" value="发表评论" @click="postComment">
+            </div>
+        </div>
+    </template>
+    <script>
+        var commentBox = {
+            template:'#tmpl',
+            data(){
+                return{
+                    user:'',
+                    content:''
+                }
+            },
+            methods: {
+                postComment(){
+                    this.$emit('func', this.user,this.content)
+                }
+            }
+        }
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                list:[
+                    {id:Date.now(), user:'李白',content:'天生我材必有用'},
+                    {id:Date.now(), user:'江小白',content:'劝君更饮一杯酒'},
+                    {id:Date.now(), user:'小马',content:'风吹草低现牛羊'}
+                ],
+                user:'',
+                content:''
+            },
+            methods: {
+               sendComment(user,content){
+                this.user = user;
+                this.content = content;
+                var commentItem = {id: Date.now(),user: this.user,content:this.content};
+                this.list.push(commentItem);
+               }
+            },
+            components: {
+                'com' :commentBox
+            }
+        })
+    </script>
+</body>
+</html>

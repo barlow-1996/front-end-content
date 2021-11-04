@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="firstName">+
+        <input type="text" v-model="lastName">=
+        <input type="text" v-model="fullName">
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+                firstName: '',
+                lastName: '',
+
+            },
+            methods: {
+
+            },
+            computed: { //在 computed 中可以定义一些属性，这些属性叫做计算属性
+                // 在使用这些计算属性时，把它们的名称直接当作属性来使用，并不会把计算属性当作方法去调用
+                fullName() {
+                    return this.firstName + " " + this.lastName;
+                    // 注意：计算属性在引用时一定不要加 （） 去调用，直接把它当作普通属性使用就好
+                    // 只要计算属性的这个 function 内部所用到任何 data 中数据发生变化，就会重新计算这个计算属性的值
+                    // 计算属性的求值结果会被缓存起来，方便下次使用；如果function中的任何属性都没变化则不会重新对计算属性求值
+                },
+
+                // 以上是简写形式，完整的计算属性形式如下：
+                // fullName: {
+                //     set: function () { // 一般计算属性没有set方法，作为只读属性
+                //     },
+                //     get: function () {
+                //         return this.firstName + " " + this.lastName
+                //     }
+                // }
+            }
+        })
+
+        // computed 和 methods 区别:
+        // 1. computed 是属性, methods 是方法。使用 computed 时只需要把包装的数据像data中的数据一样使用，而 methods 必须得调用
+        // 2. computed 具有缓存功能,当它的依赖数据发生改变时才会重新求值进行计算；methods 只要调用一次就会重新计算一次
+
+        // computed 和 watch 区别：
+        // 1. computed 具有缓存功能,当它的依赖数据发生改变时才会重新求值进行计算。若依赖数据无变化，则访问时直接从缓存中取值，不用再重新计算。
+        // 2. watch 无缓存性,监听某一个数据的变化，当监听的数据变化时都会执行回调进行后续操作
+        // 当需要依赖别的属性来动态获得值的时候可以使用 computed，对于监听到值的变化需要做一些业务逻辑的情况可以使用 watch
+    </script>
+</body>
+
+</html>

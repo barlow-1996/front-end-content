@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>日期</h2>
+    <p id="demo"></p>
+    <p id="demo1"></p>
+    <p id="demo2"></p>
+    <p id="demo3"></p>
+    <script>
+        var d1=new Date();
+        var d2=new Date(2019,9,29,14,26,30,0);
+        var d3 = new Date().setHours(7);
+        document.getElementById("demo").innerHTML=d1;
+        document.getElementById("demo1").innerHTML=d2;
+        document.getElementById("demo2").innerHTML=d1.getDate();
+        // var d3 = d2.setFullYear("2020");
+        document.getElementById("demo3").innerHTML=d1.setFullYear(2050);
+    </script>
+    
+</body>
+</html>

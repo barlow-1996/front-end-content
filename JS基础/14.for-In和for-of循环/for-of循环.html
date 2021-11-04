@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <p id="demo"></p>
+  <script>
+    var result = ""
+    var array = [{ id: 01, name: "zhangsan", age: 26 },
+    { id: 02, name: "lisi", age: 99 },
+    { id: 03, name: "wanger", age: 45 },
+    { id: 04, name: "mazi", age: 24 }]
+    for (let item of array) {  // 跟for-in循环比起来，这里的item就相当于是for-in中的person[item]
+      result += item.id + "---" + item.name + "---" + item.age + "</br>"
+    }
+    document.getElementById("demo").innerHTML = result
+  </script>
+</body>
+
+</html>

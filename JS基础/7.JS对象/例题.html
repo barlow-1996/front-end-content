@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 例题 1：
+        var a = {};
+        var b = {
+            a: 1
+        };
+        var c = {
+            b: 2
+        };
+
+        a[b] = 123;
+        a[c] = 456;
+        console.log(a[b]); // 456
+        // 原因是 b 为 对象，不能作为另一个对象的 key。所以当对象要作为 key 时，会将它用 toString 方法转换为字符串作为 key
+        /*即 a 对象 实际会变为：
+        {
+            "[object Object]": 456 // a[c]作为 key 时也会变为 "[object Object]",所以赋予的 456 会覆盖掉前面的 123
+        }
+        */
+
+        // 例题 2：
+        var a = {
+            n: 1
+        };
+        var b = a;
+        a.x = a = {
+            n: 2
+        };
+        console.log(a.x) // undefine
+        console.log(b.x) // {n : 2}
+        // 首先，a 和 b 同时引用了 {n:2} 对象，接着执行到 a.x = a = {n：2} 语句，尽管赋值 是从右到左的没错，但是.的优先级比=要高
+        // 所以这里首先执行 a.x，相当于为 a（或者 b）所指向的 {n:1} 对象新增了一个属性 x，即此时对象将变为 {n:1;x:undefined}
+        // 之后按正常情况，从右到左进行赋值，此时执行 a ={n:2} 时，a 的引用改变，指向了新对象{n：2},而 b 依然指向的是旧对象。
+        // 之后执行 a.x = {n：2} 时，并不会重新解析一遍 a，而是沿用最初解析 a.x 时候的 a， 故此时 a 的 x 的值为{n：2}，旧对象为 {n:1;x:{n：2}}，它被 b 引用着
+        // 后面输出 a.x 的时候，又要解析 a 了，此时的 a 是指向新对象的 a，而 这个新对象是没有 x 属性的，故访问时输出 undefined；而访问 b.x 的时候，将 输出旧对象的 x 的值，即{n:2}
+    </script>
+</body>
+
+</html>

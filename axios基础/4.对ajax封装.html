@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function axios({
+            url,
+            method = 'GET',
+            params = {}, // query 参数
+            data = {}  // 请求数据，不能在GET中
+        }) { // axios 是基于 promise 的http客户端，是对ajax的封装
+            // 所以，要返回一个 Promise 对象,成功的结果为response，失败的结果为error
+            return new Promise((resolve, reject) => {
+
+                // 处理method，若是小写字母转换成大写
+                method = method.toUpperCase();
+
+                // 处理 query 参数（拼接到url上）
+                let queryString = '';
+                for (let key in params) {    // 遍历 params，并拼接字符串
+                    queryString += key + '=' + params[key] + '&';
+                }
+                if (queryString) {
+                    // 去除最后的 &
+                    queryString = queryString.substring(0, queryString.length - 1);
+                    // 拼到 url 上
+                    url += '?' + queryString;
+                }
+
+                // 1. 执行异步ajax请求
+                // 1.1 创建xhr对象
+                const request = new XMLHttpRequest();
+
+                // 1.2 打开连接（初始化请求）
+                request.open(method, url, true);
+
+                // 1.3 发送ajax请求
+                if (method === 'GET' || method === 'DELETE') {
+                    request.send();
+                } else if (method === 'POST' || method === 'PUT') {
+                    // 告诉服务器请求体的格式是 JSON
+                    request.setRequestHeader('Content-Type', 'application/json;charset=utf-8');
+                    request.send(JSON.stringify(data)); // 发送JSON格式的请求体参数
+                }
+
+
+                // 绑定状态改变的监听
+                request.onreadystatechange = function () {
+                    // 如果响应状态码在[200,300)之间代表响应成功，否则失败
+                    const { status, statusText } = request;
+
+                    // 2.1 若请求成功，调用resolve()
+                    if (request.readyState == 4 && status >= 200 && status < 300) {
+                        // 准备结果数据对象 response ,将XHR里面的response从JSON变为对象
+                        const response = {
+                            data: JSON.parse(request.response),
+                            status,
+                            statusText
+                        }
+                        resolve(response);
+                    } else {
+                        // 2.2 若请求失败，调用reject()
+                        reject(new Error('request error status is : ' + status));
+                    }
+                }
+            })
+        }
+
+        axios({
+            url: 'http://localhost:3000/posts/18',
+            method: 'DELETE',
+            // params: {
+            //     id: 1,
+            //     title: 'byl'
+            // },
+            // data: {
+            //     "title": "json-server++++",
+            //     "author": "typicode+++++"
+            // }
+        }).then(
+            response => {
+                console.log(response);
+            },
+            error => {
+                alert(error.message);
+            }
+        )
+    </script>
+</body>
+
+</html>

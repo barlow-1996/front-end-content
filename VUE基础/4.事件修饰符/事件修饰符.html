@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <style>
+        .outer {
+            height: 300px;
+            background-color: lightblue;
+        }
+        .inner {
+            height: 150px;
+            background: darkcyan;
+            margin: 10px auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!-- 使用 .self 只会触发自己范围内的事件，不包含子元素 -->
+        <!-- .self只会阻止自己身上冒泡行为的触发,并不会真正阻止冒泡的行为 -->
+        <div class="outer" @click="divouter">
+            <div class="inner" @click.self="divhandler">
+                <input type="button" value="触发自身事件" @click="btnhandler">
+                <!-- 输出：触发了btn 按钮的点击事件 触发了outer div的点击事件 -->
+            </div>
+        </div>
+
+        <div class="outer" @click="divouter">
+            <div class="inner" @click="divhandler">
+                <!-- 使用.stop 阻止冒泡 -->
+                <input type="button" value="阻止冒泡" @click.stop="btnhandler">
+                <!-- 输出：触发了btn 按钮的点击事件 -->
+            </div>
+        </div>
+
+        <!-- 在父元素div中使用.capture 实现捕获触发事件机制 -->
+        <div class="inner" @click.capture="divhandler">
+            <input type="button" value="捕获机制" @click="btnhandler">
+        </div>
+
+        <!-- 使用.prevent 阻止默认行为，点击a不会跳转到百度 -->
+        <a href="http://www.baidu.com" @click.prevent="linkclick">阻止默认行为，点击a不会跳转到百度</a>
+
+        <!-- 使用.once 只触发一次事件处理函数 -->
+        <input style="display: block;margin: 10px 0;" type="button" value="只触发一次" @click.once="btnhandler">
+
+        <!-- 当按下 enter 触发 keyup 方法 -->
+        <input type="text" @keyup.enter="keyup" placeholder="请输入">
+
+
+
+    </div>
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            data: {
+
+            },
+            methods: {
+                divouter() {
+                    console.log('触发了outer div的点击事件');
+                },
+                divhandler() {
+                    console.log('触发了inner div的点击事件')
+                },
+                btnhandler() {
+                    console.log('触发了btn 按钮的点击事件')
+                },
+                linkclick() {
+                    console.log('触发了link 链接点击事件')
+                },
+                keyup() {
+                    console.log('触发了按下enter键帽的事件')
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

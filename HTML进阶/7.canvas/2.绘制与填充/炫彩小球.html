@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="800" height="500" id="myCanvas" style="border: 1px solid black; background-color: #ccc;"></canvas>
+
+    <script>
+        // 得到画布
+        const canvas = document.getElementById('myCanvas');
+        console.log(canvas);
+
+        // 得到画布的上下文(上下文有两个，2d 和 3d)，所有的图像绘制都是上下文的属性或方法，和 canvas 标签无关
+        const ctx = canvas.getContext('2d');
+        console.log(ctx);
+
+        let ballArr = [];
+        // 球类
+        function Ball(x, y, r) {
+            this.x = x;
+            this.y = y;
+            this.r = r; // 初始半径
+            this.color = getRandom(); // 设置随机颜色
+            // 设置移动距离
+            this.dx = parseInt(Math.random() * 10) - 5;
+            this.dy = parseInt(Math.random() * 10) - 5;
+            ballArr.push(this);
+        }
+        // 设置鼠标监听，鼠标移动过程中创建小球
+        canvas.addEventListener('mousemove', (event) => {
+            new Ball(event.offsetX, event.offsetY, 30);
+        });
+        // 定时器动画渲染和更新
+        setInterval(() => {
+            ctx.clearRect(0, 0, 800, 500);
+            ballArr.forEach(v => {
+                v.update();
+                v.r > 0 && v.render();
+            });
+        }, 10);
+        // 渲染小球
+        Ball.prototype.render = function() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2, false);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+        }
+        // 更新小球
+        Ball.prototype.update = function() {
+            this.x += this.dx;
+            this.y += this.dy;
+            this.r -= 0.4;
+            // 如果小球半径等于 0 时从数组中删除
+            this.r <= 0 && this.remove();
+        }
+        // 删除小球
+        Ball.prototype.remove = function() {
+            ballArr = ballArr.filter(v => v !== this);
+        }
+        // 随机颜色
+        function getRandom() {
+            const type = '0123456789abcdef'.split('');
+            let color = '#';
+            for(let i = 0; i < 6; i++) {
+                let random = parseInt(Math.random() * type.length);
+                color += type[random];
+            }
+            return color;
+        }
+        
+    </script>
+</body>
+</html>

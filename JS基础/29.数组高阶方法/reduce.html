@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    const nums = [10, 20, 111, 222, 444, 40, 50]
+    // reduce里面要定义两个参数，第一个参数是回调函数，第二个参数是初始化值。回调函数可以有两个参数preValue和n，分别是上一次返回的值和新的遍历值
+    // reduce回调函数的作用是对数组中所有的内容进行汇总
+
+    // arr.reduce(callback(accumulator, currentValue[, index[, array]])[, initialValue])
+    // reduce 中的回调函数提供 4 个参数，第一个是累加器(accumulator)，第二个是每次遍历的值(currentValue)，第三个是每次遍历的索引(index)，第四个遍历的这个数组(array)
+    // initialValue 为第一次调用 callback 函数时的第一个参数的值.如果没有提供初始值，则将使用数组中的第一个元素
+    // 如果调用reduce()时提供了initialValue，accumulator取值为initialValue，currentValue取数组中的第一个值
+    // 如果没有提供 initialValue，那么accumulator取数组中的第一个值，currentValue取数组中的第二个值
+
+    // 这里会将汇总出来的结果赋值给result
+    let result = nums.reduce(function(preValue, n) { // 该回调函数会在每一次遍历出一个数的时候就执行一次
+      return preValue + n
+    }, 0)
+    // 第一次： preValue 为 0， n 为 10
+    // 第二次： preValue 为 10, n 为 20
+    // 第三次： preValue 为 30，n 为 111
+    // ......以此类推，最终就能返回数组汇总后的结果
+    console.log(result)
+
+    // 手写 reduce：
+    Array.prototype._reduce = function(fn, initialValue) {
+      let len = this.length;
+      let i = 0;
+      if (!initialValue) {
+        i = 1;
+        initialValue = this[0];
+      }
+      for(i; i < len; i++) {
+        initialValue = fn(initialValue, this[i], i, this);
+      }
+      return initialValue;
+    }
+
+    let res = nums._reduce((a, v) => a + v, 0);
+    console.log(res);
+  </script>
+</body>
+</html>

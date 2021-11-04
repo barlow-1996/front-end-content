@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 发布订阅模式
+    class EventEmitter {
+      constructor() {
+        // 存放事件的对象，key 为订阅的名字，value 为事件 如: {click: [handle1, handle2]}
+        this.events = {};
+      }
+
+      // 订阅事件的方法
+      on(eventName, callback) {
+        if (!this.events[eventName]) {
+          // 一个名字可以订阅多个事件函数,所以赋值为数组存放事件函数
+          this.events[eventName] = [callback];
+        } else {
+          // 如果已经赋值，判断该事件中是否已经存在这个执行函数
+          // 若不存在，将事件函数放进数组尾部保存
+          !this.events[eventName].includes(callback) &&
+            this.events[eventName].push(callback);
+        }
+        // 返回 this 实例可以实现链式调用
+        return this;
+      }
+
+      // 触发事件的方法
+      emit(eventName, ...rest) {
+        // console.log(rest); // [10, 20,, 30, 40, 50]
+        // 遍历执行所有订阅的事件
+        if(this.events[eventName]) {
+          this.events[eventName].forEach(f => f.apply(this, rest));
+        }
+      }
+
+      // 移除订阅事件
+      remove(eventName, callback){
+        if(this.events[eventName]) {
+          this.events[eventName] = this.events[eventName].filter(f => f !== callback);
+        }
+      }
+      
+      // 只执行一次订阅事件，执行完移除
+      once(eventName, callback) {
+        const fn = () => {
+          callback();
+          this.remove(eventName, fn);
+        }
+        this.on(eventName, fn);
+      }
+    }
+
+    // 使用发布订阅模式
+    const event = new EventEmitter();
+    // 设置事件执行函数
+    const handle = (...payload) => {console.log(payload)}
+    // 订阅事件
+    event.on('click', handle);
+    // event.on('click', handle); // 方法已经做过去重
+    event.on('event1', handle).on('event2', handle);
+    // 触发事件
+    event.emit('click', 10, 20, 30, 40, 50);
+    // 移除事件
+    event.remove('click', handle);
+    // 只订阅一次事件
+    event.once('dbclick', () => {console.log('click')});
+    event.emit('dbclick', 100);
+    event.emit('dbclick', 200); // 该语句无效，因为上一次触发后就将订阅事件移除了
+    console.log(event.events);
+  </script>
+</body>
+
+</html>

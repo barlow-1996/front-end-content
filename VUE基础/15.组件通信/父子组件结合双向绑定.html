@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h2>fatherData: {{number1}}</h2>
+    <h2>fatherData: {{number2}}</h2>
+    <cpn :cnum1="number1" :cnum2="number2" @emitnum1="prtnum1" @emitnum2="prtnum2"></cpn>
+  </div>
+  <template id="cpn">
+    <div>
+      <h2>sonProps: {{cnum1}}</h2>
+      <h2>sonData: {{num1}}</h2>
+      <input type="text" :value="num1" @input="emit1">
+      <h2>sonProps: {{cnum2}}</h2>
+      <h2>sonData: {{num2}}</h2>
+      <input type="text" :value="num2" @input="emit2">
+    </div>
+  </template>
+  <script>
+    var vm = new Vue({
+      el: '#app',
+      data: {
+        number1: 1,
+        number2: 0
+      },
+      methods: {
+        prtnum1(data) {
+          this.number1 = data
+        },
+        prtnum2(data) {
+          this.number2 = data
+        }
+      },
+      components: {
+        cpn: {
+          template: '#cpn',
+          data() {
+            return {
+              num1: this.cnum1,
+              num2: this.cnum2
+            }
+          },
+          props: {
+            cnum1: [Number,String],
+            cnum2: [Number, String]
+          },
+          methods: {
+            emit1(event) {
+              this.num1 = event.target.value
+              this.$emit('emitnum1', this.num1)
+            },
+            emit2(event) {
+              this.num2 = event.target.value
+              this.$emit('emitnum2', this.num2)
+            }
+          },
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    scopeTest('global');
+    function scopeTest(scope) {
+      console.log(scope);
+      var scope = "local";
+      function scope() {};
+      console.log(scope);
+    }
+    // 打印结果为：
+    // function scope(){}
+    // "local"
+
+    // 首先，在预编译阶段：
+    /* 第一步，创建AO对象，AO{ }；
+       第二步，形参名为scope，且函数中的变量声明中也有一个scope，虽然两者同名，但是在AO对象中只会存储一个scope，得出 AO{scope：undefined}；
+​       第三步，将实参值和形参统一，也就是将实参中传递过来的值赋值给形参中，得出 AO{scope：“global”}；
+       第四步，找函数体中的函数声明并将值赋予函数体。函数scopeTest中，包含了一个函数scope的声明，而AO对象对待同名也只能存储一个，将函数体赋给AO对象中的scope，得出 AO{scope：function scope(){ }}；
+    */
+    // 预编译结束，开始执行代码：
+    /* 第一行调用scopeTest('global')函数，最开始输出scope的值，scope存储的值为function scope(){}, 所以输出函数；
+       接着继续执行代码，scope重新赋值，scope= “local”； 
+       然后 function scope(){}之前已经在预编译中获取了，于是忽略该行；
+       最后再次需要输出scope中的值，现在AO对象里面为：AO{scope：“local"}，所以输出local。
+    */
+  </script>
+</body>
+
+</html>

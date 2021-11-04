@@ -1,0 +1,15 @@
+[href]{
+    color: red;
+}
+/* 选中所有带有href属性的元素 */
+[href="http://www.baidu.com"]{
+    color: blue;
+}
+
+[id^='div'] {
+    background-color: lightblue;
+}
+
+[id$='1'] {
+    background-color: gold;
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="button" value="清空" id="btnEmpty">
+    <input type="button" value="移除" id="btnRemove">
+    <ul id="ul1">
+        <li>我是第1个li标签</li>
+        <li>我是第2个li标签</li>
+        <li id="li3">我是第3个li标签</li>
+        <li>我是第4个li标签</li>
+        <li>我是第5个li标签</li>
+    </ul>
+</body>
+</html>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script>
+    $(function() {
+        // 清空元素 empty() 
+        $('#btnEmpty').click(function() {
+            // 1.清空ul
+            $('#ul1').empty() // 推荐使用，不仅能清空节点，还能清空节点绑定的事件，安全
+
+            // 移除某一个元素
+            // 某元素.remove 自杀
+            $('#li3').remove()
+        })
+        $('#btnRemove').click(function() {
+            // 移除某一个元素
+            // 某元素.remove "自杀"
+            $('#li3').remove()
+        })
+
+    })
+</script>

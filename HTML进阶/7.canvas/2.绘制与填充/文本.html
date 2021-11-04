@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <canvas width="500" height="400" id="myCanvas" style="border: 1px solid black;"></canvas>
+
+    <script>
+        // 得到画布
+        const canvas = document.getElementById('myCanvas');
+
+        // 得到画布的上下文(上下文有两个，2d 和 3d)，所有的图像绘制都是上下文的属性或方法，和 canvas 标签无关
+        const ctx = canvas.getContext('2d');
+
+        // 写文本
+        // 设置字体样式
+        ctx.font = '30px  宋体';
+        // 文本对齐设置
+        ctx.textAlign = 'center';
+        // 填充文字
+        ctx.fillText('你好，我是宋体的文字', 100, 100);
+        
+    </script>
+</body>
+</html>

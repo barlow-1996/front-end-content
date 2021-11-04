@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function Student(name, subjects) {
+      this.name = name;
+
+      // 文科生：['政治', '历史', '地理']
+      // 理科生：['物理', '化学', '生物']
+      this.subjects = subjects;
+    }
+
+    /*
+    * 创建学生
+    * @param {string} name 姓名
+    * @param {string} type 文科/理科
+    * @return {Student}
+    */
+    function factory(name, type) {
+      if (type == '文科') {
+        return new Student(name, ['政治', '历史', '地理']);
+      } else if (type == '理科') {
+        return new Student(name, ['物理', '化学', '生物']);
+      } else {
+        throw '没有这个学科，别瞎搞';
+      }
+    }
+
+    let byl = factory('byl', '文科');
+    let hmy = factory('hmy', '理科');
+    console.log(byl, hmy);
+  </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    #test {
+      width: 500px;
+      height: 500px;
+      background-color: lightblue;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="test"></div>
+  <button>hidden</button>
+  <script>
+    // WeakMap 和 Map 区别：
+    // 1. 键名只能为对象
+    // 2. WeakMap 键名为弱引用，可被垃圾回收
+    // 3. WeakMap 无法被遍历、迭代或清空
+    let map = new WeakMap();
+    let div = document.getElementById('test'),
+      button = document.querySelector('button');
+
+    map.set(div, "something");
+    console.log(map.get(div));
+
+    // weakMap 在 DOM 销毁后即可释放内存
+    button.addEventListener('click', () => {
+      div.parentNode.removeChild(div);
+    })
+
+    // 当没有引用时会被垃圾回收
+    let p1 = {name: 'byl'}; // 引用 +1
+    let p2 = p1; // 引用 +1
+    p1 = null; // 引用 -1 
+    p2 = null; // 引用 -1 
+    // {name:'byl'} ==> 被（垃圾）回收
+
+    // 弱引用，引用数据不会 + 1
+    let p3 = {name: 'byl'}; // 引用 +1
+    let p4 = p3; // 引用 +1
+    let set = new WeakSet();
+    set.add(p3); // 引用 +0
+    console.log(set) // [object]  有下面两行代码则对象就没了 []
+    // p3 = null ; // 引用 -1
+    // p4 = null ; // 引用 -1
+
+    // 弱引用的作用：既要判断集合中的元素，又不想管理集合元素的声明周期，弱引用就是必要的
+  </script>
+</body>
+
+</html>
