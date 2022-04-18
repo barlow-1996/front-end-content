@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <button onclick="add()">增加 cookie</button>
+  <button onclick="del()">删除 cookie</button>
+  <button onclick="edit()">修改 cookie</button>
+  <button onclick="show()">查看 cookie</button>
+
+  <script>
+    function add() {
+      fetch('/add', {
+        method: 'post',
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+    }
+    function del() {
+      fetch('/del', {
+        method: 'post',
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+    }
+    function edit() {
+      fetch('/edit', {
+        method: 'post',
+        headers: {
+          "Content-type": "application/json"
+        }
+      })
+    }
+    function show() {
+      fetch('/show', {
+        method: 'post',
+        headers: {
+          "Content-type": "application/json"
+        }
+      }).then(
+        response => response.json()
+      ).then(
+        data => {
+          alert(`cookie: ${data.data.cookie}, session: ${data.data.username}`);
+      })
+    }
+  </script>
+</body>
+</html>
