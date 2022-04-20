@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    class Count extends React.Component {
+      // 构造器
+      constructor(props) {
+        console.log('Count---constructor');
+        super(props);
+        this.state = { count: 0 };
+      }
+
+      add = () => {
+        let { count } = this.state;
+        count++;
+        this.setState({ count });
+      }
+
+      removeComponent = () => {
+        ReactDOM.unmountComponentAtNode(document.getElementById('test'));
+      }
+
+      force = () => {
+        this.forceUpdate();
+      }
+
+      // 必须要返回一个状态对象或null，返回别的值会报错
+      // 该钩子函数接收两个参数，若 return props 则 state 的值在任何时候都取决于 props
+      // 一般不会用到该钩子函数，会导致代码冗余，组件难以维护
+      static getDerivedStateFromProps(props, state) {
+        console.log('Count---getDerivedStateFromProps');
+        return null;
+      }
+
+      // 该钩子在最近一次更新(提交到 DOM 节点)之前调用，能够得到组件发生变化之前的信息(例如滚动位置)
+      // 该钩子返回一个值或者 null，返回的任何值都会作为参数传递给 componentDidUpdate
+      getSnapshotBeforeUpdate() {
+        console.log('Count---getSnapshotBeforeUpdate');
+        return null;
+      }
+
+      // 组件已经挂载后的钩子函数
+      componentDidMount() {
+        console.log('Count---componentDidMount');
+      }
+
+      // 组件被卸载前的钩子函数
+      componentWillUnmount() {
+        console.log('Count---componentWillUnmount');
+      }
+
+      // 控制组件更新的“阀门”，每次调用 setState 都会调用该钩子函数
+      // 该钩子函数必须返回一个布尔类型，若返回 true 则组件更新，若返回 false 则组件不更新
+      // 若不写该钩子函数，则 react 默认返回 true
+      shouldComponentUpdate() {
+        console.log('Count---shouldComponentUpdate');
+        return true; // 必须要返回布尔值，若不写 return 则返回 undefined，会报错
+      }
+
+      // 组件更新完后的钩子函数，前两个参数可拿到组件更新之前的 props 和 state，最后一个参数是 getSnapshotBeforeUpdate 返回的值
+      componentDidUpdate(preProps, preState, snapshotValue) {
+        console.log('Count---componentDidUpdate', preProps, preState, snapshotValue);
+      }
+
+      // 组件初始化渲染 和 状态更新 后的钩子函数
+      render() {
+        console.log('Count---render');
+        const { count } = this.state;
+        return (
+          <div>
+            <h2>当前求和为: {count}</h2>
+            <button onClick={this.add}>点我 +1</button>&nbsp;
+            <button onClick={this.removeComponent}>卸载组件</button>
+            <button onClick={this.force}>不更改任何 state 中的数据，强制更新</button>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Count count={199} />, document.getElementById('test'));
+  </script>
+</body>
+
+</html>

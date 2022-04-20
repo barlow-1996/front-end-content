@@ -1,0 +1,17 @@
+:root:root {
+  --adm-color-primary: #21b97a;
+  --adm-color-weak: #888;
+}
+.adm-tab-bar {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  border: solid 1px var(--adm-border-color);
+  background-color: #fff;
+}
+.home {
+  padding-bottom: 52px;
+}
+.home .iconfont {
+  font-size: 20px;
+}

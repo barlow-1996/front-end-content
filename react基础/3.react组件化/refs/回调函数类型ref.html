@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    class Demo extends React.Component {
+      state = {isHot: true};
+      // 展示左侧输入框中数据
+      showData = () => {
+        alert(this.input1.value);
+      }
+      changeWeather = () => {
+        const {isHot} = this.state;
+        this.setState({isHot: !isHot});
+      }
+      saveInput = (c) => {
+        this.input1 = c;
+        console.log('input1', c);
+      }
+      render() {
+        const {isHot} = this.state;
+        return (
+          <div>
+            {/* 将回调函数放在 ref 属性中，react 会自动调用该函数，回调函数内的参数(即c)指向当前元素，通过 this.xxx = c 就可将该元素作为属性赋值在实例对象上 */}
+            <h2 onClick={this.changeWeather}>今天天气很{isHot ? '炎热' : '凉爽'}</h2>
+            {/* 使用内联函数定义 ref 的回调函数，会在更新过程中执行两次回调，第一次传入参数为 null，第二次传入 DOM 元素【改变天气后看控制台】
+                这是因为在每次渲染时会创建一个新的函数实例，react 会清空旧的 ref 并设置新的 */}
+            {/* <input type="text" ref={c => {this.input1 = c, console.log('input1', c);}} placeholder="点击按钮提示数据"/>&nbsp; */}
+
+            {/* 这样绑定回调函数可以解决该问题，不过这个问题基本上没什么影响 */}
+            <input type="text" ref={this.saveInput} placeholder="点击按钮提示数据"/>&nbsp;
+            <button onClick={this.showData}>点我提示左侧数据</button>&nbsp;
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Demo/>, document.getElementById('test'));
+  </script>
+</body>
+
+</html>

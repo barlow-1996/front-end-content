@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    // 1. 创建函数式组件
+    // 首字母必须大写，否则 react 会当成 html 标签
+    function Demo() {
+      console.log(this); // undefined 因为 babel 编译后开启了严格模式
+      return <h2>函数式组件适用于定义简单组件</h2>;
+    }
+    // 2. 渲染组件到页面（标签要闭合）
+    ReactDOM.render(<Demo/>, document.getElementById('test'));
+    // ReactDOM.render(<component/>, ...) 发生了什么？
+    // 1. react 解析该组件标签，找到 component 组件
+    // 2. 发现组件使用函数定义，随后调用该函数，将返回的虚拟 DOM 转为 真实 DOM
+  </script>
+</body>
+
+</html>

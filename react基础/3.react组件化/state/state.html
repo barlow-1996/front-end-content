@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    class Weather extends React.Component {
+      constructor(props) {
+        super(props);
+        // 初始化状态
+        this.state = { isHot: true };
+        this.changeWeather = this.changeWeather.bind(this); // 将原型上的方法挂载到实例自身，解决 this 指向问题
+      }
+      changeWeather() {
+        // changeWeather 定义在 Weather 的原型对象上，供实例使用
+        // 由于 changeWeather 作为 onClick 的回调，所以不是通过实例调用的，是直接调用的，且类的内部开启了严格模式，所以 this 为 undefined
+        // console.log(this);
+
+        // this.state.isHot = !this.state.isHot; // 状态不可直接更改，要借助 setState 更改（setState 方法在 React.Component 原型上）
+        const {isHot} = this.state;
+        this.setState({isHot: !isHot}); // 更新是合并，不是替换
+      }
+      render() {
+        const {isHot} = this.state;
+        // react 中绑定事件用 onClick，而不是 onclick，且需要通过 {} 传入函数
+        return <h1 onClick={this.changeWeather}>今天天气很{isHot ? '炎热' : '寒冷'}</h1>
+      }
+    }
+    ReactDOM.render(<Weather />, document.getElementById('test'));
+  </script>
+</body>
+
+</html>

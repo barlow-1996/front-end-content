@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    class Login extends React.Component {
+
+      getData = event => {
+        const {input} = this;
+        alert(`文本框的值为：${input.value}`);
+      }
+
+      render() {
+        return (
+          <div>
+            <input ref={c => this.input = c} type="text"/>&nbsp;
+            <button onClick={this.getData}>获取文本框数据</button>
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Login/>, document.getElementById('test'));
+  </script>
+</body>
+
+</html>

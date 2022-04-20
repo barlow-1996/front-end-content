@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    class Demo extends React.Component {
+      // 创建 ref 容器
+      myRef = React.createRef();
+      myRef2 = React.createRef();
+
+      showData = () => {
+        console.log(this.myRef);
+        // alert(this.refs.input1.value);
+        alert(this.myRef.current.value);
+      }
+
+      // input2 中发生事件的元素正好是要操作的元素，可以直接用 event 访问到，无需使用 ref
+      showData2 = (event) => {
+        alert(event.target.value);
+      }
+      render() {
+        return (
+          <div>
+            <input type="text" ref={this.myRef} placeholder="点击按钮提示数据" />&nbsp;
+            <button onClick={this.showData}>点我提示左侧数据</button>&nbsp;
+            <input onBlur={this.showData2} type="text" placeholder="失去焦点提示数据" />
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Demo />, document.getElementById('test'));
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+.parent {
+  background-color: lightblue;
+  padding: 10px;
+}
+.a {
+  margin-top: 20px;
+  background-color: gold;
+  padding: 10px;
+}
+.b {
+  margin-top: 20px;
+  background-color: orange;
+  padding: 10px;
+}

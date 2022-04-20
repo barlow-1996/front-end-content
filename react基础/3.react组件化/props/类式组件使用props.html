@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+  <!-- 进行类型检测必须引入 props-types 库【react 15.x 版本以后该库就不包含在 react 中】 -->
+  <script src="https://unpkg.com/prop-types@15.6/prop-types.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    // 创建组件
+    class Person extends React.Component {
+      // props 限制
+      static propTypes = {
+        name: PropTypes.string.isRequired, // name 的值必须是字符串类型，且必需
+        sex: PropTypes.string,
+        age: PropTypes.number,
+        speak: PropTypes.func // speak 的值必须是函数类型
+      }
+      // props 设置默认值
+      static defaultProps = {
+        sex: '男'
+      }
+
+      render() {
+        // this.props.name = 'byl'; 注意：props 是只读的，无法修改，否则报错
+        const { name, sex, age, tag } = this.props;
+        return (
+          <div>
+            <ul>
+              <li>姓名：{name}</li>
+              <li>性别：{sex}</li>
+              <li>年龄：{age + 1}</li>
+            </ul>
+            {tag}
+          </div>
+        )
+      }
+    }
+    // 给类添加静态属性可以放在类里面，并且使用 static 关键字声明
+    // Person.propTypes = {
+    //   name: PropTypes.string.required
+    // }
+
+    const p = { name: "tom", sex: "男", age: 18 };
+    function speak() {
+      console.log(`My name is ${p.name}`);
+    }
+    // 渲染组件到页面
+    ReactDOM.render(<Person {...p} speak={speak} tag={<div>这是一个div容器</div>} />, document.getElementById('test'));
+  </script>
+</body>
+
+</html>

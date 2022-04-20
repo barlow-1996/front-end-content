@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    // 父组件
+    class Father extends React.Component {
+      state = {carName: '奔驰'};
+
+      changeCar = () => {
+        this.setState({carName: '奥拓'});
+      }
+
+      render() {
+        return (
+          <div>
+            <div>Father 组件</div>
+            <button onClick={this.changeCar}>换车</button>
+            <Son carName={this.state.carName} />
+          </div>
+        )
+      }
+    }
+
+    // 子组件
+    class Son extends React.Component {
+      // 当前组件接收新的 props 前的钩子函数（第一次接收的不算）
+      // 该钩子函数还能接受一个参数，即当前组件的 props
+      componentWillReceiveProps(props) {
+        console.log('Son --- componentWillReceiveProps', props);
+      }
+
+      shouldComponentUpdate() {
+        console.log('Son --- shouldComponentUpdate');
+        return true;
+      }
+
+      componentWillUpdate() {
+        console.log('Son --- componentWillUpdate');
+      }
+
+      componentDidUpdate() {
+        console.log('Son --- componentDidUpdate');
+      }
+
+      render() {
+        console.log('Son --- render');
+        return (
+          <div>Son 组件，接收到的车是：{this.props.carName}</div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Father />, document.getElementById('test'));
+  </script>
+</body>
+
+</html>

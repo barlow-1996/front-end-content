@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    class Login extends React.Component {
+
+      // 初始化状态
+      state = {
+        username: '',
+        password: ''
+      }
+
+      handleChange = event => {
+        const name = event.target.name;
+        this.setState({ [name]: event.target.value });
+      }
+
+      render() {
+        return (
+          <div>
+            用户名：<input onChange={this.handleChange} type="text" name="username" value={this.state.username} />&nbsp;
+            密码：<input onChange={this.handleChange} type="password" name="password" value={this.state.password} />&nbsp;
+          </div>
+        )
+      }
+    }
+
+    ReactDOM.render(<Login />, document.getElementById('test'));
+  </script>
+</body>
+
+</html>

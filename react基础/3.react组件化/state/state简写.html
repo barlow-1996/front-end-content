@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@16/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+</head>
+
+<body>
+  <div id="test"></div>
+  <script type="text/babel">
+    class Weather extends React.Component {
+      // 初始化状态，可以将 state 直接作为属性定义在实例上
+      state = { isHot: true };
+      // 自定义方法要用 赋值语句 + 箭头函数 的形式
+      // 因为赋值语句可以将该函数挂载在实例对象自身上，而不是原型上；同时，使用箭头函数可以使函数体内的 this 指向实例对象
+      changeWeather = () => {
+        const {isHot} = this.state;
+        this.setState({isHot: !isHot});
+      }
+      render() {
+        const {isHot} = this.state;
+        return <h1 onClick={this.changeWeather}>今天天气很{isHot ? '炎热' : '寒冷'}</h1>
+      }
+    }
+    ReactDOM.render(<Weather />, document.getElementById('test'));
+  </script>
+</body>
+
+</html>
