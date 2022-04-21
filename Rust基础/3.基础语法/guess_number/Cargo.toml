@@ -1,0 +1,11 @@
+[package]
+name = "guess_number"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+# crate 是一个 Rust 代码包，可包含任意能被其他程序使用的代码，rand 是 crate 的其中一个库
+# 直接在 dependencies 中输入 rand = "0.5.5"，rust 服务器就会去 https://crates.io/crates/rand 去下载该库
+rand = "0.5.5"
