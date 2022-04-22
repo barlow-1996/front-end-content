@@ -12,7 +12,7 @@ fn main() {
         println!("请输入一个数：");
 
         // 在 Rust 中，let 声明的变量都是不可变的，若要修改变量值则需加上关键字 mut
-        // String::new() 表示定义了一个 String 类型的实例
+        // String::new() 表示定义了一个 String 类型的实例，::表示 new 是 String 类型下的函数
         let mut guess = String::new();
 
         // 调用 io 库中的函数 stdin,调用 read_line 方法从标准输入句柄获取用户输入
