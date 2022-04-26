@@ -1,3 +1,4 @@
+// 标准库(std)为外部包，但与下面的 rand 不同，无需在 .toml 中定义，但也需用 use 将 std 中特定项引入
 use std::io;
 use std::cmp::Ordering; // Ordering 是一个枚举类型，成员有 Less、Greater 和 Equal
 use rand::Rng; // 在 .toml 文件中定义完依赖后引入该依赖，Rng 是一个 trait，它定义了随机数生成器应实现的方法

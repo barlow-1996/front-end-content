@@ -112,6 +112,8 @@ mod front_of_house {
 // 使用 use 将 hosting 引入当前作用域，引入时可用绝对路径或相对路径
 use crate::front_of_house::hosting; // 绝对路径
 use front_of_house::hosting; // 相对路径
+// 使用 use 将 hosting 导入作用域时，在新作用域中是私有的，若想向外部暴露 hosting 可在 use 前加 pub 关键字
+pub use crate::front_of_house::hosting;
 
 pub fn eat_at_restaurant() {
     hosting::add_to_waitlist(); // hosting 当前作用域为全局，所以可直接调用内部的 add_to_waitlist
@@ -130,3 +132,25 @@ use std::io::Result as IoResult;
 fn function1() -> Result {}
 fn function2() -> IoResult {}
 ```
+
+### 使用嵌套路径
+
+当需引入很多定义于相同包或相同模块的项时，可使用嵌套路径将相同项在一行中引入
+
+```rust
+use std::cmp::Ordering;
+use std::io;
+// 使用嵌套路径：
+use std::{cmp::Ordering, io};
+
+use std::io;
+use std::io::Write;
+// 针对该情况，在嵌套路径中使用 self
+use std::io::{self, Write};
+```
+
+### 通配符
+
+使用通配符 * 将一个路径下所有公有项引入当前作用域，一般不推荐使用
+
+use std::io::*;
