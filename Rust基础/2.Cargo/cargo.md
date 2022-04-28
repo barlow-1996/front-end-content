@@ -25,6 +25,8 @@ Cargo 是 Rust 的包管理工具，安装 Rust 时自动安装 Cargo
 
 若创建项目时未使用 cargo，可通过将源码放入 src 目录下并创建 cargo.toml 填写相应配置后转化为 cargo 项目
 
+- cargo new xxx --lib: 创建库项目，src 目录下只有 lib.rs 文件，自动生成测试模块和函数
+
 - cargo build：在项目根目录生成 target 文件夹，并创建可执行文件: target\debug\xxx.exe
 第一次运行 cargo build 会在项目根目录下生成 Cargo.lock 文件，该文件计算出了所有符合要求的依赖版本
 将来构建项目时 Cargo 会直接使用 Cargo.lock 文件中已存在的依赖版本
