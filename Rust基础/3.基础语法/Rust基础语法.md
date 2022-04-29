@@ -52,7 +52,29 @@ shadowing 与 mut 区别是：使用 let 声明的新变量类型可与之前不
 
 ## 注释
 
-与 JS 一致
+普通注释与 JS 一致
+文档注释以 /// 开头；描述外层项以 //! 开头，通常用于 crate 根文件（src/lib.rs）或模块的根文件为 crate 或模块整体提供注释
+
+```rust
+//! # My Crate
+//!
+//! `my_crate` 是一个使得特定计算更方便的
+//! 工具集合
+
+/// 将给定的数字加一
+///
+/// # Examples
+///
+/// ```
+/// let arg = 5;
+/// let answer = my_crate::add_one(arg);
+///
+/// assert_eq!(6, answer);
+/// ```
+pub fn add_one(x: i32) -> i32 {
+    x + 1
+}
+```
 
 ## 控制流
 

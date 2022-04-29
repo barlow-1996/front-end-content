@@ -31,15 +31,18 @@ Cargo 是 Rust 的包管理工具，安装 Rust 时自动安装 Cargo
 第一次运行 cargo build 会在项目根目录下生成 Cargo.lock 文件，该文件计算出了所有符合要求的依赖版本
 将来构建项目时 Cargo 会直接使用 Cargo.lock 文件中已存在的依赖版本
 
+- cargo build --release: 发布项目
+编译时会进行优化，代码会运行更快，但编译时间更长
+会在 target/release 而不是 target/debug 下生成可执行文件
+
 - cargo run: 构建并运行 cargo 项目，该命令相当于既执行了 cargo build，又运行了可执行文件，很常用
 若之前编译成功过，且源码未改变，则执行 cargo run 就会直接运行可执行文件
 
 - cargo check: 检查代码确保能通过编译，但不会产生任何可执行文件
 cargo check 比 cargo build 快得多，编写代码时常用该命令检查代码，提高效率
 
-- cargo build --release: 发布项目
-编译时会进行优化，代码会运行更快，但编译时间更长
-会在 target/release 而不是 target/debug 下生成可执行文件
-
 - cargo update：会忽略 Cargo.lock 文件，并计算出 Cargo.toml 声明的所有依赖的最新版本
 计算成功后 Cargo 会把这些版本写入 Cargo.lock 文件
+
+- cargo doc: 会将文档注释生成 HTML 文档，并放在 target/doc 目录下
+- cargo doc --open: 生成文档后会自动打开

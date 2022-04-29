@@ -40,7 +40,6 @@ impl Summary for Tweet {
 
 // src/main.rs
 use demo::Summary // 必须要引入 Trait 声明，否则报错
-use demo::Tweet
 let tweet = Tweet {
     username: String::from("horse_ebooks"),
     content: String::from("of course, as you probably already know, people"),
