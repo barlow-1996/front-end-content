@@ -2,7 +2,7 @@
 
 call 和 apply 都是为了改变某个函数运行时的执行上下文而存在的。换句话说，就是为了改变函数体内部 this 的指向
 
-call 和 apply二者的作用完全一样，只是接受参数的方式不太一样
+call 和 apply 二者的作用完全一样，只是接受参数的方式不太一样
 
 ## call
 
@@ -28,19 +28,16 @@ let trueArr = Array.prototype.slice.call(arrayLike);
 
 `function.apply(obj,args)` 方法接收两个参数:
 obj：与 call 方法的一致
-args：这个是数组或类数组，apply方法把这个集合中的元素作为参数传递给被调用的函数
-合并数组:
+args：这个是数组或类数组，apply 方法把这个集合中的元素作为参数传递给被调用的函数
 
 ```javascript
+// 合并数组:
 var arr1=new Array("1","2","3"); 
 var arr2=new Array("4","5","6"); 
 Array.prototype.push.apply(arr1,arr2); 
 console.log(arr1); // ["1", "2", "3", "4", "5", "6"]
-```
 
-求类数组的最大值:
-
-```javascript:
+// 求类数组的最大值:
 var arr = [1,2,3,4,5,6]
 var maxNum1 = Math.max.apply(Math, arr);
 var maxNum2 = Math.max.call(Math, ...arr);
