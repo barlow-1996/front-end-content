@@ -12,7 +12,7 @@
 - document.body // 代表 html 中的 body 标签
 document.body.parentElement == document.documentElement // true
 
-- document.getElementsByID // 通过ID选择DOM元素
+- document.getElementByID // 通过ID选择DOM元素
 若不存在带有相应ID的元素，则返回 null
 
 - document.getElementsByTagName() // 通过标签名选择

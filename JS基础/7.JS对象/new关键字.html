@@ -17,7 +17,7 @@
     3. 调用构造函数，给该对象添加属性和方法
     4. 返回这个对象
     */
-   function myNew() {
+   function myNew(Fun, ...args) { 
      let _constructor = [].shift.call(arguments); // 获取构造函数
      let obj = Object.create(_constructor.prototype); // 创建一个新的对象，为该对象指定 __proto__ 属性
      var ret = _constructor.call(obj, ...arguments); // 调用构造函数，给该对象添加属性和方法
