@@ -12,9 +12,9 @@ arg1..: 这是一个参数列表，传递该 function 所需要的参数
 判断类型:
 
 ```javascript
-let obj = {};
+let fn = function() {};
 let arr = [];
-console.log(Object.prototype.toString.call(obj)) // '[object Object]'
+console.log(Object.prototype.toString.call(fn)) // '[object Function]'
 console.log(Object.prototype.toString.call(arr)) // '[object Array]'
 ```
 
