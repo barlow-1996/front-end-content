@@ -58,7 +58,7 @@ Effect Hook 让函数式组件也可以使用钩子
 ### Ref Hook
 
 Ref Hook 让函数式组件存储/查找组件内的标签或任意其他数据
-语法：const xxx = useRef();
+语法：const xxx = React.useRef();
 xxx 能够保存标签对象，用法与类式组件的 React.createRef() 类似
 
 ## Fragment
